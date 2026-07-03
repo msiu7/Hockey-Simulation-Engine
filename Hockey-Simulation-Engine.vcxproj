@@ -124,11 +124,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="goalie.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="player.cpp" />
+    <ClCompile Include="skater.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="goalie.hpp" />
     <ClInclude Include="player.hpp" />
+    <ClInclude Include="skater.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
