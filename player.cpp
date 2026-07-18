@@ -45,8 +45,9 @@ std::ostream& player::showUniversalStats(std::ostream& out) const
 
 std::ostream& operator<<(std::ostream& out, const player& p)
 {
-	out << "Name: " << p.firstName << " " << p.lastName << std::endl << "Number: " << p.number << std::endl << "Handedness: " << p.getHandedness() << std::endl;
+	out << "Name: " << p.firstName << " " << p.lastName << std::endl << "Number: " << p.number << std::endl << "Handedness: " << p.getHandedness() << std::endl << "Position: " << p.getPositionAsString() << std::endl;
 	p.showUniversalStats(out); 
 	p.showSpecificStats(out);
 	return out;
 }
+

@@ -11,3 +11,8 @@ std::ostream& goalie::showSpecificStats(std::ostream& out) const
 	out << "GOALIE: \nGlove: " << goal.glove << "\nBlocker: " << goal.blocker << "\nPositioning: " << goal.gPositioning << "\nReflexes: " << goal.reflexes << std::endl;
 	return out;
 }
+
+std::string goalie::getPositionAsString() const
+{
+	return "G";
+}

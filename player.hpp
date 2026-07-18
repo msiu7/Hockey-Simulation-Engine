@@ -46,7 +46,7 @@ public:
 	mentalStats& getMentalStats() { return ment; }
 	std::ostream& showUniversalStats(std::ostream& out) const;
 	virtual std::ostream& showSpecificStats(std::ostream& out) const = 0;
-	
+	virtual std::string getPositionAsString() const = 0;
 
 	friend std::ostream& operator<<(std::ostream& out, const player& p);
 };
