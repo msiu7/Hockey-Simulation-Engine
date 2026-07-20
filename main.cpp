@@ -4,8 +4,11 @@
 #include "skater.hpp"
 #include "goalie.hpp"
 #include "team.hpp"
+#include <QApplication>
+#include <QMainWindow>
+int main(int argc, char* argv[]) {
 
-int main() {
+	/*
 	//Creating Some Players
 	std::unique_ptr<player> arr[6];
 	for (int i = 0; i < 5; i++) {
@@ -19,4 +22,10 @@ int main() {
 	team a = team();
 	a.fillRoster();
 	std::cout << a;
+	*/
+	QApplication app(argc, argv);
+	QMainWindow window;
+	window.show();
+
+	return app.exec();
 }

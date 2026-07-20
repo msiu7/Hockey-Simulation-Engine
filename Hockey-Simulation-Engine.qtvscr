@@ -1,0 +1,429 @@
+<FlowDocument xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" FontFamily="Segoe UI" FontSize="12">
+  <FlowDocument.Tag><![CDATA[{
+  "timestamp": "2026-07-19 20:05:00",
+  "files": {
+    "C:\\Users\\maksa\\source\\repos\\Hockey-Simulation-Engine-project\\Hockey-Simulation-Engine.vcxproj": {
+      "before": "7VnbbuM2EN3nAv2BfRKEFE4ebPmWbtPIWnTtNDXqXLDO5aXAgpZom40kCiSVjbvbX+o3diReZPmyjpEmKYLkIYCp4XDmcObMjPTP2zdv3Pd3UWjdYsYJjTt2o1a3LRz7NCDxpGOnYlz9yX7vff+de87on9gXVg+PURqKC8QmWPCO/SElYWBboCWGX1Mhkp8dh/tTHCFei4jPKKdjUfNp5AT4Foc0wcyJ+Cjb5jTr9ZYN2i3L7QscHTOaJtYAjXDYsdWBXRqPySRlSICBXAqD+KqnVj/2wzTAHbuHR+nk6zWJW029A/aUVHm5jOuUFzNTsj/3PERiTFnk5Upcx/yWErAg8Vi1fYNxH3GIEccbzFNSz2GgRO/ux/ZDsQMVj4Lct0y7N25bGuc6JkJlwEIAQCiLWSloj0M6QmERplddFSdXMsO8xrta3XWWllVU/Y5nnykLZNBlO11HLykJpe44JYH3JRg38IEf1KuN/Xar2ka4WT1o7r+rtg+a7fH+QbOBG82/Tajme5Saj5SKUxRhniAfe79R/wbPhiRKIeohzY7iCYlxIiPcdcrCSgPkRUA/c8kDOjuMl/XMy2+KlP3JbFFmVAs7qtIQ40EulW3MVwr0FYNECWXCUgh17J3dq66iqXMkpnt/nBg26iZJTRFZDdxMuG05q24VsjsgGSIdu7KzW8r1va87u9rtvUqnU5njnIqtSay0RadTmYguZgn2fkmSkPg5+AsZnz9WYF1ynJ8yICOGGMHcEyzFrrO8rtFVLHZBacix8G4b7VaRkXpVCXeniCFfYDYEycuYQBEA3aXVtdgD6MV1WNvAVmLDpwNuDFn6nyF3PaUhBggmDEVniSAR+Su/SnU9ax8/K/CG5Z8O9JcTrVA8ng62lxKr/e0IukzMcnOp2B7dCRxnfSsQloB+VZVdqNT5QbnsfGkobR4C2+FAUvL9dmiOG04xdL72VixXKg65TVDElvEAImdZte0Rtliu5qpNLQUxXbfmuBbfES74LlSqrfVU9kzJGlAfhVCPekggXeBMebwXtA8BaqEcvEJlZp81DUfORK8wrYdJR9TLA0rnWYnXstQ/QdnYbZI2G1yg2yVx3spK6Tna2K6z1aHWDbs0SkiI1QLw2TViMdDwIBvzvfw/NJulRdnwgOiwN+hOsX+jOiTz0wics2z+8DHnlBW2c++6f9pqHn7qHX24PD781D07HZ4Njg5/2F0jv5dNCqs1maOyHh0mfRT7+ARaXmXS4qrq1ZxFv90BiW8KDIbpaDjjALgHCji0ha5TLJkjj3GM4Y2G7Ob78vhszFBnr32sjTBnyqm0AGi+5j3w1nXe5C9AKsXs8qB7/zWN/czRPDoyLyBelNMrHxnE+rFgBIq9r8X07LPigdlkwko2nuanEVgXGzLKTl+jTEb2I0bZ3BTyzMzyyimKxx7xtjWnlGrxIqNuV0k0H/zPGeWVS+4XXUUBgzAwkVG82Z9QFBJc85NEtzer5SJE4s1SSYhmMEpt1MZvoFjfQ05gFM1rk6lU+FR85SjITn20WHJxuuDikpwyfqOcMn6jXG78nNSy8dvN70J+ItL3pMZd2X6qbzxmglfvaVeP4+b9r/cv",
+      "after": "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"
+    }
+  }
+}]]></FlowDocument.Tag>
+  <Section Margin="0,24" TextAlignment="Center">
+    <Paragraph FontSize="24" FontWeight="Bold" Margin="12,0">
+      <LineBreak />
+      <Span Foreground="Gray">Qt Visual Studio Tools</Span>
+    </Paragraph>
+    <Paragraph FontSize="42" Margin="12,0" FontWeight="Bold">
+      <Span TextDecorations="Underline">Project Format Conversion</Span>
+    </Paragraph>
+    <Paragraph Margin="12,8" FontSize="18">
+      <Span>Report generated on 2026-07-19 20:05:00</Span>
+    </Paragraph>
+  </Section>
+  <Section>
+    <Paragraph FontSize="32" FontWeight="Bold" Margin="12,0">
+      <Span>Files</Span>
+    </Paragraph>
+    <Paragraph Margin="24,12,0,0">
+      <Span FontFamily="Consolas" FontSize="14" Background="WhiteSmoke"><![CDATA[C:\Users\maksa\source\repos\Hockey-Simulation-Engine-project\Hockey-Simulation-Engine.vcxproj]]></Span>
+      <LineBreak />
+      <Hyperlink NavigateUri="file://C:\Users\maksa\source\repos\Hockey-Simulation-Engine-project\Hockey-Simulation-Engine.vcxproj?before">[Before]</Hyperlink>
+      <Hyperlink NavigateUri="file://C:\Users\maksa\source\repos\Hockey-Simulation-Engine-project\Hockey-Simulation-Engine.vcxproj?after">[After]</Hyperlink>
+      <Hyperlink NavigateUri="file://C:\Users\maksa\source\repos\Hockey-Simulation-Engine-project\Hockey-Simulation-Engine.vcxproj?diff&amp;before&amp;after">
+                        [Diff before/after]
+                    </Hyperlink>
+      <Hyperlink NavigateUri="file://C:\Users\maksa\source\repos\Hockey-Simulation-Engine-project\Hockey-Simulation-Engine.vcxproj?diff&amp;before&amp;current">
+                        [Diff before/current]
+                    </Hyperlink>
+      <Hyperlink NavigateUri="file://C:\Users\maksa\source\repos\Hockey-Simulation-Engine-project\Hockey-Simulation-Engine.vcxproj?diff&amp;after&amp;current">
+                        [Diff after/current]
+                    </Hyperlink>
+      <LineBreak />
+    </Paragraph>
+  </Section>
+  <Section>
+    <Paragraph FontSize="32" FontWeight="Bold" Margin="12,0">
+      <Span>Changes</Span>
+    </Paragraph>
+    <Paragraph FontSize="20" FontWeight="Bold" Margin="12">
+      <Span><![CDATA[🡺 Enabling multi-processor compilation]]></Span>
+    </Paragraph>
+    <Table CellSpacing="0" BorderBrush="Gray" BorderThickness="0.5">
+      <Table.Columns>
+        <TableColumn />
+        <TableColumn />
+      </Table.Columns>
+      <TableRowGroup>
+        <TableRow Background="Orange">
+          <TableCell ColumnSpan="2" BorderThickness="0.5" BorderBrush="Gray">
+            <Paragraph Margin="10,5" FontWeight="Bold">
+              <Span><![CDATA[C:\Users\maksa\source\repos\Hockey-Simulation-Engine-project\Hockey-Simulation-Engine.vcxproj]]></Span>
+            </Paragraph>
+          </TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell ColumnSpan="2" Background="WhiteSmoke" BorderBrush="Gray" BorderThickness="0.5" />
+        </TableRow>
+        <TableRow>
+          <TableCell BorderThickness="0, 0, 0.5, 0" BorderBrush="Gray">
+            <Paragraph FontFamily="Consolas" Margin="4, 0" />
+          </TableCell>
+          <TableCell BorderThickness="0, 0, 0.5, 0" BorderBrush="Gray">
+            <Paragraph FontFamily="Consolas" Margin="4, 0">
+              <Span Background="LightGreen"><![CDATA[      <MultiProcessorCompilation>true</MultiProcessorCompilation>]]></Span>
+            </Paragraph>
+          </TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell ColumnSpan="2" Background="WhiteSmoke" BorderBrush="Gray" BorderThickness="0.5" />
+        </TableRow>
+        <TableRow>
+          <TableCell BorderThickness="0, 0, 0.5, 0" BorderBrush="Gray">
+            <Paragraph FontFamily="Consolas" Margin="4, 0" />
+          </TableCell>
+          <TableCell BorderThickness="0, 0, 0.5, 0" BorderBrush="Gray">
+            <Paragraph FontFamily="Consolas" Margin="4, 0">
+              <Span Background="LightGreen"><![CDATA[      <MultiProcessorCompilation>true</MultiProcessorCompilation>]]></Span>
+            </Paragraph>
+          </TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell ColumnSpan="2" Background="WhiteSmoke" BorderBrush="Gray" BorderThickness="0.5" />
+        </TableRow>
+        <TableRow>
+          <TableCell BorderThickness="0, 0, 0.5, 0" BorderBrush="Gray">
+            <Paragraph FontFamily="Consolas" Margin="4, 0" />
+          </TableCell>
+          <TableCell BorderThickness="0, 0, 0.5, 0" BorderBrush="Gray">
+            <Paragraph FontFamily="Consolas" Margin="4, 0">
+              <Span Background="LightGreen"><![CDATA[      <MultiProcessorCompilation>true</MultiProcessorCompilation>]]></Span>
+            </Paragraph>
+          </TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell ColumnSpan="2" Background="WhiteSmoke" BorderBrush="Gray" BorderThickness="0.5" />
+        </TableRow>
+        <TableRow>
+          <TableCell BorderThickness="0, 0, 0.5, 0" BorderBrush="Gray">
+            <Paragraph FontFamily="Consolas" Margin="4, 0" />
+          </TableCell>
+          <TableCell BorderThickness="0, 0, 0.5, 0" BorderBrush="Gray">
+            <Paragraph FontFamily="Consolas" Margin="4, 0">
+              <Span Background="LightGreen"><![CDATA[      <MultiProcessorCompilation>true</MultiProcessorCompilation>]]></Span>
+            </Paragraph>
+          </TableCell>
+        </TableRow>
+      </TableRowGroup>
+    </Table>
+    <Paragraph FontSize="20" FontWeight="Bold" Margin="12">
+      <Span><![CDATA[🡺 Project format version]]></Span>
+    </Paragraph>
+    <Table CellSpacing="0" BorderBrush="Gray" BorderThickness="0.5">
+      <Table.Columns>
+        <TableColumn />
+        <TableColumn />
+      </Table.Columns>
+      <TableRowGroup>
+        <TableRow Background="Orange">
+          <TableCell ColumnSpan="2" BorderThickness="0.5" BorderBrush="Gray">
+            <Paragraph Margin="10,5" FontWeight="Bold">
+              <Span><![CDATA[C:\Users\maksa\source\repos\Hockey-Simulation-Engine-project\Hockey-Simulation-Engine.vcxproj]]></Span>
+            </Paragraph>
+          </TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell ColumnSpan="2" Background="WhiteSmoke" BorderBrush="Gray" BorderThickness="0.5" />
+        </TableRow>
+        <TableRow>
+          <TableCell BorderThickness="0, 0, 0.5, 0" BorderBrush="Gray">
+            <Paragraph FontFamily="Consolas" Margin="4, 0" />
+          </TableCell>
+          <TableCell BorderThickness="0, 0, 0.5, 0" BorderBrush="Gray">
+            <Paragraph FontFamily="Consolas" Margin="4, 0">
+              <Span Background="LightGreen"><![CDATA[    <Keyword>QtVS_v304</Keyword>]]></Span>
+            </Paragraph>
+          </TableCell>
+        </TableRow>
+      </TableRowGroup>
+    </Table>
+    <Paragraph FontSize="20" FontWeight="Bold" Margin="12">
+      <Span><![CDATA[🡺 Fallback for QTMSBUILD environment variable]]></Span>
+    </Paragraph>
+    <Table CellSpacing="0" BorderBrush="Gray" BorderThickness="0.5">
+      <Table.Columns>
+        <TableColumn />
+        <TableColumn />
+      </Table.Columns>
+      <TableRowGroup>
+        <TableRow Background="Orange">
+          <TableCell ColumnSpan="2" BorderThickness="0.5" BorderBrush="Gray">
+            <Paragraph Margin="10,5" FontWeight="Bold">
+              <Span><![CDATA[C:\Users\maksa\source\repos\Hockey-Simulation-Engine-project\Hockey-Simulation-Engine.vcxproj]]></Span>
+            </Paragraph>
+          </TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell ColumnSpan="2" Background="WhiteSmoke" BorderBrush="Gray" BorderThickness="0.5" />
+        </TableRow>
+        <TableRow>
+          <TableCell BorderThickness="0, 0, 0.5, 0" BorderBrush="Gray">
+            <Paragraph FontFamily="Consolas" Margin="4, 0" />
+          </TableCell>
+          <TableCell BorderThickness="0, 0, 0.5, 0" BorderBrush="Gray">
+            <Paragraph FontFamily="Consolas" Margin="4, 0">
+              <Span Background="LightGreen"><![CDATA[    <QtMsBuild Condition="'$(QtMsBuild)'=='' OR !Exists('$(QtMsBuild)\qt.targets')">$(MSBuildProjectDirectory)\QtMsBuild</QtMsBuild>]]></Span>
+            </Paragraph>
+          </TableCell>
+        </TableRow>
+      </TableRowGroup>
+    </Table>
+    <Paragraph FontSize="20" FontWeight="Bold" Margin="12">
+      <Span><![CDATA[🡺 Default Qt properties]]></Span>
+    </Paragraph>
+    <Table CellSpacing="0" BorderBrush="Gray" BorderThickness="0.5">
+      <Table.Columns>
+        <TableColumn />
+        <TableColumn />
+      </Table.Columns>
+      <TableRowGroup>
+        <TableRow Background="Orange">
+          <TableCell ColumnSpan="2" BorderThickness="0.5" BorderBrush="Gray">
+            <Paragraph Margin="10,5" FontWeight="Bold">
+              <Span><![CDATA[C:\Users\maksa\source\repos\Hockey-Simulation-Engine-project\Hockey-Simulation-Engine.vcxproj]]></Span>
+            </Paragraph>
+          </TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell ColumnSpan="2" Background="WhiteSmoke" BorderBrush="Gray" BorderThickness="0.5" />
+        </TableRow>
+        <TableRow>
+          <TableCell BorderThickness="0, 0, 0.5, 0" BorderBrush="Gray">
+            <Paragraph FontFamily="Consolas" Margin="4, 0" />
+          </TableCell>
+          <TableCell BorderThickness="0, 0, 0.5, 0" BorderBrush="Gray">
+            <Paragraph FontFamily="Consolas" Margin="4, 0">
+              <Span Background="LightGreen"><![CDATA[  <Import Project="$(QtMsBuild)\qt_defaults.props" Condition="Exists('$(QtMsBuild)\qt_defaults.props')" />]]></Span>
+            </Paragraph>
+          </TableCell>
+        </TableRow>
+      </TableRowGroup>
+    </Table>
+    <Paragraph FontSize="20" FontWeight="Bold" Margin="12">
+      <Span><![CDATA[🡺 Qt build settings]]></Span>
+    </Paragraph>
+    <Table CellSpacing="0" BorderBrush="Gray" BorderThickness="0.5">
+      <Table.Columns>
+        <TableColumn />
+        <TableColumn />
+      </Table.Columns>
+      <TableRowGroup>
+        <TableRow Background="Orange">
+          <TableCell ColumnSpan="2" BorderThickness="0.5" BorderBrush="Gray">
+            <Paragraph Margin="10,5" FontWeight="Bold">
+              <Span><![CDATA[C:\Users\maksa\source\repos\Hockey-Simulation-Engine-project\Hockey-Simulation-Engine.vcxproj]]></Span>
+            </Paragraph>
+          </TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell ColumnSpan="2" Background="WhiteSmoke" BorderBrush="Gray" BorderThickness="0.5" />
+        </TableRow>
+        <TableRow>
+          <TableCell BorderThickness="0, 0, 0.5, 0" BorderBrush="Gray">
+            <Paragraph FontFamily="Consolas" Margin="4, 0" />
+          </TableCell>
+          <TableCell BorderThickness="0, 0, 0.5, 0" BorderBrush="Gray">
+            <Paragraph FontFamily="Consolas" Margin="4, 0">
+              <Span Background="LightGreen"><![CDATA[  <PropertyGroup Label="QtSettings" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />]]></Span>
+            </Paragraph>
+          </TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell BorderThickness="0, 0, 0.5, 0" BorderBrush="Gray">
+            <Paragraph FontFamily="Consolas" Margin="4, 0" />
+          </TableCell>
+          <TableCell BorderThickness="0, 0, 0.5, 0" BorderBrush="Gray">
+            <Paragraph FontFamily="Consolas" Margin="4, 0">
+              <Span Background="LightGreen"><![CDATA[  <PropertyGroup Label="QtSettings" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />]]></Span>
+            </Paragraph>
+          </TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell BorderThickness="0, 0, 0.5, 0" BorderBrush="Gray">
+            <Paragraph FontFamily="Consolas" Margin="4, 0" />
+          </TableCell>
+          <TableCell BorderThickness="0, 0, 0.5, 0" BorderBrush="Gray">
+            <Paragraph FontFamily="Consolas" Margin="4, 0">
+              <Span Background="LightGreen"><![CDATA[  <PropertyGroup Label="QtSettings" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" />]]></Span>
+            </Paragraph>
+          </TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell BorderThickness="0, 0, 0.5, 0" BorderBrush="Gray">
+            <Paragraph FontFamily="Consolas" Margin="4, 0" />
+          </TableCell>
+          <TableCell BorderThickness="0, 0, 0.5, 0" BorderBrush="Gray">
+            <Paragraph FontFamily="Consolas" Margin="4, 0">
+              <Span Background="LightGreen"><![CDATA[  <PropertyGroup Label="QtSettings" Condition="'$(Configuration)|$(Platform)'=='Release|x64'" />]]></Span>
+            </Paragraph>
+          </TableCell>
+        </TableRow>
+      </TableRowGroup>
+    </Table>
+    <Paragraph FontSize="20" FontWeight="Bold" Margin="12">
+      <Span><![CDATA[🡺 Warn if Qt/MSBuild is not found]]></Span>
+    </Paragraph>
+    <Table CellSpacing="0" BorderBrush="Gray" BorderThickness="0.5">
+      <Table.Columns>
+        <TableColumn />
+        <TableColumn />
+      </Table.Columns>
+      <TableRowGroup>
+        <TableRow Background="Orange">
+          <TableCell ColumnSpan="2" BorderThickness="0.5" BorderBrush="Gray">
+            <Paragraph Margin="10,5" FontWeight="Bold">
+              <Span><![CDATA[C:\Users\maksa\source\repos\Hockey-Simulation-Engine-project\Hockey-Simulation-Engine.vcxproj]]></Span>
+            </Paragraph>
+          </TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell ColumnSpan="2" Background="WhiteSmoke" BorderBrush="Gray" BorderThickness="0.5" />
+        </TableRow>
+        <TableRow>
+          <TableCell BorderThickness="0, 0, 0.5, 0" BorderBrush="Gray">
+            <Paragraph FontFamily="Consolas" Margin="4, 0" />
+          </TableCell>
+          <TableCell BorderThickness="0, 0, 0.5, 0" BorderBrush="Gray">
+            <Paragraph FontFamily="Consolas" Margin="4, 0">
+              <Span Background="LightGreen"><![CDATA[  <Target Name="QtMsBuildNotFound" BeforeTargets="CustomBuild;ClCompile" Condition="!Exists('$(QtMsBuild)\qt.targets') OR !Exists('$(QtMsBuild)\Qt.props')">]]></Span>
+            </Paragraph>
+          </TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell BorderThickness="0, 0, 0.5, 0" BorderBrush="Gray">
+            <Paragraph FontFamily="Consolas" Margin="4, 0" />
+          </TableCell>
+          <TableCell BorderThickness="0, 0, 0.5, 0" BorderBrush="Gray">
+            <Paragraph FontFamily="Consolas" Margin="4, 0">
+              <Span Background="LightGreen"><![CDATA[    <Message Importance="High" Text="QtMsBuild: could not locate qt.targets, qt.props; project may not build correctly." />]]></Span>
+            </Paragraph>
+          </TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell BorderThickness="0, 0, 0.5, 0" BorderBrush="Gray">
+            <Paragraph FontFamily="Consolas" Margin="4, 0" />
+          </TableCell>
+          <TableCell BorderThickness="0, 0, 0.5, 0" BorderBrush="Gray">
+            <Paragraph FontFamily="Consolas" Margin="4, 0">
+              <Span Background="LightGreen"><![CDATA[  </Target>]]></Span>
+            </Paragraph>
+          </TableCell>
+        </TableRow>
+      </TableRowGroup>
+    </Table>
+    <Paragraph FontSize="20" FontWeight="Bold" Margin="12">
+      <Span><![CDATA[🡺 Qt property sheet]]></Span>
+    </Paragraph>
+    <Table CellSpacing="0" BorderBrush="Gray" BorderThickness="0.5">
+      <Table.Columns>
+        <TableColumn />
+        <TableColumn />
+      </Table.Columns>
+      <TableRowGroup>
+        <TableRow Background="Orange">
+          <TableCell ColumnSpan="2" BorderThickness="0.5" BorderBrush="Gray">
+            <Paragraph Margin="10,5" FontWeight="Bold">
+              <Span><![CDATA[C:\Users\maksa\source\repos\Hockey-Simulation-Engine-project\Hockey-Simulation-Engine.vcxproj]]></Span>
+            </Paragraph>
+          </TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell ColumnSpan="2" Background="WhiteSmoke" BorderBrush="Gray" BorderThickness="0.5" />
+        </TableRow>
+        <TableRow>
+          <TableCell BorderThickness="0, 0, 0.5, 0" BorderBrush="Gray">
+            <Paragraph FontFamily="Consolas" Margin="4, 0" />
+          </TableCell>
+          <TableCell BorderThickness="0, 0, 0.5, 0" BorderBrush="Gray">
+            <Paragraph FontFamily="Consolas" Margin="4, 0">
+              <Span Background="LightGreen"><![CDATA[    <Import Project="$(QtMsBuild)\Qt.props" />]]></Span>
+            </Paragraph>
+          </TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell ColumnSpan="2" Background="WhiteSmoke" BorderBrush="Gray" BorderThickness="0.5" />
+        </TableRow>
+        <TableRow>
+          <TableCell BorderThickness="0, 0, 0.5, 0" BorderBrush="Gray">
+            <Paragraph FontFamily="Consolas" Margin="4, 0" />
+          </TableCell>
+          <TableCell BorderThickness="0, 0, 0.5, 0" BorderBrush="Gray">
+            <Paragraph FontFamily="Consolas" Margin="4, 0">
+              <Span Background="LightGreen"><![CDATA[    <Import Project="$(QtMsBuild)\Qt.props" />]]></Span>
+            </Paragraph>
+          </TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell ColumnSpan="2" Background="WhiteSmoke" BorderBrush="Gray" BorderThickness="0.5" />
+        </TableRow>
+        <TableRow>
+          <TableCell BorderThickness="0, 0, 0.5, 0" BorderBrush="Gray">
+            <Paragraph FontFamily="Consolas" Margin="4, 0" />
+          </TableCell>
+          <TableCell BorderThickness="0, 0, 0.5, 0" BorderBrush="Gray">
+            <Paragraph FontFamily="Consolas" Margin="4, 0">
+              <Span Background="LightGreen"><![CDATA[    <Import Project="$(QtMsBuild)\Qt.props" />]]></Span>
+            </Paragraph>
+          </TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell ColumnSpan="2" Background="WhiteSmoke" BorderBrush="Gray" BorderThickness="0.5" />
+        </TableRow>
+        <TableRow>
+          <TableCell BorderThickness="0, 0, 0.5, 0" BorderBrush="Gray">
+            <Paragraph FontFamily="Consolas" Margin="4, 0" />
+          </TableCell>
+          <TableCell BorderThickness="0, 0, 0.5, 0" BorderBrush="Gray">
+            <Paragraph FontFamily="Consolas" Margin="4, 0">
+              <Span Background="LightGreen"><![CDATA[    <Import Project="$(QtMsBuild)\Qt.props" />]]></Span>
+            </Paragraph>
+          </TableCell>
+        </TableRow>
+      </TableRowGroup>
+    </Table>
+    <Paragraph FontSize="20" FontWeight="Bold" Margin="12">
+      <Span><![CDATA[🡺 Qt targets]]></Span>
+    </Paragraph>
+    <Table CellSpacing="0" BorderBrush="Gray" BorderThickness="0.5">
+      <Table.Columns>
+        <TableColumn />
+        <TableColumn />
+      </Table.Columns>
+      <TableRowGroup>
+        <TableRow Background="Orange">
+          <TableCell ColumnSpan="2" BorderThickness="0.5" BorderBrush="Gray">
+            <Paragraph Margin="10,5" FontWeight="Bold">
+              <Span><![CDATA[C:\Users\maksa\source\repos\Hockey-Simulation-Engine-project\Hockey-Simulation-Engine.vcxproj]]></Span>
+            </Paragraph>
+          </TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell ColumnSpan="2" Background="WhiteSmoke" BorderBrush="Gray" BorderThickness="0.5" />
+        </TableRow>
+        <TableRow>
+          <TableCell BorderThickness="0, 0, 0.5, 0" BorderBrush="Gray">
+            <Paragraph FontFamily="Consolas" Margin="4, 0" />
+          </TableCell>
+          <TableCell BorderThickness="0, 0, 0.5, 0" BorderBrush="Gray">
+            <Paragraph FontFamily="Consolas" Margin="4, 0">
+              <Span Background="LightGreen"><![CDATA[  <Import Project="$(QtMsBuild)\qt.targets" Condition="Exists('$(QtMsBuild)\qt.targets')" />]]></Span>
+            </Paragraph>
+          </TableCell>
+        </TableRow>
+      </TableRowGroup>
+    </Table>
+  </Section>
+  <Section>
+    <Paragraph />
+  </Section>
+</FlowDocument>
+<!--7Cbm51R1t6IZ7ZiHj18qvTbYBkJsqRizL2iSNqDrFAg=-->
