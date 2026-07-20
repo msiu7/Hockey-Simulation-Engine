@@ -361,3 +361,23 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# Qt Creator / CMake builds
+build/
+.qtc_clangd/
+*.user
+
+# The old Qt Creator temporary import files
+*.cflags
+*.config
+*.creator
+*.cxxflags
+*.files
+*.includes
+
+# Visual Studio files (using CMake now)
+*.sln
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
+.vs/
