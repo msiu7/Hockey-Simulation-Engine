@@ -27,6 +27,7 @@ add_executable(HockeySimulationEngine
     mainwindow.hpp
     mainwindow.cpp
     mainwindow.ui
+
 )
 
 # Link Qt libraries to executable

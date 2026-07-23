@@ -12,3 +12,15 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
+
+void MainWindow::on_editTeamsLineups_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(1);
+}
+
+void MainWindow::on_startSim_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(2);
+}
+
+
