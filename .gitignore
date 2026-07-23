@@ -381,3 +381,6 @@ build/
 *.vcxproj.filters
 *.vcxproj.user
 .vs/
+
+#auto-generated qt file
+*.qtvscr
