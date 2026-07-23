@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>942</width>
+    <width>800</width>
     <height>600</height>
    </rect>
   </property>
@@ -14,43 +14,43 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QPushButton" name="startSimButton">
+   <widget class="QPushButton" name="pushButton">
     <property name="geometry">
      <rect>
-      <x>0</x>
-      <y>10</y>
-      <width>171</width>
-      <height>41</height>
+      <x>50</x>
+      <y>60</y>
+      <width>93</width>
+      <height>29</height>
      </rect>
     </property>
     <property name="text">
-     <string>Start Simulation</string>
+     <string>PushButton</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="showTeam1Lineup">
+   <widget class="QPushButton" name="pushButton_2">
     <property name="geometry">
      <rect>
-      <x>200</x>
-      <y>10</y>
-      <width>151</width>
-      <height>41</height>
+      <x>220</x>
+      <y>70</y>
+      <width>93</width>
+      <height>29</height>
      </rect>
     </property>
     <property name="text">
-     <string>Show Team 1 Lineup</string>
+     <string>PushButton</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="showTeam2Lineup">
+   <widget class="QPushButton" name="pushButton_3">
     <property name="geometry">
      <rect>
-      <x>380</x>
-      <y>10</y>
-      <width>151</width>
-      <height>41</height>
+      <x>450</x>
+      <y>70</y>
+      <width>93</width>
+      <height>29</height>
      </rect>
     </property>
     <property name="text">
-     <string>Show Team 2 Lineup</string>
+     <string>PushButton</string>
     </property>
    </widget>
   </widget>
@@ -59,16 +59,10 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>942</width>
+     <width>800</width>
      <height>26</height>
     </rect>
    </property>
-   <widget class="QMenu" name="menuHockey_Simulator">
-    <property name="title">
-     <string>Hockey Simulator</string>
-    </property>
-   </widget>
-   <addaction name="menuHockey_Simulator"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>

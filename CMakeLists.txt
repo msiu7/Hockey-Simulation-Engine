@@ -16,16 +16,17 @@ set(CMAKE_AUTOUIC ON)
 # Source and header files
 add_executable(HockeySimulationEngine
     main.cpp
-    makewindow.hpp
     player.hpp
     skater.hpp
     goalie.hpp
     team.hpp
-    makewindow.cpp
     player.cpp
     skater.cpp
     goalie.cpp
     team.cpp
+    mainwindow.hpp
+    mainwindow.cpp
+    mainwindow.ui
 )
 
 # Link Qt libraries to executable

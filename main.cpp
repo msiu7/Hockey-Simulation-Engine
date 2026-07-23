@@ -4,8 +4,8 @@
 #include "skater.hpp"
 #include "goalie.hpp"
 #include "team.hpp"
+#include "mainwindow.hpp"
 #include <QApplication>
-#include <QMainWindow>
 int main(int argc, char* argv[]) {
 
 	/*
@@ -24,7 +24,7 @@ int main(int argc, char* argv[]) {
 	std::cout << a;
 	*/
 	QApplication app(argc, argv);
-	QMainWindow window;
+    MainWindow window;
 	window.show();
 
 	return app.exec();
