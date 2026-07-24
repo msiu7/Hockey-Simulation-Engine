@@ -23,4 +23,18 @@ void MainWindow::on_startSim_clicked()
     ui->stackedWidget->setCurrentIndex(2);
 }
 
+void MainWindow::on_backButton1_clicked()
+{
+    generalBackButtonAction();
+}
+
+void MainWindow::on_backButton2_clicked()
+{
+    generalBackButtonAction();
+}
+
+void MainWindow::generalBackButtonAction()
+{
+    ui->stackedWidget->setCurrentIndex(0);
+}
 
