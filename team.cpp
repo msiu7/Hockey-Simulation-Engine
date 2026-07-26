@@ -1,6 +1,8 @@
 #include "team.hpp"
 
-team::team(std::string city, std::string teamName)
+int team::teamsCounter = 0;
+
+team::team(QString city, QString teamName)
 {
 	this->city = city;
 	this->teamName = teamName;
@@ -30,4 +32,9 @@ std::ostream& operator<<(std::ostream& out, const team& t)
 		out << *(t.roster[i]) << std::endl;
 	}
 	return out;
+}
+
+QString team::returnFullTeamName()
+{
+    return city + " " + teamName;
 }

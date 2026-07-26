@@ -2,6 +2,7 @@
 #define MAINWINDOW_HPP
 
 #include <QMainWindow>
+#include <QListWidget>
 
 namespace Ui {
 class MainWindow;
@@ -24,6 +25,12 @@ private slots:
     void on_backButton1_clicked();
 
     void on_backButton2_clicked();
+
+    //lineup screen
+
+
+
+    void on_addTeamButton_clicked();
 
 private:
     Ui::MainWindow *ui;

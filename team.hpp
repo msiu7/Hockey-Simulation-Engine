@@ -6,16 +6,23 @@
 #include "player.hpp"
 #include "skater.hpp"
 #include "goalie.hpp"
+#include <QString>
 
 class team
 {
 private:
-	std::string city;
-	std::string teamName;
+    QString city;
+    QString teamName;
 	std::vector<std::unique_ptr<player>> roster;
 	player* lineup[20];
+    static int teamsCounter;
 public:
-	team(std::string city = "NULL", std::string teamName = "NULL");
+    team(QString city = "NULL", QString teamName = "NULL");
 	void fillRoster();
-	friend std::ostream& operator<<(std::ostream& out, const team& t);
+    QString returnFullTeamName();
+    static int getTeamsCounter(){ return teamsCounter; }
+    friend std::ostream& operator<<(std::ostream& out, const team& t);
+
+    friend class MainWindow;
+
 };

@@ -1,5 +1,6 @@
 #include "mainwindow.hpp"
 #include "ui_mainwindow.h"
+#include "team.hpp"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -36,5 +37,15 @@ void MainWindow::on_backButton2_clicked()
 void MainWindow::generalBackButtonAction()
 {
     ui->stackedWidget->setCurrentIndex(0);
+}
+
+void MainWindow::on_addTeamButton_clicked()
+{
+    team t = team(ui->cityLineEdit->text(), ui->teamNameLineEdit->text());
+    QListWidgetItem *newTeam = new QListWidgetItem(t.returnFullTeamName());
+    team::teamsCounter++;
+    ui->teamsListWidget->addItem(newTeam);
+
+    ui->numberOfTeamsLineEdit->setText(QString::number(team::getTeamsCounter()));
 }
 
