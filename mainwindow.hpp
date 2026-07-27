@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QListWidget>
+#include <QMessageBox>
 
 namespace Ui {
 class MainWindow;

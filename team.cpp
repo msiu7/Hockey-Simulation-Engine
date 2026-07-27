@@ -4,8 +4,8 @@ int team::teamsCounter = 0;
 
 team::team(QString city, QString teamName)
 {
-	this->city = city;
-	this->teamName = teamName;
+    this->city = city.simplified();
+    this->teamName = teamName.simplified();
 }
 
 void team::fillRoster()
