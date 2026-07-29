@@ -6,6 +6,11 @@ team::team(QString city, QString teamName)
 {
     this->city = city.simplified();
     this->teamName = teamName.simplified();
+    teamsCounter++;
+}
+
+team::~team(){
+    teamsCounter--;
 }
 
 void team::fillRoster()

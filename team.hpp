@@ -18,6 +18,7 @@ private:
     static int teamsCounter;
 public:
     team(QString city = "NULL", QString teamName = "NULL");
+    ~team();
 	void fillRoster();
     QString returnFullTeamName();
     static int getTeamsCounter(){ return teamsCounter; }

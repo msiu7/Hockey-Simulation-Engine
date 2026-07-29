@@ -41,22 +41,45 @@ void MainWindow::generalBackButtonAction()
 
 void MainWindow::on_addTeamButton_clicked()
 {
-    team t = team(ui->cityLineEdit->text(), ui->teamNameLineEdit->text());
-    if(t.city.isEmpty() || t.teamName.isEmpty()){
+    //check input validity
+    if(ui->cityLineEdit->text().simplified().isEmpty() || ui->teamNameLineEdit->text().simplified().isEmpty()){
         QMessageBox::warning(this, "Input Error", "City and/or Team Name fields are empty.");
         return;
     }
-    if(ui->teamsListWidget->findItems(t.returnFullTeamName(), Qt::MatchContains).count() > 0){
+    if(ui->teamsListWidget->findItems(ui->cityLineEdit->text().simplified() + " " + ui->teamNameLineEdit->text().simplified(), Qt::MatchContains).count() > 0){
         QMessageBox::warning(this, "Input Error", "This Team already exists.");
         return;
     }
-    QListWidgetItem *newTeam = new QListWidgetItem(t.returnFullTeamName());
-    team::teamsCounter++;
+
+    //adding list widget item
+    team* t = new team(ui->cityLineEdit->text(), ui->teamNameLineEdit->text());
+
+    QListWidgetItem *newTeam = new QListWidgetItem(t->returnFullTeamName());
     ui->teamsListWidget->addItem(newTeam);
+
+    //setting row format
+    QWidget* rowWidget = new QWidget();
+    QHBoxLayout* layout = new QHBoxLayout(rowWidget);
+    QPushButton* deleteTeam = new QPushButton();
+    deleteTeam->setIcon(deleteTeam->style()->standardIcon(QStyle::SP_TrashIcon));
+
+    layout->addStretch();
+    layout->addWidget(deleteTeam);
+
+    //attach layout to listItem
+    ui->teamsListWidget->setItemWidget(newTeam, rowWidget);
 
     ui->numberOfTeamsLineEdit->setText(QString::number(team::getTeamsCounter()));
 
-
-
+    //deletion mechanic
+    //in the lambda: "this" is the list widget (row)
+    QObject::connect(deleteTeam, &QPushButton::clicked, [this, newTeam, t]() {
+        int row = ui->teamsListWidget->row(newTeam);
+        if (row != -1) { //if the row exists
+            delete ui->teamsListWidget->takeItem(row);
+            delete t;
+            ui->numberOfTeamsLineEdit->setText(QString::number(team::getTeamsCounter()));
+        }
+    });
 }
 
