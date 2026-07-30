@@ -29,9 +29,9 @@ private slots:
 
     //lineup screen
 
-
-
     void on_addTeamButton_clicked();
+
+    void onTeamSelected(QListWidgetItem* item);
 
 private:
     Ui::MainWindow *ui;

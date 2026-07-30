@@ -7,6 +7,7 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    connect(ui->teamsListWidget, &QListWidget::itemClicked, this, &MainWindow::onTeamSelected);
 }
 
 MainWindow::~MainWindow()
@@ -55,6 +56,10 @@ void MainWindow::on_addTeamButton_clicked()
     team* t = new team(ui->cityLineEdit->text(), ui->teamNameLineEdit->text());
 
     QListWidgetItem *newTeam = new QListWidgetItem(t->returnFullTeamName());
+
+    //makes team pointer retrievable later
+    newTeam->setData(Qt::UserRole, QVariant::fromValue(t));
+
     ui->teamsListWidget->addItem(newTeam);
 
     //setting row format
@@ -81,5 +86,16 @@ void MainWindow::on_addTeamButton_clicked()
             ui->numberOfTeamsLineEdit->setText(QString::number(team::getTeamsCounter()));
         }
     });
+}
+
+void MainWindow::onTeamSelected(QListWidgetItem* item)
+{
+    if (!item) return;
+
+    // Retrieving team pointer
+    team* selectedTeam = item->data(Qt::UserRole).value<team*>();
+
+    ui->teamNameLabel2->setText(selectedTeam->returnFullTeamName());
+    ui->stackedWidget->setCurrentIndex(3);
 }
 
