@@ -219,8 +219,8 @@
        <widget class="QLabel" name="teamNameLabel2">
         <property name="geometry">
          <rect>
-          <x>120</x>
-          <y>40</y>
+          <x>800</x>
+          <y>80</y>
           <width>141</width>
           <height>20</height>
          </rect>
@@ -229,17 +229,207 @@
          <string/>
         </property>
        </widget>
-       <widget class="QLabel" name="label_2">
+       <widget class="QListWidget" name="playersListWidget">
+        <property name="geometry">
+         <rect>
+          <x>180</x>
+          <y>200</y>
+          <width>581</width>
+          <height>301</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="backButton3">
+        <property name="geometry">
+         <rect>
+          <x>50</x>
+          <y>530</y>
+          <width>93</width>
+          <height>29</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Back</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="addCustomSkaterButton">
+        <property name="geometry">
+         <rect>
+          <x>68</x>
+          <y>30</y>
+          <width>161</width>
+          <height>29</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Add Custom Skater</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="AddCustomGoalieButton">
+        <property name="geometry">
+         <rect>
+          <x>68</x>
+          <y>70</y>
+          <width>161</width>
+          <height>29</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Add Custom Goalie</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="AddRandomGoalieButton">
+        <property name="geometry">
+         <rect>
+          <x>540</x>
+          <y>110</y>
+          <width>161</width>
+          <height>29</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Add Random Goalie</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="AddRandomSkaterButton">
         <property name="geometry">
          <rect>
           <x>220</x>
-          <y>500</y>
+          <y>110</y>
+          <width>161</width>
+          <height>29</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Add Random Skater</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="fillRosterButton">
+        <property name="geometry">
+         <rect>
+          <x>420</x>
+          <y>150</y>
+          <width>93</width>
+          <height>29</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Fill Roster</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label">
+        <property name="geometry">
+         <rect>
+          <x>692</x>
+          <y>10</y>
+          <width>70</width>
+          <height>20</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Last Name</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_2">
+        <property name="geometry">
+         <rect>
+          <x>570</x>
+          <y>10</y>
+          <width>81</width>
+          <height>20</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>First Name</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_3">
+        <property name="geometry">
+         <rect>
+          <x>450</x>
+          <y>10</y>
           <width>63</width>
           <height>20</height>
          </rect>
         </property>
         <property name="text">
-         <string>Test Text</string>
+         <string>Number</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_4">
+        <property name="geometry">
+         <rect>
+          <x>330</x>
+          <y>10</y>
+          <width>91</width>
+          <height>20</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Handedness</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_5">
+        <property name="geometry">
+         <rect>
+          <x>250</x>
+          <y>10</y>
+          <width>63</width>
+          <height>20</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Position</string>
+        </property>
+       </widget>
+       <widget class="QComboBox" name="positionComboBox">
+        <property name="geometry">
+         <rect>
+          <x>240</x>
+          <y>31</y>
+          <width>76</width>
+          <height>26</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QComboBox" name="comboBox">
+        <property name="geometry">
+         <rect>
+          <x>330</x>
+          <y>31</y>
+          <width>76</width>
+          <height>26</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="lineEdit">
+        <property name="geometry">
+         <rect>
+          <x>457</x>
+          <y>31</y>
+          <width>41</width>
+          <height>26</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="lineEdit_2">
+        <property name="geometry">
+         <rect>
+          <x>550</x>
+          <y>31</y>
+          <width>113</width>
+          <height>26</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="lineEdit_3">
+        <property name="geometry">
+         <rect>
+          <x>670</x>
+          <y>31</y>
+          <width>113</width>
+          <height>26</height>
+         </rect>
         </property>
        </widget>
       </widget>

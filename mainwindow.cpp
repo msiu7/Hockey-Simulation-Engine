@@ -99,3 +99,9 @@ void MainWindow::onTeamSelected(QListWidgetItem* item)
     ui->stackedWidget->setCurrentIndex(3);
 }
 
+
+void MainWindow::on_backButton3_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(1);
+}
+

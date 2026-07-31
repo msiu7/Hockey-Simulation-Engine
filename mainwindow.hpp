@@ -33,6 +33,8 @@ private slots:
 
     void onTeamSelected(QListWidgetItem* item);
 
+    void on_backButton3_clicked();
+
 private:
     Ui::MainWindow *ui;
 };
