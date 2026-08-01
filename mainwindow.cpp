@@ -1,6 +1,7 @@
 #include "mainwindow.hpp"
 #include "ui_mainwindow.h"
 #include "team.hpp"
+#include <vector>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -102,8 +103,8 @@ void MainWindow::onTeamSelected(QListWidgetItem* item)
     this->currentTeam = item->data(Qt::UserRole).value<team*>();
 
     ui->playersListWidget->clear();
-
-    // 2. RE-POPULATE only with the newly selected team's players
+    ui->numberOfPlayersLineEdit->setText(QString::number(currentTeam->roster.size()));
+    // reload selected team's roster
     for (player* p : this->currentTeam->roster) {
         QListWidgetItem* temp = new QListWidgetItem(p->getFirstName() + " " + p->getLastName());
 
@@ -155,6 +156,34 @@ void MainWindow::on_addCustomSkaterButton_clicked()
         QListWidgetItem *newPlayer = new QListWidgetItem(p->getFirstName() + " " + p->getLastName());
         this->currentTeam->roster.push_back(p);
 
-        ui->playersListWidget->addItem(newPlayer);
-}
+        //save player pointer
+        newPlayer->setData(Qt::UserRole, QVariant::fromValue(p));
 
+        ui->playersListWidget->addItem(newPlayer);
+
+    //setting row format (same as team view basically)
+    QWidget* playersRowWidget = new QWidget();
+    QHBoxLayout* playersLayout = new QHBoxLayout(playersRowWidget);
+    QPushButton* deletePlayer = new QPushButton();
+    deletePlayer->setIcon(deletePlayer->style()->standardIcon(QStyle::SP_TrashIcon));
+
+    playersLayout->addStretch();
+    playersLayout->addWidget(deletePlayer);
+
+    //attach layout to listItem
+    ui->playersListWidget->setItemWidget(newPlayer, playersRowWidget);
+
+    ui->numberOfPlayersLineEdit->setText(QString::number(currentTeam->roster.size()));
+
+    //deletion mechanic
+    //in the lambda: "this" is the list widget (row)
+    QObject::connect(deletePlayer, &QPushButton::clicked, [this, newPlayer, p]() {
+        int row = ui->playersListWidget->row(newPlayer);
+        if (row != -1) { //if the row exists
+            delete ui->playersListWidget->takeItem(row);
+            std::erase(currentTeam->roster, p);
+            delete p;
+            ui->numberOfPlayersLineEdit->setText(QString::number(currentTeam->roster.size()));
+}});
+
+}
