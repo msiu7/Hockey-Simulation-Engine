@@ -1,6 +1,6 @@
 #include "skater.hpp"
 
-skater::skater(int position, int number, std::string firstName, std::string lastName, int handedness, skaterOffensiveStats o, skaterDefensiveStats d): 
+skater::skater(int position, int number, QString firstName, QString lastName, int handedness, skaterOffensiveStats o, skaterDefensiveStats d):
 	player(number, firstName, lastName, handedness)
 {
 	this->position = position;

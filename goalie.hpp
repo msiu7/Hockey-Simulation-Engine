@@ -15,7 +15,7 @@ class goalie : public player
 private:
 	goalieTechnicalStats goal;
 public:
-	goalie(int number = 0, std::string firstName = "DEFAULT", std::string lastName = "DEFAULT", int handedness = 2, goalieTechnicalStats g = {});
+    goalie(int number = 0, QString firstName = "DEFAULT", QString lastName = "DEFAULT", int handedness = 2, goalieTechnicalStats g = {});
 	goalieTechnicalStats& getGoalieStats() { return goal; }
 	std::ostream& showSpecificStats(std::ostream& out) const override;
 	std::string getPositionAsString() const override;

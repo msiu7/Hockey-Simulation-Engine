@@ -8,6 +8,12 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     connect(ui->teamsListWidget, &QListWidget::itemClicked, this, &MainWindow::onTeamSelected);
+
+    QStringList positions = {"F", "D", "G"};
+    ui->positionComboBox->addItems(positions);
+
+    QStringList handednesses = {"L", "R"};
+    ui->handednessComboBox->addItems(handednesses);
 }
 
 MainWindow::~MainWindow()
@@ -44,11 +50,11 @@ void MainWindow::on_addTeamButton_clicked()
 {
     //check input validity
     if(ui->cityLineEdit->text().simplified().isEmpty() || ui->teamNameLineEdit->text().simplified().isEmpty()){
-        QMessageBox::warning(this, "Input Error", "City and/or Team Name fields are empty.");
+        QMessageBox::warning(this, "Input Error", "City and/or team name fields are empty.");
         return;
     }
     if(ui->teamsListWidget->findItems(ui->cityLineEdit->text().simplified() + " " + ui->teamNameLineEdit->text().simplified(), Qt::MatchContains).count() > 0){
-        QMessageBox::warning(this, "Input Error", "This Team already exists.");
+        QMessageBox::warning(this, "Input Error", "This team already exists.");
         return;
     }
 
@@ -93,9 +99,20 @@ void MainWindow::onTeamSelected(QListWidgetItem* item)
     if (!item) return;
 
     // Retrieving team pointer
-    team* selectedTeam = item->data(Qt::UserRole).value<team*>();
+    this->currentTeam = item->data(Qt::UserRole).value<team*>();
 
-    ui->teamNameLabel2->setText(selectedTeam->returnFullTeamName());
+    ui->playersListWidget->clear();
+
+    // 2. RE-POPULATE only with the newly selected team's players
+    for (player* p : this->currentTeam->roster) {
+        QListWidgetItem* temp = new QListWidgetItem(p->getFirstName() + " " + p->getLastName());
+
+        // Save Player Pointer
+        item->setData(Qt::UserRole, QVariant::fromValue(p));
+        ui->playersListWidget->addItem(temp);
+    }
+
+    ui->teamNameLabel2->setText(this->currentTeam->returnFullTeamName());
     ui->stackedWidget->setCurrentIndex(3);
 }
 
@@ -103,5 +120,41 @@ void MainWindow::onTeamSelected(QListWidgetItem* item)
 void MainWindow::on_backButton3_clicked()
 {
     ui->stackedWidget->setCurrentIndex(1);
+}
+
+
+void MainWindow::on_addCustomSkaterButton_clicked()
+{
+    //check input validity
+    if(ui->positionComboBox->currentText().isEmpty() || ui->handednessComboBox->currentText().isEmpty() || ui->numberLineEdit->text().simplified().isEmpty() || ui->firstNameLineEdit->text().simplified().isEmpty() || ui->lastNameLineEdit->text().simplified().isEmpty()){
+        QMessageBox::warning(this, "Input Error", "Some fields are empty.");
+        return;
+    }
+    if(ui->playersListWidget->findItems(ui->firstNameLineEdit->text().simplified() + " " + ui->lastNameLineEdit->text().simplified(), Qt::MatchContains).count() > 0){
+        QMessageBox::warning(this, "Input Error", "This player already exists.");
+        return;
+    }
+
+    //creating a player
+    int handednessTemp;
+    int positionTemp;
+    if(ui->handednessComboBox->currentText() == "L")
+        handednessTemp = 0;
+    else
+        handednessTemp = 1;
+
+    if(ui->positionComboBox->currentText() == "G")
+        player* p = new goalie(ui->numberLineEdit->text().simplified().toInt(), ui->firstNameLineEdit->text().simplified(), ui->lastNameLineEdit->text().simplified(), handednessTemp);
+    else
+        if(ui->positionComboBox->currentText() == "F")
+            positionTemp = 1;
+        else
+            positionTemp = 2;
+        player* p = new skater(positionTemp, ui->numberLineEdit->text().simplified().toInt(), ui->firstNameLineEdit->text().simplified(), ui->lastNameLineEdit->text().simplified(), handednessTemp);
+
+        QListWidgetItem *newPlayer = new QListWidgetItem(p->getFirstName() + " " + p->getLastName());
+        this->currentTeam->roster.push_back(p);
+
+        ui->playersListWidget->addItem(newPlayer);
 }
 

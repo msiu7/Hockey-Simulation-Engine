@@ -1,7 +1,7 @@
 #include "player.hpp"
 #include <string>
 
-player::player(int number, std::string firstName, std::string lastName, int handedness)
+player::player(int number, QString firstName, QString lastName, int handedness)
 {
 	this->number = number;
 	this->firstName = firstName;
@@ -14,14 +14,14 @@ void player::setNumber(int num)
 	number = num;
 }
 
-void player::setFirstName(std::string name)
+void player::setFirstName(QString name)
 {
-	firstName = name;
+    firstName = name.simplified();
 }
 
-void player::setLastName(std::string name)
+void player::setLastName(QString name)
 {
-	lastName = name;
+    lastName = name.simplified();
 }
 
 void player::setHandedness(int num)
@@ -29,13 +29,14 @@ void player::setHandedness(int num)
 	handedness = num;
 }
 
-std::string player::getHandedness() const
+QString player::getHandedness() const
 {
 	if (handedness == 0) return "Left";
 	if (handedness == 1) return "Right";
 	return "DEFAULT";
 }
 
+/*
 std::ostream& player::showUniversalStats(std::ostream& out) const
 {
 	out << "PHYSICAL: \nStrength: " << phys.strength << "\nSpeed: " << phys.speed << "\nAcceleration : " << phys.acceleration << "\nAgility : " << phys.acceleration << "\nStamina : " << phys.stamina << std::endl;
@@ -50,4 +51,4 @@ std::ostream& operator<<(std::ostream& out, const player& p)
 	p.showSpecificStats(out);
 	return out;
 }
-
+*/

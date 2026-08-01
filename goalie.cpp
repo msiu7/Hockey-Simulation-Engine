@@ -1,6 +1,6 @@
 #include "goalie.hpp"
 
-goalie::goalie(int number, std::string firstName, std::string lastName, int handedness, goalieTechnicalStats g):
+goalie::goalie(int number, QString firstName, QString lastName, int handedness, goalieTechnicalStats g):
 	player(number, firstName, lastName, handedness)
 {
 	goal = g;

@@ -12,7 +12,7 @@ team::team(QString city, QString teamName)
 team::~team(){
     teamsCounter--;
 }
-
+/*
 void team::fillRoster()
 {
 	//forwards
@@ -31,6 +31,7 @@ void team::fillRoster()
 	}
 }
 
+
 std::ostream& operator<<(std::ostream& out, const team& t)
 {
 	for (int i = 0; i < t.roster.size(); i++) {
@@ -38,7 +39,7 @@ std::ostream& operator<<(std::ostream& out, const team& t)
 	}
 	return out;
 }
-
+*/
 QString team::returnFullTeamName()
 {
     return city + " " + teamName;

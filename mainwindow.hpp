@@ -1,6 +1,7 @@
 #ifndef MAINWINDOW_HPP
 #define MAINWINDOW_HPP
 
+#include "team.hpp"
 #include <QMainWindow>
 #include <QListWidget>
 #include <QMessageBox>
@@ -35,8 +36,11 @@ private slots:
 
     void on_backButton3_clicked();
 
+    void on_addCustomSkaterButton_clicked();
+
 private:
     Ui::MainWindow *ui;
+    team* currentTeam = nullptr;
 };
 
 #endif // MAINWINDOW_HPP

@@ -2,6 +2,7 @@
 #include <string>
 #include <iostream>
 #include "player.hpp"
+#include <QString>
 
 struct skaterOffensiveStats {
 	int wristShot;
@@ -24,7 +25,7 @@ private:
 	skaterDefensiveStats def;
 	int position; // 1 means forward, 2 means defenseman
 public:
-	skater(int position = 0, int number = 0, std::string firstName = "DEFAULT", std::string lastName = "DEFAULT", int handedness = 2, skaterOffensiveStats o = {}, skaterDefensiveStats d = {});
+    skater(int position = 0, int number = 0, QString firstName = "DEFAULT", QString lastName = "DEFAULT", int handedness = 2, skaterOffensiveStats o = {}, skaterDefensiveStats d = {});
 	skaterOffensiveStats& getOffStats() { return off; }
 	skaterDefensiveStats& getDefStats() { return def; }
 	std::ostream& showSpecificStats(std::ostream& out) const override;

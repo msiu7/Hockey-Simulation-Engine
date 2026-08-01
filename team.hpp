@@ -13,7 +13,7 @@ class team
 private:
     QString city;
     QString teamName;
-	std::vector<std::unique_ptr<player>> roster;
+    std::vector<player*> roster;
 	player* lineup[20];
     static int teamsCounter;
 public:

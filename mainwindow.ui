@@ -18,7 +18,7 @@
     <item row="2" column="0">
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>0</number>
+       <number>3</number>
       </property>
       <widget class="QWidget" name="emptyPage">
        <widget class="QPushButton" name="exitApp">
@@ -392,7 +392,7 @@
          </rect>
         </property>
        </widget>
-       <widget class="QComboBox" name="comboBox">
+       <widget class="QComboBox" name="handednessComboBox">
         <property name="geometry">
          <rect>
           <x>330</x>
@@ -402,7 +402,7 @@
          </rect>
         </property>
        </widget>
-       <widget class="QLineEdit" name="lineEdit">
+       <widget class="QLineEdit" name="numberLineEdit">
         <property name="geometry">
          <rect>
           <x>457</x>
@@ -412,7 +412,7 @@
          </rect>
         </property>
        </widget>
-       <widget class="QLineEdit" name="lineEdit_2">
+       <widget class="QLineEdit" name="firstNameLineEdit">
         <property name="geometry">
          <rect>
           <x>550</x>
@@ -422,7 +422,7 @@
          </rect>
         </property>
        </widget>
-       <widget class="QLineEdit" name="lineEdit_3">
+       <widget class="QLineEdit" name="lastNameLineEdit">
         <property name="geometry">
          <rect>
           <x>670</x>
