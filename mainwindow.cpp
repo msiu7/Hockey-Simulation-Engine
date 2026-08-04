@@ -75,6 +75,12 @@ void MainWindow::on_addTeamButton_clicked()
     QPushButton* deleteTeam = new QPushButton();
     deleteTeam->setIcon(deleteTeam->style()->standardIcon(QStyle::SP_TrashIcon));
 
+    // ignore clicks on playersRowWidget (defer to the item itself)
+    rowWidget->setAttribute(Qt::WA_TransparentForMouseEvents, true);
+
+    // ensure the trash button still gets clicks:
+    deleteTeam->setAttribute(Qt::WA_TransparentForMouseEvents, false);
+
     layout->addStretch();
     layout->addWidget(deleteTeam);
 
@@ -106,11 +112,7 @@ void MainWindow::onTeamSelected(QListWidgetItem* item)
     ui->numberOfPlayersLineEdit->setText(QString::number(currentTeam->roster.size()));
     // reload selected team's roster
     for (player* p : this->currentTeam->roster) {
-        QListWidgetItem* temp = new QListWidgetItem(p->getFirstName() + " " + p->getLastName());
-
-        // Save Player Pointer
-        item->setData(Qt::UserRole, QVariant::fromValue(p));
-        ui->playersListWidget->addItem(temp);
+        makePlayerListItem(p);
     }
 
     ui->teamNameLabel2->setText(this->currentTeam->returnFullTeamName());
@@ -152,20 +154,29 @@ void MainWindow::on_addCustomSkaterButton_clicked()
         else
             positionTemp = 2;
         player* p = new skater(positionTemp, ui->numberLineEdit->text().simplified().toInt(), ui->firstNameLineEdit->text().simplified(), ui->lastNameLineEdit->text().simplified(), handednessTemp);
-
-        QListWidgetItem *newPlayer = new QListWidgetItem(p->getFirstName() + " " + p->getLastName());
         this->currentTeam->roster.push_back(p);
+        makePlayerListItem(p);
+}
 
-        //save player pointer
-        newPlayer->setData(Qt::UserRole, QVariant::fromValue(p));
+void MainWindow::makePlayerListItem(player* p){
+    QListWidgetItem *newPlayer = new QListWidgetItem(p->getFirstName() + " " + p->getLastName());
 
-        ui->playersListWidget->addItem(newPlayer);
+    //save player pointer
+    newPlayer->setData(Qt::UserRole, QVariant::fromValue(p));
+
+    ui->playersListWidget->addItem(newPlayer);
 
     //setting row format (same as team view basically)
     QWidget* playersRowWidget = new QWidget();
     QHBoxLayout* playersLayout = new QHBoxLayout(playersRowWidget);
     QPushButton* deletePlayer = new QPushButton();
     deletePlayer->setIcon(deletePlayer->style()->standardIcon(QStyle::SP_TrashIcon));
+
+    // ignore clicks on playersRowWidget (defer to the item itself)
+    playersRowWidget->setAttribute(Qt::WA_TransparentForMouseEvents, true);
+
+    // ensure the trash button still gets clicks:
+    deletePlayer->setAttribute(Qt::WA_TransparentForMouseEvents, false);
 
     playersLayout->addStretch();
     playersLayout->addWidget(deletePlayer);
@@ -184,6 +195,17 @@ void MainWindow::on_addCustomSkaterButton_clicked()
             std::erase(currentTeam->roster, p);
             delete p;
             ui->numberOfPlayersLineEdit->setText(QString::number(currentTeam->roster.size()));
-}});
+        }});
 
 }
+void MainWindow::on_playersListWidget_itemClicked(QListWidgetItem *item)
+{
+    if (!item) return;
+
+    // Retrieving player pointer
+    this->currentPlayer = item->data(Qt::UserRole).value<player*>();
+
+    ui->playerNameLabel->setText(this->currentPlayer->getFirstName() + " " + this->currentPlayer->getLastName());
+    ui->stackedWidget->setCurrentIndex(4);
+}
+

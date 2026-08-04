@@ -5,6 +5,7 @@
 #include <QMainWindow>
 #include <QListWidget>
 #include <QMessageBox>
+#include "player.hpp"
 
 namespace Ui {
 class MainWindow;
@@ -18,6 +19,7 @@ public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
     void generalBackButtonAction();
+    void makePlayerListItem(player* p);
 
 private slots:
     void on_startSim_clicked();
@@ -38,9 +40,12 @@ private slots:
 
     void on_addCustomSkaterButton_clicked();
 
+    void on_playersListWidget_itemClicked(QListWidgetItem *item);
+
 private:
     Ui::MainWindow *ui;
     team* currentTeam = nullptr;
+    player* currentPlayer = nullptr;
 };
 
 #endif // MAINWINDOW_HPP

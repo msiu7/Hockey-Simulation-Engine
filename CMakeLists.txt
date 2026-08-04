@@ -32,3 +32,8 @@ add_executable(HockeySimulationEngine
 
 # Link Qt libraries to executable
 target_link_libraries(HockeySimulationEngine PRIVATE Qt6::Core Qt6::Gui Qt6::Widgets)
+
+#double heap space
+if(MSVC)
+    add_compile_options(/Zm200)
+endif()

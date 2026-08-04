@@ -33,7 +33,7 @@ protected:
 public:
 
     player(int number = 0, QString firstName = "DEFAULT", QString lastName = "DEFAULT", int handedness = 2);
-
+    virtual ~player() = default;
 	void setNumber(int num);
     void setFirstName(QString name);
     void setLastName(QString name);
