@@ -12,7 +12,7 @@ std::ostream& goalie::showSpecificStats(std::ostream& out) const
 	return out;
 }
 
-std::string goalie::getPositionAsString() const
+QString goalie::getPositionAsString() const
 {
 	return "G";
 }

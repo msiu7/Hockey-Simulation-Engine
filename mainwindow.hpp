@@ -38,9 +38,11 @@ private slots:
 
     void on_backButton3_clicked();
 
-    void on_addCustomSkaterButton_clicked();
-
     void on_playersListWidget_itemClicked(QListWidgetItem *item);
+
+    void on_backButton4_clicked();
+
+    void on_addCustomPlayerButton_clicked();
 
 private:
     Ui::MainWindow *ui;

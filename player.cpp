@@ -31,8 +31,8 @@ void player::setHandedness(int num)
 
 QString player::getHandedness() const
 {
-	if (handedness == 0) return "Left";
-	if (handedness == 1) return "Right";
+    if (handedness == 0) return "L";
+    if (handedness == 1) return "R";
 	return "DEFAULT";
 }
 

@@ -125,39 +125,6 @@ void MainWindow::on_backButton3_clicked()
     ui->stackedWidget->setCurrentIndex(1);
 }
 
-
-void MainWindow::on_addCustomSkaterButton_clicked()
-{
-    //check input validity
-    if(ui->positionComboBox->currentText().isEmpty() || ui->handednessComboBox->currentText().isEmpty() || ui->numberLineEdit->text().simplified().isEmpty() || ui->firstNameLineEdit->text().simplified().isEmpty() || ui->lastNameLineEdit->text().simplified().isEmpty()){
-        QMessageBox::warning(this, "Input Error", "Some fields are empty.");
-        return;
-    }
-    if(ui->playersListWidget->findItems(ui->firstNameLineEdit->text().simplified() + " " + ui->lastNameLineEdit->text().simplified(), Qt::MatchContains).count() > 0){
-        QMessageBox::warning(this, "Input Error", "This player already exists.");
-        return;
-    }
-
-    //creating a player
-    int handednessTemp;
-    int positionTemp;
-    if(ui->handednessComboBox->currentText() == "L")
-        handednessTemp = 0;
-    else
-        handednessTemp = 1;
-
-    if(ui->positionComboBox->currentText() == "G")
-        player* p = new goalie(ui->numberLineEdit->text().simplified().toInt(), ui->firstNameLineEdit->text().simplified(), ui->lastNameLineEdit->text().simplified(), handednessTemp);
-    else
-        if(ui->positionComboBox->currentText() == "F")
-            positionTemp = 1;
-        else
-            positionTemp = 2;
-        player* p = new skater(positionTemp, ui->numberLineEdit->text().simplified().toInt(), ui->firstNameLineEdit->text().simplified(), ui->lastNameLineEdit->text().simplified(), handednessTemp);
-        this->currentTeam->roster.push_back(p);
-        makePlayerListItem(p);
-}
-
 void MainWindow::makePlayerListItem(player* p){
     QListWidgetItem *newPlayer = new QListWidgetItem(p->getFirstName() + " " + p->getLastName());
 
@@ -170,14 +137,25 @@ void MainWindow::makePlayerListItem(player* p){
     QWidget* playersRowWidget = new QWidget();
     QHBoxLayout* playersLayout = new QHBoxLayout(playersRowWidget);
     QPushButton* deletePlayer = new QPushButton();
+    QLabel* num = new QLabel();
+    QLabel* pos = new QLabel();
+    QLabel* handedness = new QLabel();
     deletePlayer->setIcon(deletePlayer->style()->standardIcon(QStyle::SP_TrashIcon));
-
+    num->setText(QString::number(p->getNumber()));
+    pos->setText(p->getPositionAsString());
+    handedness->setText(p->getHandedness());
     // ignore clicks on playersRowWidget (defer to the item itself)
     playersRowWidget->setAttribute(Qt::WA_TransparentForMouseEvents, true);
 
     // ensure the trash button still gets clicks:
     deletePlayer->setAttribute(Qt::WA_TransparentForMouseEvents, false);
 
+    playersLayout->addStretch();
+    playersLayout->addWidget(num);
+    playersLayout->addStretch();
+    playersLayout->addWidget(pos);
+    playersLayout->addStretch();
+    playersLayout->addWidget(handedness);
     playersLayout->addStretch();
     playersLayout->addWidget(deletePlayer);
 
@@ -207,5 +185,43 @@ void MainWindow::on_playersListWidget_itemClicked(QListWidgetItem *item)
 
     ui->playerNameLabel->setText(this->currentPlayer->getFirstName() + " " + this->currentPlayer->getLastName());
     ui->stackedWidget->setCurrentIndex(4);
+}
+
+void MainWindow::on_backButton4_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(3);
+}
+
+
+void MainWindow::on_addCustomPlayerButton_clicked()
+{
+    //check input validity
+    if(ui->positionComboBox->currentText().isEmpty() || ui->handednessComboBox->currentText().isEmpty() || ui->numberLineEdit->text().simplified().isEmpty() || ui->firstNameLineEdit->text().simplified().isEmpty() || ui->lastNameLineEdit->text().simplified().isEmpty()){
+        QMessageBox::warning(this, "Input Error", "Some fields are empty.");
+        return;
+    }
+    if(ui->playersListWidget->findItems(ui->firstNameLineEdit->text().simplified() + " " + ui->lastNameLineEdit->text().simplified(), Qt::MatchContains).count() > 0){
+        QMessageBox::warning(this, "Input Error", "This player already exists.");
+        return;
+    }
+
+    //creating a player
+    int handednessTemp;
+    int positionTemp;
+    if(ui->handednessComboBox->currentText() == "L")
+        handednessTemp = 0;
+    else
+        handednessTemp = 1;
+
+    if(ui->positionComboBox->currentText() == "G")
+        player* p = new goalie(ui->numberLineEdit->text().simplified().toInt(), ui->firstNameLineEdit->text().simplified(), ui->lastNameLineEdit->text().simplified(), handednessTemp);
+    else
+        if(ui->positionComboBox->currentText() == "F")
+            positionTemp = 1;
+        else
+            positionTemp = 2;
+    player* p = new skater(positionTemp, ui->numberLineEdit->text().simplified().toInt(), ui->firstNameLineEdit->text().simplified(), ui->lastNameLineEdit->text().simplified(), handednessTemp);
+    this->currentTeam->roster.push_back(p);
+    makePlayerListItem(p);
 }
 

@@ -29,5 +29,5 @@ public:
 	skaterOffensiveStats& getOffStats() { return off; }
 	skaterDefensiveStats& getDefStats() { return def; }
 	std::ostream& showSpecificStats(std::ostream& out) const override;
-	std::string getPositionAsString() const override;
+    QString getPositionAsString() const override;
 };

@@ -15,7 +15,7 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="2" column="0">
+    <item row="0" column="0">
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
        <number>0</number>
@@ -252,7 +252,7 @@
          <string>Back</string>
         </property>
        </widget>
-       <widget class="QPushButton" name="addCustomSkaterButton">
+       <widget class="QPushButton" name="addCustomPlayerButton">
         <property name="geometry">
          <rect>
           <x>68</x>
@@ -262,10 +262,10 @@
          </rect>
         </property>
         <property name="text">
-         <string>Add Custom Skater</string>
+         <string>Add Custom Player</string>
         </property>
        </widget>
-       <widget class="QPushButton" name="AddCustomGoalieButton">
+       <widget class="QPushButton" name="addRandomPlayerButton">
         <property name="geometry">
          <rect>
           <x>68</x>
@@ -275,40 +275,14 @@
          </rect>
         </property>
         <property name="text">
-         <string>Add Custom Goalie</string>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="AddRandomGoalieButton">
-        <property name="geometry">
-         <rect>
-          <x>540</x>
-          <y>110</y>
-          <width>161</width>
-          <height>29</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Add Random Goalie</string>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="AddRandomSkaterButton">
-        <property name="geometry">
-         <rect>
-          <x>220</x>
-          <y>110</y>
-          <width>161</width>
-          <height>29</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Add Random Skater</string>
+         <string>Add Random Player</string>
         </property>
        </widget>
        <widget class="QPushButton" name="fillRosterButton">
         <property name="geometry">
          <rect>
-          <x>420</x>
-          <y>150</y>
+          <x>70</x>
+          <y>110</y>
           <width>93</width>
           <height>29</height>
          </rect>
@@ -455,6 +429,58 @@
          <string>Number Of Players:</string>
         </property>
        </widget>
+       <widget class="QLabel" name="label_7">
+        <property name="geometry">
+         <rect>
+          <x>210</x>
+          <y>174</y>
+          <width>63</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Name</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_8">
+        <property name="geometry">
+         <rect>
+          <x>305</x>
+          <y>180</y>
+          <width>63</width>
+          <height>20</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Number</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_9">
+        <property name="geometry">
+         <rect>
+          <x>560</x>
+          <y>180</y>
+          <width>91</width>
+          <height>20</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Handedness</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_10">
+        <property name="geometry">
+         <rect>
+          <x>432</x>
+          <y>180</y>
+          <width>63</width>
+          <height>20</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Position</string>
+        </property>
+       </widget>
       </widget>
       <widget class="QWidget" name="playerEditPage">
        <widget class="QLabel" name="playerNameLabel">
@@ -462,12 +488,25 @@
          <rect>
           <x>90</x>
           <y>60</y>
-          <width>63</width>
+          <width>101</width>
           <height>20</height>
          </rect>
         </property>
         <property name="text">
          <string>TextLabel</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="backButton4">
+        <property name="geometry">
+         <rect>
+          <x>50</x>
+          <y>530</y>
+          <width>93</width>
+          <height>29</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Back</string>
         </property>
        </widget>
       </widget>

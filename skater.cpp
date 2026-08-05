@@ -15,7 +15,7 @@ std::ostream& skater::showSpecificStats(std::ostream& out) const
 	return out;
 }
 
-std::string skater::getPositionAsString() const
+QString skater::getPositionAsString() const
 {
 	if (position == 1) return "F";
 	if (position == 2) return "D";
