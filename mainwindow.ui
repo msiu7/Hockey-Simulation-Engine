@@ -486,8 +486,8 @@
        <widget class="QLabel" name="playerNameLabel">
         <property name="geometry">
          <rect>
-          <x>90</x>
-          <y>60</y>
+          <x>430</x>
+          <y>20</y>
           <width>101</width>
           <height>20</height>
          </rect>
@@ -507,6 +507,461 @@
         </property>
         <property name="text">
          <string>Back</string>
+        </property>
+       </widget>
+       <widget class="QStackedWidget" name="specificStatsStackedWidget">
+        <property name="geometry">
+         <rect>
+          <x>570</x>
+          <y>109</y>
+          <width>291</width>
+          <height>391</height>
+         </rect>
+        </property>
+        <property name="currentIndex">
+         <number>0</number>
+        </property>
+        <widget class="QWidget" name="skaterPage">
+         <widget class="QLabel" name="label_42">
+          <property name="geometry">
+           <rect>
+            <x>97</x>
+            <y>0</y>
+            <width>63</width>
+            <height>20</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Offensive</string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_43">
+          <property name="geometry">
+           <rect>
+            <x>100</x>
+            <y>193</y>
+            <width>91</width>
+            <height>20</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Defensive</string>
+          </property>
+         </widget>
+         <widget class="QWidget" name="verticalLayoutWidget_5">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>20</y>
+            <width>91</width>
+            <height>141</height>
+           </rect>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_7">
+           <item>
+            <widget class="QLabel" name="label_46">
+             <property name="text">
+              <string>Wrist Shot</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_47">
+             <property name="text">
+              <string>Slap Shot</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_48">
+             <property name="text">
+              <string>Backhand</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_49">
+             <property name="text">
+              <string>Stickhandling</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_51">
+             <property name="text">
+              <string>Passing</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+         <widget class="QWidget" name="verticalLayoutWidget_6">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>220</y>
+            <width>91</width>
+            <height>80</height>
+           </rect>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_8">
+           <item>
+            <widget class="QLabel" name="label_45">
+             <property name="text">
+              <string>Positioning</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_52">
+             <property name="text">
+              <string>Checking</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_50">
+             <property name="text">
+              <string>Faceoffs</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+         <widget class="QWidget" name="verticalLayoutWidget_7">
+          <property name="geometry">
+           <rect>
+            <x>120</x>
+            <y>20</y>
+            <width>41</width>
+            <height>141</height>
+           </rect>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_9">
+           <item>
+            <widget class="QLineEdit" name="wristShotEdit"/>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="slapShotEdit"/>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="backhandEdit"/>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="stickhandlingEdit"/>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="passingEdit"/>
+           </item>
+          </layout>
+         </widget>
+         <widget class="QWidget" name="verticalLayoutWidget_8">
+          <property name="geometry">
+           <rect>
+            <x>120</x>
+            <y>220</y>
+            <width>41</width>
+            <height>81</height>
+           </rect>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_10">
+           <item>
+            <widget class="QLineEdit" name="dPositioningEdit"/>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="checkingEdit"/>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="faceoffsEdit"/>
+           </item>
+          </layout>
+         </widget>
+        </widget>
+        <widget class="QWidget" name="goaliePage">
+         <widget class="QLabel" name="label_44">
+          <property name="geometry">
+           <rect>
+            <x>91</x>
+            <y>0</y>
+            <width>80</width>
+            <height>20</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Goalie</string>
+          </property>
+         </widget>
+         <widget class="QWidget" name="verticalLayoutWidget_9">
+          <property name="geometry">
+           <rect>
+            <x>20</x>
+            <y>20</y>
+            <width>81</width>
+            <height>111</height>
+           </rect>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_11">
+           <item>
+            <widget class="QLabel" name="label_56">
+             <property name="text">
+              <string>Glove</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_55">
+             <property name="text">
+              <string>Blocker</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_54">
+             <property name="text">
+              <string>Positioning</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_53">
+             <property name="text">
+              <string>Reflexes</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+         <widget class="QWidget" name="verticalLayoutWidget_10">
+          <property name="geometry">
+           <rect>
+            <x>130</x>
+            <y>20</y>
+            <width>41</width>
+            <height>111</height>
+           </rect>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_12">
+           <item>
+            <widget class="QLineEdit" name="gloveEdit"/>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="blockerEdit"/>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="gPositioningEdit"/>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="reflexesEdit"/>
+           </item>
+          </layout>
+         </widget>
+        </widget>
+       </widget>
+       <widget class="QLabel" name="label_11">
+        <property name="geometry">
+         <rect>
+          <x>569</x>
+          <y>83</y>
+          <width>110</width>
+          <height>20</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Technical Stats</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_12">
+        <property name="geometry">
+         <rect>
+          <x>208</x>
+          <y>302</y>
+          <width>90</width>
+          <height>20</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Physical Stats</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_13">
+        <property name="geometry">
+         <rect>
+          <x>210</x>
+          <y>84</y>
+          <width>101</width>
+          <height>20</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Mental Stats</string>
+        </property>
+       </widget>
+       <widget class="QWidget" name="gridLayoutWidget">
+        <property name="geometry">
+         <rect>
+          <x>200</x>
+          <y>330</y>
+          <width>85</width>
+          <height>141</height>
+         </rect>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout">
+         <item>
+          <widget class="QLabel" name="label_17">
+           <property name="text">
+            <string>Stamina</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_18">
+           <property name="text">
+            <string>Speed</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_16">
+           <property name="text">
+            <string>Acceleration</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_14">
+           <property name="text">
+            <string>Strength</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_15">
+           <property name="text">
+            <string>Agility</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="verticalLayoutWidget">
+        <property name="geometry">
+         <rect>
+          <x>320</x>
+          <y>330</y>
+          <width>41</width>
+          <height>141</height>
+         </rect>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_2">
+         <item>
+          <widget class="QLineEdit" name="staminaEdit"/>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="speedEdit"/>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="accelerationEdit"/>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="strengthEdit"/>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="agilityEdit"/>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="verticalLayoutWidget_3">
+        <property name="geometry">
+         <rect>
+          <x>200</x>
+          <y>130</y>
+          <width>81</width>
+          <height>141</height>
+         </rect>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_5">
+         <item>
+          <widget class="QLabel" name="label_38">
+           <property name="text">
+            <string>Riskiness</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_39">
+           <property name="text">
+            <string>Leadership</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_37">
+           <property name="text">
+            <string>Work Rate</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_40">
+           <property name="text">
+            <string>Toughness</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_41">
+           <property name="text">
+            <string>Clutchness</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="verticalLayoutWidget_4">
+        <property name="geometry">
+         <rect>
+          <x>320</x>
+          <y>130</y>
+          <width>41</width>
+          <height>141</height>
+         </rect>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_6">
+         <property name="sizeConstraint">
+          <enum>QLayout::SizeConstraint::SetDefaultConstraint</enum>
+         </property>
+         <item>
+          <widget class="QLineEdit" name="riskinessEdit">
+           <property name="enabled">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="leadershipEdit"/>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="workRateEdit"/>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="toughnessEdit"/>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="clutchnessEdit"/>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QPushButton" name="applyStatsChangesButton">
+        <property name="geometry">
+         <rect>
+          <x>660</x>
+          <y>530</y>
+          <width>121</width>
+          <height>29</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Apply Changes</string>
         </property>
        </widget>
       </widget>

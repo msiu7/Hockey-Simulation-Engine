@@ -30,4 +30,5 @@ public:
 	skaterDefensiveStats& getDefStats() { return def; }
 	std::ostream& showSpecificStats(std::ostream& out) const override;
     QString getPositionAsString() const override;
+    friend class MainWindow;
 };

@@ -184,6 +184,7 @@ void MainWindow::on_playersListWidget_itemClicked(QListWidgetItem *item)
     this->currentPlayer = item->data(Qt::UserRole).value<player*>();
 
     ui->playerNameLabel->setText(this->currentPlayer->getFirstName() + " " + this->currentPlayer->getLastName());
+    putPlayerAttributesToLineEdits(this->currentPlayer);
     ui->stackedWidget->setCurrentIndex(4);
 }
 
@@ -212,16 +213,96 @@ void MainWindow::on_addCustomPlayerButton_clicked()
         handednessTemp = 0;
     else
         handednessTemp = 1;
+    player* p = nullptr;
 
     if(ui->positionComboBox->currentText() == "G")
-        player* p = new goalie(ui->numberLineEdit->text().simplified().toInt(), ui->firstNameLineEdit->text().simplified(), ui->lastNameLineEdit->text().simplified(), handednessTemp);
-    else
+    {
+        p = new goalie(ui->numberLineEdit->text().simplified().toInt(), ui->firstNameLineEdit->text().simplified(), ui->lastNameLineEdit->text().simplified(), handednessTemp);
+    }
+    else{
         if(ui->positionComboBox->currentText() == "F")
             positionTemp = 1;
         else
             positionTemp = 2;
-    player* p = new skater(positionTemp, ui->numberLineEdit->text().simplified().toInt(), ui->firstNameLineEdit->text().simplified(), ui->lastNameLineEdit->text().simplified(), handednessTemp);
+        p = new skater(positionTemp, ui->numberLineEdit->text().simplified().toInt(), ui->firstNameLineEdit->text().simplified(), ui->lastNameLineEdit->text().simplified(), handednessTemp);
+    }
     this->currentTeam->roster.push_back(p);
     makePlayerListItem(p);
+}
+
+void MainWindow::putPlayerAttributesToLineEdits(player* p)
+{
+    ui->accelerationEdit->setText(QString::number(p->phys.acceleration));
+    ui->speedEdit->setText(QString::number(p->phys.speed));
+    ui->strengthEdit->setText(QString::number(p->phys.strength));
+    ui->staminaEdit->setText(QString::number(p->phys.stamina));
+    ui->agilityEdit->setText(QString::number(p->phys.agility));
+
+    ui->clutchnessEdit->setText(QString::number(p->ment.clutchness));
+    ui->riskinessEdit->setText(QString::number(p->ment.riskiness));
+    ui->leadershipEdit->setText(QString::number(p->ment.leadership));
+    ui->workRateEdit->setText(QString::number(p->ment.workRate));
+    ui->toughnessEdit->setText(QString::number(p->ment.toughness));
+
+    //check if player is a goalie or skater
+    if(goalie* g = dynamic_cast<goalie*>(p)){
+        ui->blockerEdit->setText(QString::number(g->goal.blocker));
+        ui->gloveEdit->setText(QString::number(g->goal.glove));
+        ui->gPositioningEdit->setText(QString::number(g->goal.gPositioning));
+        ui->reflexesEdit->setText(QString::number(g->goal.reflexes));
+        ui->specificStatsStackedWidget->setCurrentIndex(1);
+    }
+    else{
+        skater* s = dynamic_cast<skater*>(p);
+
+        ui->wristShotEdit->setText(QString::number(s->off.wristShot));
+        ui->slapShotEdit->setText(QString::number(s->off.slapShot));
+        ui->backhandEdit->setText(QString::number(s->off.backhand));
+        ui->passingEdit->setText(QString::number(s->off.passing));
+        ui->stickhandlingEdit->setText(QString::number(s->off.stickhandling));
+
+        ui->faceoffsEdit->setText(QString::number(s->def.faceoffs));
+        ui->dPositioningEdit->setText(QString::number(s->def.dPositioning));
+        ui->checkingEdit->setText(QString::number(s->def.checking));
+
+        ui->specificStatsStackedWidget->setCurrentIndex(0);
+    }
+}
+
+void MainWindow::on_applyStatsChangesButton_clicked()
+{
+    this->currentPlayer->phys.acceleration = ui->accelerationEdit->text().simplified().toInt();
+    this->currentPlayer->phys.stamina = ui->staminaEdit->text().simplified().toInt();
+    this->currentPlayer->phys.strength = ui->strengthEdit->text().simplified().toInt();
+    this->currentPlayer->phys.speed = ui->speedEdit->text().simplified().toInt();
+    this->currentPlayer->phys.agility = ui->agilityEdit->text().simplified().toInt();
+
+    this->currentPlayer->ment.clutchness = ui->clutchnessEdit->text().simplified().toInt();
+    this->currentPlayer->ment.riskiness = ui->riskinessEdit->text().simplified().toInt();
+    this->currentPlayer->ment.leadership = ui->leadershipEdit->text().simplified().toInt();
+    this->currentPlayer->ment.workRate = ui->workRateEdit->text().simplified().toInt();
+    this->currentPlayer->ment.toughness = ui->toughnessEdit->text().simplified().toInt();
+
+
+    //check if player is a goalie or skater
+    if(goalie* g = dynamic_cast<goalie*>(this->currentPlayer)){
+        g->goal.blocker = ui->blockerEdit->text().simplified().toInt();
+        g->goal.glove = ui->gloveEdit->text().simplified().toInt();
+        g->goal.gPositioning = ui->gPositioningEdit->text().simplified().toInt();
+        g->goal.reflexes = ui->reflexesEdit->text().simplified().toInt();
+    }
+    else{
+        skater* s = dynamic_cast<skater*>(this->currentPlayer);
+
+        s->off.wristShot = ui->wristShotEdit->text().simplified().toInt();
+        s->off.slapShot = ui->slapShotEdit->text().simplified().toInt();
+        s->off.backhand = ui->backhandEdit->text().simplified().toInt();
+        s->off.passing = ui->passingEdit->text().simplified().toInt();
+        s->off.stickhandling = ui->stickhandlingEdit->text().simplified().toInt();
+
+        s->def.faceoffs = ui->faceoffsEdit->text().simplified().toInt();
+        s->def.dPositioning = ui->dPositioningEdit->text().simplified().toInt();
+        s->def.checking = ui->checkingEdit->text().simplified().toInt();
+    }
 }
 

@@ -48,6 +48,6 @@ public:
     //std::ostream& showUniversalStats(std::ostream& out) const;
 	virtual std::ostream& showSpecificStats(std::ostream& out) const = 0;
     virtual QString getPositionAsString() const = 0;
-
+    friend class MainWindow;
     //friend std::ostream& operator<<(std::ostream& out, const player& p);
 };

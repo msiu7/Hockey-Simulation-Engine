@@ -20,6 +20,7 @@ public:
     ~MainWindow();
     void generalBackButtonAction();
     void makePlayerListItem(player* p);
+    void putPlayerAttributesToLineEdits(player* p);
 
 private slots:
     void on_startSim_clicked();
@@ -43,6 +44,8 @@ private slots:
     void on_backButton4_clicked();
 
     void on_addCustomPlayerButton_clicked();
+
+    void on_applyStatsChangesButton_clicked();
 
 private:
     Ui::MainWindow *ui;

@@ -19,4 +19,5 @@ public:
 	goalieTechnicalStats& getGoalieStats() { return goal; }
 	std::ostream& showSpecificStats(std::ostream& out) const override;
     QString getPositionAsString() const override;
+    friend class MainWindow;
 };
