@@ -6,25 +6,18 @@
 #include "team.hpp"
 #include "mainwindow.hpp"
 #include <QApplication>
+#include <dasmig/namegen.hpp>
+#include <dasmig/random.hpp>
+
+
 int main(int argc, char* argv[]) {
-
-	/*
-	//Creating Some Players
-	std::unique_ptr<player> arr[6];
-	for (int i = 0; i < 5; i++) {
-		arr[i] = std::make_unique<skater>();
-		std::cout << *arr[i] << std::endl << std::endl;
-	}
-	arr[5] = std::make_unique<goalie>();
-	std::cout << *(arr[5]) << std::endl << std::endl;
-
-	//Creating A Team and displaying its roster
-	team a = team();
-	a.fillRoster();
-	std::cout << a;
-	*/
+    //check if library works
+    auto& gen = dasmig::ng::instance();
+    std::wcout << gen.get_name(dasmig::gender::m, dasmig::culture::american);
+    /*
 	QApplication app(argc, argv);
     MainWindow window;
     window.show();
 	return app.exec();
+    */
 }

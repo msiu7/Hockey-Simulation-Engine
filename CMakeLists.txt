@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.16)
 
 project(HockeySimulationEngine VERSION 0.1 LANGUAGES CXX)
 
-set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Find the required Qt components
@@ -27,13 +27,32 @@ add_executable(HockeySimulationEngine
     mainwindow.hpp
     mainwindow.cpp
     mainwindow.ui
+    include/spacer.hpp
+    include/dasmig/namegen.hpp
+    include/dasmig/random.hpp
 
 )
 
 # Link Qt libraries to executable
 target_link_libraries(HockeySimulationEngine PRIVATE Qt6::Core Qt6::Gui Qt6::Widgets)
 
-#double heap space
+# double heap space
 if(MSVC)
     add_compile_options(/Zm200)
 endif()
+
+# including custom downloaded libraries (in the include folder)
+target_include_directories(HockeySimulationEngine PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include)
+
+# Recursively grab every file inside the resources directory
+file(GLOB_RECURSE RESOURCE_FILES "resources/*")
+
+# Add those files to executable target so Qt Creator displays the folder
+target_sources(HockeySimulationEngine PRIVATE ${RESOURCE_FILES})
+
+# Copy the entire resources directory to where the executable lives (necessary? let's see later)
+add_custom_command(TARGET HockeySimulationEngine POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+    ${CMAKE_CURRENT_SOURCE_DIR}/resources
+    $<TARGET_FILE_DIR:HockeySimulationEngine>/resources
+)
