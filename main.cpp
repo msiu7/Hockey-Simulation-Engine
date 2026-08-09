@@ -5,19 +5,17 @@
 #include "goalie.hpp"
 #include "team.hpp"
 #include "mainwindow.hpp"
+#include "ui_mainwindow.h"
 #include <QApplication>
 #include <dasmig/namegen.hpp>
 #include <dasmig/random.hpp>
 
-
 int main(int argc, char* argv[]) {
-    //check if library works
-    auto& gen = dasmig::ng::instance();
-    std::wcout << gen.get_name(dasmig::gender::m, dasmig::culture::american);
-    /*
 	QApplication app(argc, argv);
     MainWindow window;
+    //always start at the start screen
+    window.generalBackButtonAction();
+
     window.show();
 	return app.exec();
-    */
 }

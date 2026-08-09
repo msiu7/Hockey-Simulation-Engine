@@ -27,12 +27,13 @@ protected:
     QString firstName;
     QString lastName;
 	int handedness; // 0 = left, 1 = right, 2 = default
+    QString country;
 	physicalStats phys;
 	mentalStats ment;
 
 public:
 
-    player(int number = 0, QString firstName = "DEFAULT", QString lastName = "DEFAULT", int handedness = 2);
+    player(int number = 0, QString firstName = "DEFAULT", QString lastName = "DEFAULT", int handedness = 2, QString country = "DEFAULT");
     virtual ~player() = default;
 	void setNumber(int num);
     void setFirstName(QString name);
@@ -43,6 +44,7 @@ public:
     QString getFirstName() const { return firstName; }
     QString getLastName() const { return lastName; }
     QString getHandedness() const;
+    QString getCountry() const { return country; }
 	physicalStats& getPhysStats() { return phys; }
 	mentalStats& getMentalStats() { return ment; }
     //std::ostream& showUniversalStats(std::ostream& out) const;

@@ -18,7 +18,7 @@
     <item row="0" column="0">
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>0</number>
+       <number>3</number>
       </property>
       <widget class="QWidget" name="emptyPage">
        <widget class="QPushButton" name="exitApp">
@@ -432,10 +432,10 @@
        <widget class="QLabel" name="label_7">
         <property name="geometry">
          <rect>
-          <x>210</x>
-          <y>174</y>
-          <width>63</width>
-          <height>31</height>
+          <x>209</x>
+          <y>182</y>
+          <width>41</width>
+          <height>16</height>
          </rect>
         </property>
         <property name="text">
@@ -445,9 +445,9 @@
        <widget class="QLabel" name="label_8">
         <property name="geometry">
          <rect>
-          <x>305</x>
+          <x>272</x>
           <y>180</y>
-          <width>63</width>
+          <width>60</width>
           <height>20</height>
          </rect>
         </property>
@@ -458,7 +458,7 @@
        <widget class="QLabel" name="label_9">
         <property name="geometry">
          <rect>
-          <x>560</x>
+          <x>465</x>
           <y>180</y>
           <width>91</width>
           <height>20</height>
@@ -471,7 +471,7 @@
        <widget class="QLabel" name="label_10">
         <property name="geometry">
          <rect>
-          <x>432</x>
+          <x>379</x>
           <y>180</y>
           <width>63</width>
           <height>20</height>
@@ -479,6 +479,42 @@
         </property>
         <property name="text">
          <string>Position</string>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="countryLineEdit">
+        <property name="geometry">
+         <rect>
+          <x>840</x>
+          <y>31</y>
+          <width>41</width>
+          <height>26</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_19">
+        <property name="geometry">
+         <rect>
+          <x>835</x>
+          <y>10</y>
+          <width>60</width>
+          <height>20</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Country</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_20">
+        <property name="geometry">
+         <rect>
+          <x>586</x>
+          <y>180</y>
+          <width>60</width>
+          <height>20</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Country</string>
         </property>
        </widget>
       </widget>
@@ -601,7 +637,7 @@
             <x>10</x>
             <y>220</y>
             <width>91</width>
-            <height>80</height>
+            <height>91</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_8">
@@ -633,25 +669,90 @@
            <rect>
             <x>120</x>
             <y>20</y>
-            <width>41</width>
-            <height>141</height>
+            <width>63</width>
+            <height>145</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_9">
            <item>
-            <widget class="QLineEdit" name="wristShotEdit"/>
+            <widget class="QLineEdit" name="wristShotEdit">
+             <property name="minimumSize">
+              <size>
+               <width>59</width>
+               <height>23</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>59</width>
+               <height>23</height>
+              </size>
+             </property>
+            </widget>
            </item>
            <item>
-            <widget class="QLineEdit" name="slapShotEdit"/>
+            <widget class="QLineEdit" name="slapShotEdit">
+             <property name="minimumSize">
+              <size>
+               <width>59</width>
+               <height>23</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>59</width>
+               <height>23</height>
+              </size>
+             </property>
+            </widget>
            </item>
            <item>
-            <widget class="QLineEdit" name="backhandEdit"/>
+            <widget class="QLineEdit" name="backhandEdit">
+             <property name="minimumSize">
+              <size>
+               <width>59</width>
+               <height>23</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>59</width>
+               <height>23</height>
+              </size>
+             </property>
+            </widget>
            </item>
            <item>
-            <widget class="QLineEdit" name="stickhandlingEdit"/>
+            <widget class="QLineEdit" name="stickhandlingEdit">
+             <property name="minimumSize">
+              <size>
+               <width>59</width>
+               <height>23</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>59</width>
+               <height>23</height>
+              </size>
+             </property>
+            </widget>
            </item>
            <item>
-            <widget class="QLineEdit" name="passingEdit"/>
+            <widget class="QLineEdit" name="passingEdit">
+             <property name="minimumSize">
+              <size>
+               <width>59</width>
+               <height>23</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>59</width>
+               <height>23</height>
+              </size>
+             </property>
+            </widget>
            </item>
           </layout>
          </widget>
@@ -660,19 +761,58 @@
            <rect>
             <x>120</x>
             <y>220</y>
-            <width>41</width>
-            <height>81</height>
+            <width>63</width>
+            <height>91</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_10">
            <item>
-            <widget class="QLineEdit" name="dPositioningEdit"/>
+            <widget class="QLineEdit" name="dPositioningEdit">
+             <property name="minimumSize">
+              <size>
+               <width>59</width>
+               <height>23</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>59</width>
+               <height>23</height>
+              </size>
+             </property>
+            </widget>
            </item>
            <item>
-            <widget class="QLineEdit" name="checkingEdit"/>
+            <widget class="QLineEdit" name="checkingEdit">
+             <property name="minimumSize">
+              <size>
+               <width>59</width>
+               <height>23</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>59</width>
+               <height>23</height>
+              </size>
+             </property>
+            </widget>
            </item>
            <item>
-            <widget class="QLineEdit" name="faceoffsEdit"/>
+            <widget class="QLineEdit" name="faceoffsEdit">
+             <property name="minimumSize">
+              <size>
+               <width>59</width>
+               <height>23</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>59</width>
+               <height>23</height>
+              </size>
+             </property>
+            </widget>
            </item>
           </layout>
          </widget>
@@ -736,22 +876,74 @@
            <rect>
             <x>130</x>
             <y>20</y>
-            <width>41</width>
-            <height>111</height>
+            <width>63</width>
+            <height>127</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_12">
            <item>
-            <widget class="QLineEdit" name="gloveEdit"/>
+            <widget class="QLineEdit" name="gloveEdit">
+             <property name="minimumSize">
+              <size>
+               <width>59</width>
+               <height>23</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>59</width>
+               <height>23</height>
+              </size>
+             </property>
+            </widget>
            </item>
            <item>
-            <widget class="QLineEdit" name="blockerEdit"/>
+            <widget class="QLineEdit" name="blockerEdit">
+             <property name="minimumSize">
+              <size>
+               <width>59</width>
+               <height>23</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>59</width>
+               <height>23</height>
+              </size>
+             </property>
+            </widget>
            </item>
            <item>
-            <widget class="QLineEdit" name="gPositioningEdit"/>
+            <widget class="QLineEdit" name="gPositioningEdit">
+             <property name="minimumSize">
+              <size>
+               <width>59</width>
+               <height>23</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>59</width>
+               <height>23</height>
+              </size>
+             </property>
+            </widget>
            </item>
            <item>
-            <widget class="QLineEdit" name="reflexesEdit"/>
+            <widget class="QLineEdit" name="reflexesEdit">
+             <property name="minimumSize">
+              <size>
+               <width>59</width>
+               <height>23</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>59</width>
+               <height>23</height>
+              </size>
+             </property>
+            </widget>
            </item>
           </layout>
          </widget>
@@ -848,25 +1040,90 @@
          <rect>
           <x>320</x>
           <y>330</y>
-          <width>41</width>
-          <height>141</height>
+          <width>63</width>
+          <height>145</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_2">
          <item>
-          <widget class="QLineEdit" name="staminaEdit"/>
+          <widget class="QLineEdit" name="staminaEdit">
+           <property name="minimumSize">
+            <size>
+             <width>59</width>
+             <height>23</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>59</width>
+             <height>23</height>
+            </size>
+           </property>
+          </widget>
          </item>
          <item>
-          <widget class="QLineEdit" name="speedEdit"/>
+          <widget class="QLineEdit" name="speedEdit">
+           <property name="minimumSize">
+            <size>
+             <width>59</width>
+             <height>23</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>59</width>
+             <height>23</height>
+            </size>
+           </property>
+          </widget>
          </item>
          <item>
-          <widget class="QLineEdit" name="accelerationEdit"/>
+          <widget class="QLineEdit" name="accelerationEdit">
+           <property name="minimumSize">
+            <size>
+             <width>59</width>
+             <height>23</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>59</width>
+             <height>23</height>
+            </size>
+           </property>
+          </widget>
          </item>
          <item>
-          <widget class="QLineEdit" name="strengthEdit"/>
+          <widget class="QLineEdit" name="strengthEdit">
+           <property name="minimumSize">
+            <size>
+             <width>59</width>
+             <height>23</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>59</width>
+             <height>23</height>
+            </size>
+           </property>
+          </widget>
          </item>
          <item>
-          <widget class="QLineEdit" name="agilityEdit"/>
+          <widget class="QLineEdit" name="agilityEdit">
+           <property name="minimumSize">
+            <size>
+             <width>59</width>
+             <height>23</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>59</width>
+             <height>23</height>
+            </size>
+           </property>
+          </widget>
          </item>
         </layout>
        </widget>
@@ -922,8 +1179,8 @@
          <rect>
           <x>320</x>
           <y>130</y>
-          <width>41</width>
-          <height>141</height>
+          <width>63</width>
+          <height>145</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_6">
@@ -935,19 +1192,83 @@
            <property name="enabled">
             <bool>true</bool>
            </property>
+           <property name="minimumSize">
+            <size>
+             <width>59</width>
+             <height>23</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>59</width>
+             <height>23</height>
+            </size>
+           </property>
           </widget>
          </item>
          <item>
-          <widget class="QLineEdit" name="leadershipEdit"/>
+          <widget class="QLineEdit" name="leadershipEdit">
+           <property name="minimumSize">
+            <size>
+             <width>59</width>
+             <height>23</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>59</width>
+             <height>23</height>
+            </size>
+           </property>
+          </widget>
          </item>
          <item>
-          <widget class="QLineEdit" name="workRateEdit"/>
+          <widget class="QLineEdit" name="workRateEdit">
+           <property name="minimumSize">
+            <size>
+             <width>59</width>
+             <height>23</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>59</width>
+             <height>23</height>
+            </size>
+           </property>
+          </widget>
          </item>
          <item>
-          <widget class="QLineEdit" name="toughnessEdit"/>
+          <widget class="QLineEdit" name="toughnessEdit">
+           <property name="minimumSize">
+            <size>
+             <width>59</width>
+             <height>23</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>59</width>
+             <height>23</height>
+            </size>
+           </property>
+          </widget>
          </item>
          <item>
-          <widget class="QLineEdit" name="clutchnessEdit"/>
+          <widget class="QLineEdit" name="clutchnessEdit">
+           <property name="minimumSize">
+            <size>
+             <width>59</width>
+             <height>23</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>59</width>
+             <height>23</height>
+            </size>
+           </property>
+          </widget>
          </item>
         </layout>
        </widget>

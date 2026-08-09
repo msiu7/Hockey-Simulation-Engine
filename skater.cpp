@@ -1,7 +1,7 @@
 #include "skater.hpp"
 
-skater::skater(int position, int number, QString firstName, QString lastName, int handedness, skaterOffensiveStats o, skaterDefensiveStats d):
-	player(number, firstName, lastName, handedness)
+skater::skater(int position, int number, QString firstName, QString lastName, int handedness, QString country, skaterOffensiveStats o, skaterDefensiveStats d):
+    player(number, firstName, lastName, handedness, country)
 {
 	this->position = position;
 	off = o;

@@ -1,12 +1,13 @@
 #include "player.hpp"
 #include <string>
 
-player::player(int number, QString firstName, QString lastName, int handedness)
+player::player(int number, QString firstName, QString lastName, int handedness, QString country)
 {
 	this->number = number;
 	this->firstName = firstName;
 	this->lastName = lastName;
 	this->handedness = handedness;
+    this->country = country;
 }
 
 void player::setNumber(int num)
