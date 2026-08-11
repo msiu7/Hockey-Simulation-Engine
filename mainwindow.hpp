@@ -21,6 +21,7 @@ public:
     void generalBackButtonAction();
     void makePlayerListItem(player* p);
     void putPlayerAttributesToLineEdits(player* p);
+    int getRandomNumber(int range1, int range2);
 
 private slots:
     void on_startSim_clicked();
@@ -46,6 +47,8 @@ private slots:
     void on_addCustomPlayerButton_clicked();
 
     void on_applyStatsChangesButton_clicked();
+
+    void on_addRandomPlayerButton_clicked();
 
 private:
     Ui::MainWindow *ui;

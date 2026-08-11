@@ -135,6 +135,7 @@ enum class culture : std::uint8_t
     tunisian,
     turkish,
     turkmen,
+    ukranian,
     uruguayan,
     yemeni,
     any

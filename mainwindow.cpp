@@ -2,6 +2,9 @@
 #include "ui_mainwindow.h"
 #include "team.hpp"
 #include <vector>
+#include <random>
+#include <dasmig/namegen.hpp>
+#include <dasmig/random.hpp>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -310,3 +313,180 @@ void MainWindow::on_applyStatsChangesButton_clicked()
     }
 }
 
+void MainWindow::on_addRandomPlayerButton_clicked()
+{
+    auto& gen = dasmig::ng::instance();
+
+    int countryRand = getRandomNumber(1, 1000); // XX.X% format (country split based on NHL statistics)
+    if(countryRand <= 422){
+        QString firstNamePicked = QString::fromStdWString(gen.get_name(dasmig::gender::m, dasmig::culture::canadian));
+        QString lastNamePicked = QString::fromStdWString(gen.get_surname(dasmig::culture::canadian));
+        QString countryPicked = "CA";
+
+    } //canada
+    else if(countryRand >= 423 && countryRand <= 700){
+        QString firstNamePicked = QString::fromStdWString(gen.get_name(dasmig::gender::m, dasmig::culture::american));
+        QString lastNamePicked = QString::fromStdWString(gen.get_surname(dasmig::culture::american));
+        QString countryPicked = "US";
+    } //usa
+    else if(countryRand >= 701 && countryRand <= 799){
+        QString firstNamePicked = QString::fromStdWString(gen.get_name(dasmig::gender::m, dasmig::culture::swedish));
+        QString lastNamePicked = QString::fromStdWString(gen.get_surname(dasmig::culture::swedish));
+        QString countryPicked = "SE";
+    } //sweden
+    else if(countryRand >= 800 && countryRand <= 865){
+        QString firstNamePicked = QString::fromStdWString(gen.get_name(dasmig::gender::m, dasmig::culture::russian));
+        QString lastNamePicked = QString::fromStdWString(gen.get_surname(dasmig::culture::russian));
+        QString countryPicked = "RU";
+    } //russia
+    else if(countryRand >= 866 && countryRand <= 915){
+        QString firstNamePicked = QString::fromStdWString(gen.get_name(dasmig::gender::m, dasmig::culture::finnish));
+        QString lastNamePicked = QString::fromStdWString(gen.get_surname(dasmig::culture::finnish));
+        QString countryPicked = "FI";
+    } //finland
+    else if(countryRand >= 916 && countryRand <= 943){
+        QString firstNamePicked = QString::fromStdWString(gen.get_name(dasmig::gender::m, dasmig::culture::czech));
+        QString lastNamePicked = QString::fromStdWString(gen.get_surname(dasmig::culture::czech));
+        QString countryPicked = "CZ";
+    } //czech
+    else if(countryRand >= 944 && countryRand <= 954){
+        QString firstNamePicked = QString::fromStdWString(gen.get_name(dasmig::gender::m, dasmig::culture::swiss));
+        QString lastNamePicked = QString::fromStdWString(gen.get_surname(dasmig::culture::swiss));
+        QString countryPicked = "CH";
+    } //switzerland
+    else if(countryRand >= 955 && countryRand <= 963){
+        if(countryRand == 955){
+            QString firstNamePicked = QString::fromStdWString(gen.get_name(dasmig::gender::m, dasmig::culture::french));
+            QString lastNamePicked = QString::fromStdWString(gen.get_surname(dasmig::culture::french));
+            QString countryPicked = "FR";
+        } //france
+        else if(countryRand == 956){
+            QString firstNamePicked = QString::fromStdWString(gen.get_name(dasmig::gender::m, dasmig::culture::bulgarian));
+            QString lastNamePicked = QString::fromStdWString(gen.get_surname(dasmig::culture::bulgarian));
+            QString countryPicked = "BG";
+        } //bulgaria
+        else if(countryRand == 957){
+            QString firstNamePicked = QString::fromStdWString(gen.get_name(dasmig::gender::m, dasmig::culture::lithuanian));
+            QString lastNamePicked = QString::fromStdWString(gen.get_surname(dasmig::culture::lithuanian));
+            QString countryPicked = "LT";
+        } //lithuania
+        else if(countryRand == 958){
+            QString firstNamePicked = QString::fromStdWString(gen.get_name(dasmig::gender::m, dasmig::culture::british));
+            QString lastNamePicked = QString::fromStdWString(gen.get_surname(dasmig::culture::british));
+            QString countryPicked = "GB";
+        }
+        else if(countryRand == 959){
+            QString firstNamePicked = QString::fromStdWString(gen.get_name(dasmig::gender::m, dasmig::culture::polish));
+            QString lastNamePicked = QString::fromStdWString(gen.get_surname(dasmig::culture::polish));
+            QString countryPicked = "PL";
+        } //poland
+        else if(countryRand == 960){
+            QString firstNamePicked = QString::fromStdWString(gen.get_name(dasmig::gender::m, dasmig::culture::italian));
+            QString lastNamePicked = QString::fromStdWString(gen.get_surname(dasmig::culture::italian));
+            QString countryPicked = "IT";
+        } //italy
+        else if(countryRand == 961){
+            QString firstNamePicked = QString::fromStdWString(gen.get_name(dasmig::gender::m, dasmig::culture::belgian));
+            QString lastNamePicked = QString::fromStdWString(gen.get_surname(dasmig::culture::belgian));
+            QString countryPicked = "BE";
+        } //belgium
+        else if(countryRand == 962){
+            QString firstNamePicked = QString::fromStdWString(gen.get_name(dasmig::gender::m, dasmig::culture::chinese));
+            QString lastNamePicked = QString::fromStdWString(gen.get_surname(dasmig::culture::chinese));
+            QString countryPicked = "CN";
+        } //china
+        else{
+            QString firstNamePicked = QString::fromStdWString(gen.get_name(dasmig::gender::m, dasmig::culture::brazilian));
+            QString lastNamePicked = QString::fromStdWString(gen.get_surname(dasmig::culture::brazilian));
+            QString countryPicked = "BR";
+        } //brazil
+    } //slovakia (no slovakian culture in the library, give to random unused countries)
+    else if(countryRand >= 964 && countryRand <= 971){
+        QString firstNamePicked = QString::fromStdWString(gen.get_name(dasmig::gender::m, dasmig::culture::russian));
+        QString lastNamePicked = QString::fromStdWString(gen.get_surname(dasmig::culture::russian));
+        QString countryPicked = "BY";
+    } //belarus (no belarussian name in library, just using russian names ig)
+    else if(countryRand >= 972 && countryRand <= 979){
+        QString firstNamePicked = QString::fromStdWString(gen.get_name(dasmig::gender::m, dasmig::culture::german));
+        QString lastNamePicked = QString::fromStdWString(gen.get_surname(dasmig::culture::german));
+        QString countryPicked = "DE";
+    } //germany
+    else if(countryRand >= 980 && countryRand <= 986){
+        if(countryRand == 980){
+            QString firstNamePicked = QString::fromStdWString(gen.get_name(dasmig::gender::m, dasmig::culture::kazakh));
+            QString lastNamePicked = QString::fromStdWString(gen.get_surname(dasmig::culture::kazakh));
+            QString countryPicked = "KZ";
+        } //kazakhstan
+        else if(countryRand == 981){
+            QString firstNamePicked = QString::fromStdWString(gen.get_name(dasmig::gender::m, dasmig::culture::nigerian));
+            QString lastNamePicked = QString::fromStdWString(gen.get_surname(dasmig::culture::nigerian));
+            QString countryPicked = "NG";
+        } //nigeria
+        else if(countryRand == 982){
+            QString firstNamePicked = QString::fromStdWString(gen.get_name(dasmig::gender::m, dasmig::culture::ukranian));
+            QString lastNamePicked = QString::fromStdWString(gen.get_surname(dasmig::culture::ukranian));
+            QString countryPicked = "UA";
+        } //ukraine
+        else if(countryRand == 983){
+            QString firstNamePicked = QString::fromStdWString(gen.get_name(dasmig::gender::m, dasmig::culture::korean));
+            QString lastNamePicked = QString::fromStdWString(gen.get_surname(dasmig::culture::korean));
+            QString countryPicked = "KR";
+        } //south korea
+        else if(countryRand == 984){
+            QString firstNamePicked = QString::fromStdWString(gen.get_name(dasmig::gender::m, dasmig::culture::dutch));
+            QString lastNamePicked = QString::fromStdWString(gen.get_surname(dasmig::culture::dutch));
+            QString countryPicked = "NL";
+        } //netherlands
+        else if(countryRand == 985){
+            QString firstNamePicked = QString::fromStdWString(gen.get_name(dasmig::gender::m, dasmig::culture::japanese));
+            QString lastNamePicked = QString::fromStdWString(gen.get_surname(dasmig::culture::japanese));
+            QString countryPicked = "JP";
+        } //japan
+        else{
+            QString firstNamePicked = QString::fromStdWString(gen.get_name(dasmig::gender::m, dasmig::culture::southafrican));
+            QString lastNamePicked = QString::fromStdWString(gen.get_surname(dasmig::culture::southafrican));
+            QString countryPicked = "ZA";
+        } //south africa
+    } //latvia (no latvian culture in the library, give to random unused countries)
+    else if(countryRand >= 987 && countryRand <= 993){
+        QString firstNamePicked = QString::fromStdWString(gen.get_name(dasmig::gender::m, dasmig::culture::danish));
+        QString lastNamePicked = QString::fromStdWString(gen.get_surname(dasmig::culture::danish));
+        QString countryPicked = "DK";
+    } //denmark
+    else if(countryRand >= 994 && countryRand <= 996){
+        QString firstNamePicked = QString::fromStdWString(gen.get_name(dasmig::gender::m, dasmig::culture::norwegian));
+        QString lastNamePicked = QString::fromStdWString(gen.get_surname(dasmig::culture::norwegian));
+        QString countryPicked = "NO";
+    } //norway
+    else if(countryRand >= 997 && countryRand <= 999){
+        QString firstNamePicked = QString::fromStdWString(gen.get_name(dasmig::gender::m, dasmig::culture::austrian));
+        QString lastNamePicked = QString::fromStdWString(gen.get_surname(dasmig::culture::austrian));
+        QString countryPicked = "AT";
+    } //austria
+    else{
+        QString firstNamePicked = QString::fromStdWString(gen.get_name(dasmig::gender::m, dasmig::culture::slovenian));
+        QString lastNamePicked = QString::fromStdWString(gen.get_surname(dasmig::culture::slovenian));
+        QString countryPicked = "SI";
+    } //slovenia
+
+    //player* p = new player()
+    //this->currentTeam->roster.push_back(p);
+    //makePlayerListItem(p);
+}
+
+int MainWindow::getRandomNumber(int range1, int range2)
+{
+    // random
+    std::random_device rd;
+
+    // Mersenne Twister
+    std::mt19937 gen(rd());
+
+    // define range [inclusive, inclusive]
+    std::uniform_int_distribution<int> distrib(range1, range2);
+
+    // generate
+    int randomNum = distrib(gen);
+
+    return randomNum;
+}

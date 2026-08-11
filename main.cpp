@@ -7,8 +7,6 @@
 #include "mainwindow.hpp"
 #include "ui_mainwindow.h"
 #include <QApplication>
-#include <dasmig/namegen.hpp>
-#include <dasmig/random.hpp>
 
 int main(int argc, char* argv[]) {
 	QApplication app(argc, argv);
