@@ -6,10 +6,16 @@ team::team(QString city, QString teamName)
 {
     this->city = city.simplified();
     this->teamName = teamName.simplified();
+    for(int i = 0; i < 100; i++){
+        this->numbersUsed[i] = false;
+    }
     teamsCounter++;
 }
 
 team::~team(){
+    for(player* p : roster){
+        delete p;
+    }
     teamsCounter--;
 }
 /*

@@ -136,6 +136,8 @@ void MainWindow::makePlayerListItem(player* p){
 
     ui->playersListWidget->addItem(newPlayer);
 
+    //exclude used number
+    currentTeam->numbersUsed[p->getNumber()] = true;
     //setting row format (same as team view basically)
     QWidget* playersRowWidget = new QWidget();
     QHBoxLayout* playersLayout = new QHBoxLayout(playersRowWidget);
@@ -212,7 +214,10 @@ void MainWindow::on_addCustomPlayerButton_clicked()
         QMessageBox::warning(this, "Input Error", "This player already exists.");
         return;
     }
-
+    if(currentTeam->numbersUsed[ui->numberLineEdit->text().simplified().toInt()]){
+        QMessageBox::warning(this, "Input Error", "This number is already in use.");
+        return;
+    }
     //creating a player
     int handednessTemp;
     int positionTemp;
@@ -320,6 +325,9 @@ void MainWindow::on_addRandomPlayerButton_clicked()
     QString lastNamePicked;
     QString countryPicked;
     int numberRand = getRandomNumber(1, 98);
+    while(currentTeam->numbersUsed[numberRand]){
+        numberRand = getRandomNumber(1, 98); //keep generating a random number until you get one that isn't duplicate
+    }
     int handednessRand = getRandomNumber(0, 1);
     int positionRand = getRandomNumber(1, 20); //12 F, 6 D, 2G ratio
     int countryRand = getRandomNumber(1, 1000); // XX.X% format (country split based on NHL statistics)
