@@ -5,6 +5,7 @@
 #include <QMainWindow>
 #include <QListWidget>
 #include <QMessageBox>
+#include <QCheckBox>
 #include "player.hpp"
 
 namespace Ui {
@@ -39,8 +40,6 @@ private slots:
     void onTeamSelected(QListWidgetItem* item);
 
     void on_backButton3_clicked();
-
-    void on_playersListWidget_itemClicked(QListWidgetItem *item);
 
     void on_backButton4_clicked();
 

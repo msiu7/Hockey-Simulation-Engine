@@ -30,10 +30,11 @@ protected:
     QString country;
 	physicalStats phys;
 	mentalStats ment;
+    bool isDressed;
 
 public:
 
-    player(int number = 0, QString firstName = "DEFAULT", QString lastName = "DEFAULT", int handedness = 2, QString country = "DEFAULT");
+    player(int number = 0, QString firstName = "DEFAULT", QString lastName = "DEFAULT", int handedness = 2, QString country = "DEFAULT", bool isDressed = false);
     virtual ~player() = default;
 	void setNumber(int num);
     void setFirstName(QString name);
@@ -47,6 +48,7 @@ public:
     QString getCountry() const { return country; }
 	physicalStats& getPhysStats() { return phys; }
 	mentalStats& getMentalStats() { return ment; }
+    bool getIsDressed(){ return isDressed; }
     //std::ostream& showUniversalStats(std::ostream& out) const;
 	virtual std::ostream& showSpecificStats(std::ostream& out) const = 0;
     virtual QString getPositionAsString() const = 0;

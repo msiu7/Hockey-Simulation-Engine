@@ -129,8 +129,7 @@ void MainWindow::on_backButton3_clicked()
 }
 
 void MainWindow::makePlayerListItem(player* p){
-    QListWidgetItem *newPlayer = new QListWidgetItem(p->getFirstName() + " " + p->getLastName());
-
+    QListWidgetItem *newPlayer = new QListWidgetItem();
     //save player pointer
     newPlayer->setData(Qt::UserRole, QVariant::fromValue(p));
 
@@ -141,33 +140,53 @@ void MainWindow::makePlayerListItem(player* p){
     //setting row format (same as team view basically)
     QWidget* playersRowWidget = new QWidget();
     QHBoxLayout* playersLayout = new QHBoxLayout(playersRowWidget);
+
+    //ui design
+    playersLayout->setContentsMargins(10, 2, 10, 2);
+    playersLayout->setSpacing(12);
+
+
+    QLabel* name = new QLabel(p->getFirstName() + " " + p->getLastName());
+    name->setFixedWidth(160);
+
+    QLabel* num = new QLabel(QString::number(p->getNumber()));
+    num->setFixedWidth(40);
+    num->setAlignment(Qt::AlignCenter);
+
+    QCheckBox* dressed = new QCheckBox();
+    dressed->setFixedWidth(40);
+
+    QLabel* pos = new QLabel(p->getPositionAsString());
+    pos->setFixedWidth(50);
+    pos->setAlignment(Qt::AlignCenter);
+
+    QLabel* handedness = new QLabel(p->getHandedness());
+    handedness->setFixedWidth(60);
+    handedness->setAlignment(Qt::AlignCenter);
+
+    QLabel* country = new QLabel(p->getCountry());
+    country->setFixedWidth(50);
+    country->setAlignment(Qt::AlignCenter);
+
+    QPushButton* editPlayer = new QPushButton("Edit");
+    editPlayer->setFixedWidth(60);
+
     QPushButton* deletePlayer = new QPushButton();
-    QLabel* num = new QLabel();
-    QLabel* pos = new QLabel();
-    QLabel* handedness = new QLabel();
-    QLabel* country = new QLabel();
     deletePlayer->setIcon(deletePlayer->style()->standardIcon(QStyle::SP_TrashIcon));
-    num->setText(QString::number(p->getNumber()));
-    pos->setText(p->getPositionAsString());
-    handedness->setText(p->getHandedness());
-    country->setText(p->getCountry());
-    // ignore clicks on playersRowWidget (defer to the item itself)
-    playersRowWidget->setAttribute(Qt::WA_TransparentForMouseEvents, true);
+    deletePlayer->setFixedWidth(36);
 
-    // ensure the trash button still gets clicks:
-    deletePlayer->setAttribute(Qt::WA_TransparentForMouseEvents, false);
 
-    playersLayout->addStretch();
+    playersLayout->addWidget(name);
     playersLayout->addWidget(num);
-    playersLayout->addStretch();
+    playersLayout->addWidget(dressed);
     playersLayout->addWidget(pos);
-    playersLayout->addStretch();
     playersLayout->addWidget(handedness);
-    playersLayout->addStretch();
     playersLayout->addWidget(country);
     playersLayout->addStretch();
+    playersLayout->addWidget(editPlayer);
     playersLayout->addWidget(deletePlayer);
 
+    newPlayer->setSizeHint(playersRowWidget->sizeHint());
     //attach layout to listItem
     ui->playersListWidget->setItemWidget(newPlayer, playersRowWidget);
 
@@ -178,23 +197,44 @@ void MainWindow::makePlayerListItem(player* p){
     QObject::connect(deletePlayer, &QPushButton::clicked, [this, newPlayer, p]() {
         int row = ui->playersListWidget->row(newPlayer);
         if (row != -1) { //if the row exists
+            if(p->getIsDressed()){ //deleting a dressed player must also delete them from the lineup
+                std::erase(currentTeam->lineup, p);
+                currentTeam->numDressed--;
+                p->isDressed = false; //we delete p anyway but whatever
+                ui->playersDressedLabel->setText("Players Dressed: " + QString::number(currentTeam->numDressed) + "/20");
+            }
             delete ui->playersListWidget->takeItem(row);
             std::erase(currentTeam->roster, p);
             delete p;
             ui->numberOfPlayersLineEdit->setText(QString::number(currentTeam->roster.size()));
         }});
 
-}
-void MainWindow::on_playersListWidget_itemClicked(QListWidgetItem *item)
-{
-    if (!item) return;
+    QObject::connect(dressed, &QCheckBox::checkStateChanged, [this, p](Qt::CheckState state) {
+        bool isChecked = (state == Qt::Checked);
+        if(isChecked){
+            this->currentTeam->lineup.push_back(p);
+            currentTeam->numDressed++;
+            p->isDressed = true;
+        }
+        else{
+            std::erase(currentTeam->lineup, p);
+            currentTeam->numDressed--;
+            p->isDressed = false;
+        }
+        ui->playersDressedLabel->setText("Players Dressed: " + QString::number(currentTeam->numDressed) + "/20");
+    });
 
-    // Retrieving player pointer
-    this->currentPlayer = item->data(Qt::UserRole).value<player*>();
+    QObject::connect(editPlayer, &QPushButton::clicked, [this, newPlayer, p]() {
+        if (!newPlayer) return;
 
-    ui->playerNameLabel->setText(this->currentPlayer->getFirstName() + " " + this->currentPlayer->getLastName());
-    putPlayerAttributesToLineEdits(this->currentPlayer);
-    ui->stackedWidget->setCurrentIndex(4);
+        // Retrieving player pointer
+        this->currentPlayer = newPlayer->data(Qt::UserRole).value<player*>();
+
+        ui->playerNameLabel->setText(this->currentPlayer->getFirstName() + " " + this->currentPlayer->getLastName());
+        putPlayerAttributesToLineEdits(this->currentPlayer);
+        ui->stackedWidget->setCurrentIndex(4);
+        });
+
 }
 
 void MainWindow::on_backButton4_clicked()

@@ -14,9 +14,10 @@ private:
     QString city;
     QString teamName;
     std::vector<player*> roster;
-	player* lineup[20];
+    std::vector<player*> lineup;
     bool numbersUsed[100];
     static int teamsCounter;
+    static int numDressed;
 public:
     team(QString city = "NULL", QString teamName = "NULL");
     ~team();

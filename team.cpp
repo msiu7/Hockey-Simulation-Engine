@@ -1,6 +1,7 @@
 #include "team.hpp"
 
 int team::teamsCounter = 0;
+int team::numDressed = 0;
 
 team::team(QString city, QString teamName)
 {

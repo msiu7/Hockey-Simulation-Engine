@@ -517,6 +517,19 @@
          <string>Country</string>
         </property>
        </widget>
+       <widget class="QLabel" name="playersDressedLabel">
+        <property name="geometry">
+         <rect>
+          <x>490</x>
+          <y>520</y>
+          <width>171</width>
+          <height>20</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Players Dressed: 0/20</string>
+        </property>
+       </widget>
       </widget>
       <widget class="QWidget" name="playerEditPage">
        <widget class="QLabel" name="playerNameLabel">

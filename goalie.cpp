@@ -1,7 +1,7 @@
 #include "goalie.hpp"
 
-goalie::goalie(int number, QString firstName, QString lastName, int handedness, QString country, goalieTechnicalStats g):
-    player(number, firstName, lastName, handedness, country)
+goalie::goalie(int number, QString firstName, QString lastName, int handedness, QString country, bool isDressed, goalieTechnicalStats g):
+    player(number, firstName, lastName, handedness, country, isDressed)
 {
 	goal = g;
 }
