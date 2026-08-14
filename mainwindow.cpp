@@ -112,6 +112,7 @@ void MainWindow::onTeamSelected(QListWidgetItem* item)
     this->currentTeam = item->data(Qt::UserRole).value<team*>();
 
     ui->playersListWidget->clear();
+    currentTeam->numDressed = 0;
     ui->numberOfPlayersLineEdit->setText(QString::number(currentTeam->roster.size()));
     // reload selected team's roster
     for (player* p : this->currentTeam->roster) {
@@ -119,6 +120,7 @@ void MainWindow::onTeamSelected(QListWidgetItem* item)
     }
 
     ui->teamNameLabel2->setText(this->currentTeam->returnFullTeamName());
+    ui->playersDressedLabel->setText("Players Dressed: " + QString::number(currentTeam->numDressed) + "/20");
     ui->stackedWidget->setCurrentIndex(3);
 }
 
@@ -155,6 +157,10 @@ void MainWindow::makePlayerListItem(player* p){
 
     QCheckBox* dressed = new QCheckBox();
     dressed->setFixedWidth(40);
+    if(p->isDressed){
+        dressed->setCheckState(Qt::Checked);
+        currentTeam->numDressed++;
+    }
 
     QLabel* pos = new QLabel(p->getPositionAsString());
     pos->setFixedWidth(50);
@@ -360,6 +366,80 @@ void MainWindow::on_applyStatsChangesButton_clicked()
 
 void MainWindow::on_addRandomPlayerButton_clicked()
 {
+    int positionRand = getRandomNumber(1, 20); //12 F, 6 D, 2G ratio
+
+    if(positionRand < 13){
+        player* p = generateRandomPlayerOfGivenPosition(1);
+        this->currentTeam->roster.push_back(p);
+        makePlayerListItem(p);
+    }
+    else if(positionRand >= 13 && positionRand <= 18){
+        player* p = generateRandomPlayerOfGivenPosition(2);
+        this->currentTeam->roster.push_back(p);
+        makePlayerListItem(p);
+    }
+    else{
+        player* p = generateRandomPlayerOfGivenPosition(3);
+        this->currentTeam->roster.push_back(p);
+        makePlayerListItem(p);
+    }
+}
+
+int MainWindow::getRandomNumber(int range1, int range2)
+{
+    // random
+    std::random_device rd;
+
+    // Mersenne Twister
+    std::mt19937 gen(rd());
+
+    // define range [inclusive, inclusive]
+    std::uniform_int_distribution<int> distrib(range1, range2);
+
+    // generate
+    int randomNum = distrib(gen);
+
+    return randomNum;
+}
+void MainWindow::on_fillRosterButton_clicked()
+{
+    int forwardCount = 0;
+    int defensemanCount = 0;
+    int goalieCount = 0;
+    for(player* p : currentTeam->roster){
+        if(p->getPositionAsString() == "F"){
+            forwardCount++;
+        }
+        else if(p->getPositionAsString() == "D"){
+            defensemanCount++;
+        }
+        else{
+            goalieCount++;
+        }
+
+    }
+    player* pl = nullptr;
+    if(forwardCount < 14){
+        for(int i = 0; i < 14 - forwardCount; i++){
+            pl = generateRandomPlayerOfGivenPosition(1);
+            this->currentTeam->roster.push_back(pl);
+            makePlayerListItem(pl);
+        }}
+    if(defensemanCount < 7){
+        for(int i = 0; i < 7 - defensemanCount; i++){
+            pl = generateRandomPlayerOfGivenPosition(2);
+            this->currentTeam->roster.push_back(pl);
+            makePlayerListItem(pl);
+        }}
+    if(goalieCount < 2){
+        for(int i = 0; i < 2 - goalieCount; i++){
+            pl = generateRandomPlayerOfGivenPosition(3);
+            this->currentTeam->roster.push_back(pl);
+            makePlayerListItem(pl);
+        }}
+}
+
+player* MainWindow::generateRandomPlayerOfGivenPosition(int position){
     auto& gen = dasmig::ng::instance();
     QString firstNamePicked;
     QString lastNamePicked;
@@ -369,7 +449,7 @@ void MainWindow::on_addRandomPlayerButton_clicked()
         numberRand = getRandomNumber(1, 98); //keep generating a random number until you get one that isn't duplicate
     }
     int handednessRand = getRandomNumber(0, 1);
-    int positionRand = getRandomNumber(1, 20); //12 F, 6 D, 2G ratio
+
     int countryRand = getRandomNumber(1, 1000); // XX.X% format (country split based on NHL statistics)
     if(countryRand <= 422){
         firstNamePicked = QString::fromStdWString(gen.get_name(dasmig::gender::m, dasmig::culture::canadian));
@@ -521,36 +601,8 @@ void MainWindow::on_addRandomPlayerButton_clicked()
         countryPicked = "SI";
     } //slovenia
 
-    if(positionRand < 13){
-        skater* p = new skater(1, numberRand, firstNamePicked, lastNamePicked, handednessRand, countryPicked);
-        this->currentTeam->roster.push_back(p);
-        makePlayerListItem(p);
+    if(position == 3){
+        return new goalie(numberRand, firstNamePicked, lastNamePicked, handednessRand, countryPicked);
     }
-    else if(positionRand >= 13 && positionRand <= 18){
-        skater* p = new skater(2, numberRand, firstNamePicked, lastNamePicked, handednessRand, countryPicked);
-        this->currentTeam->roster.push_back(p);
-        makePlayerListItem(p);
-    }
-    else{
-        goalie* p = new goalie(numberRand, firstNamePicked, lastNamePicked, handednessRand, countryPicked);
-        this->currentTeam->roster.push_back(p);
-        makePlayerListItem(p);
-    }
-}
-
-int MainWindow::getRandomNumber(int range1, int range2)
-{
-    // random
-    std::random_device rd;
-
-    // Mersenne Twister
-    std::mt19937 gen(rd());
-
-    // define range [inclusive, inclusive]
-    std::uniform_int_distribution<int> distrib(range1, range2);
-
-    // generate
-    int randomNum = distrib(gen);
-
-    return randomNum;
+    return new skater(position, numberRand, firstNamePicked, lastNamePicked, handednessRand, countryPicked);
 }

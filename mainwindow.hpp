@@ -23,6 +23,7 @@ public:
     void makePlayerListItem(player* p);
     void putPlayerAttributesToLineEdits(player* p);
     int getRandomNumber(int range1, int range2);
+    player* generateRandomPlayerOfGivenPosition(int position);
 
 private slots:
     void on_startSim_clicked();
@@ -48,6 +49,8 @@ private slots:
     void on_applyStatsChangesButton_clicked();
 
     void on_addRandomPlayerButton_clicked();
+
+    void on_fillRosterButton_clicked();
 
 private:
     Ui::MainWindow *ui;
