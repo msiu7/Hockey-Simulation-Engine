@@ -52,6 +52,11 @@ private slots:
 
     void on_fillRosterButton_clicked();
 
+
+    void on_setLinesButton_clicked();
+
+    void on_backButton5_clicked();
+
 private:
     Ui::MainWindow *ui;
     team* currentTeam = nullptr;

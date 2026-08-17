@@ -606,3 +606,14 @@ player* MainWindow::generateRandomPlayerOfGivenPosition(int position){
     }
     return new skater(position, numberRand, firstNamePicked, lastNamePicked, handednessRand, countryPicked);
 }
+
+void MainWindow::on_setLinesButton_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(5);
+}
+
+void MainWindow::on_backButton5_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(3);
+}
+
