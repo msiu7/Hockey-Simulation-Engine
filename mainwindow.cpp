@@ -215,12 +215,18 @@ void MainWindow::makePlayerListItem(player* p){
             ui->numberOfPlayersLineEdit->setText(QString::number(currentTeam->roster.size()));
         }});
 
-    QObject::connect(dressed, &QCheckBox::checkStateChanged, [this, p](Qt::CheckState state) {
+    QObject::connect(dressed, &QCheckBox::checkStateChanged, [this, p, dressed](Qt::CheckState state) {
         bool isChecked = (state == Qt::Checked);
         if(isChecked){
-            this->currentTeam->lineup.push_back(p);
-            currentTeam->numDressed++;
-            p->isDressed = true;
+            if(currentTeam->numDressed < 20){
+                this->currentTeam->lineup.push_back(p);
+                currentTeam->numDressed++;
+                p->isDressed = true;
+            }
+            else{
+                QSignalBlocker blocker(dressed); //changing the checkState calls this function recursively, signal blocker prevents this
+                dressed->setCheckState(Qt::Unchecked);
+            }
         }
         else{
             std::erase(currentTeam->lineup, p);
@@ -609,11 +615,19 @@ player* MainWindow::generateRandomPlayerOfGivenPosition(int position){
 
 void MainWindow::on_setLinesButton_clicked()
 {
+    //reload dressed players
+    for (player* p : currentTeam->lineup){
+        QListWidgetItem *pl = new QListWidgetItem(p->getFirstName() + " " + p->getLastName() + " " + p->getPositionAsString());
+        ui->playersToPickList->addItem(pl);
+        //save player pointer
+        pl->setData(Qt::UserRole, QVariant::fromValue(p));
+    }
     ui->stackedWidget->setCurrentIndex(5);
 }
 
 void MainWindow::on_backButton5_clicked()
 {
+    ui->playersToPickList->clear(); //reset list
     ui->stackedWidget->setCurrentIndex(3);
 }
 
