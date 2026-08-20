@@ -5,12 +5,31 @@
 #include <random>
 #include <dasmig/namegen.hpp>
 #include <dasmig/random.hpp>
+#include <QHeaderView>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+    //for setupLines, spread columns over the given area
+    ui->even4v4TableWidget->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    ui->goalieTableWidget->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    ui->pk3v5TableWidget->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    ui->pk4v5TableWidget->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    ui->forwards5v5TableWidget->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    ui->defense5v5TableWidget->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    ui->ppTableWidget->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+
+    ui->even4v4TableWidget->verticalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    ui->goalieTableWidget->verticalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    ui->pk3v5TableWidget->verticalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    ui->pk4v5TableWidget->verticalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    ui->forwards5v5TableWidget->verticalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    ui->defense5v5TableWidget->verticalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    ui->ppTableWidget->verticalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+
     connect(ui->teamsListWidget, &QListWidget::itemClicked, this, &MainWindow::onTeamSelected);
 
     QStringList positions = {"F", "D", "G"};

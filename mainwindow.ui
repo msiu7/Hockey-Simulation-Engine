@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1033</width>
-    <height>651</height>
+    <width>1069</width>
+    <height>717</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,7 +18,7 @@
     <item row="0" column="0">
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>5</number>
+       <number>3</number>
       </property>
       <widget class="QWidget" name="emptyPage">
        <widget class="QPushButton" name="exitApp">
@@ -26,7 +26,7 @@
          <rect>
           <x>0</x>
           <y>130</y>
-          <width>981</width>
+          <width>1021</width>
           <height>29</height>
          </rect>
         </property>
@@ -39,7 +39,7 @@
          <rect>
           <x>0</x>
           <y>80</y>
-          <width>981</width>
+          <width>1021</width>
           <height>29</height>
          </rect>
         </property>
@@ -52,7 +52,7 @@
          <rect>
           <x>0</x>
           <y>30</y>
-          <width>981</width>
+          <width>1021</width>
           <height>29</height>
          </rect>
         </property>
@@ -234,7 +234,7 @@
          <rect>
           <x>180</x>
           <y>200</y>
-          <width>581</width>
+          <width>651</width>
           <height>301</height>
          </rect>
         </property>
@@ -445,7 +445,7 @@
        <widget class="QLabel" name="label_8">
         <property name="geometry">
          <rect>
-          <x>272</x>
+          <x>370</x>
           <y>180</y>
           <width>60</width>
           <height>20</height>
@@ -458,7 +458,7 @@
        <widget class="QLabel" name="label_9">
         <property name="geometry">
          <rect>
-          <x>465</x>
+          <x>530</x>
           <y>180</y>
           <width>91</width>
           <height>20</height>
@@ -471,7 +471,7 @@
        <widget class="QLabel" name="label_10">
         <property name="geometry">
          <rect>
-          <x>379</x>
+          <x>473</x>
           <y>180</y>
           <width>63</width>
           <height>20</height>
@@ -507,9 +507,9 @@
        <widget class="QLabel" name="label_20">
         <property name="geometry">
          <rect>
-          <x>586</x>
+          <x>615</x>
           <y>180</y>
-          <width>60</width>
+          <width>51</width>
           <height>20</height>
          </rect>
         </property>
@@ -1322,6 +1322,12 @@
           <height>461</height>
          </rect>
         </property>
+        <property name="verticalScrollBarPolicy">
+         <enum>Qt::ScrollBarPolicy::ScrollBarAlwaysOff</enum>
+        </property>
+        <property name="horizontalScrollBarPolicy">
+         <enum>Qt::ScrollBarPolicy::ScrollBarAlwaysOff</enum>
+        </property>
        </widget>
        <widget class="QPushButton" name="backButton5">
         <property name="geometry">
@@ -1334,6 +1340,405 @@
         </property>
         <property name="text">
          <string>Back</string>
+        </property>
+       </widget>
+       <widget class="QTableWidget" name="forwards5v5TableWidget">
+        <property name="geometry">
+         <rect>
+          <x>210</x>
+          <y>36</y>
+          <width>391</width>
+          <height>180</height>
+         </rect>
+        </property>
+        <property name="verticalScrollBarPolicy">
+         <enum>Qt::ScrollBarPolicy::ScrollBarAlwaysOff</enum>
+        </property>
+        <property name="horizontalScrollBarPolicy">
+         <enum>Qt::ScrollBarPolicy::ScrollBarAlwaysOff</enum>
+        </property>
+        <property name="rowCount">
+         <number>4</number>
+        </property>
+        <property name="columnCount">
+         <number>3</number>
+        </property>
+        <row/>
+        <row/>
+        <row/>
+        <row/>
+        <column>
+         <property name="text">
+          <string>LW</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>C</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>RW</string>
+         </property>
+        </column>
+       </widget>
+       <widget class="QTableWidget" name="defense5v5TableWidget">
+        <property name="geometry">
+         <rect>
+          <x>210</x>
+          <y>250</y>
+          <width>271</width>
+          <height>141</height>
+         </rect>
+        </property>
+        <property name="lineWidth">
+         <number>1</number>
+        </property>
+        <property name="verticalScrollBarPolicy">
+         <enum>Qt::ScrollBarPolicy::ScrollBarAlwaysOff</enum>
+        </property>
+        <property name="horizontalScrollBarPolicy">
+         <enum>Qt::ScrollBarPolicy::ScrollBarAlwaysOff</enum>
+        </property>
+        <property name="rowCount">
+         <number>3</number>
+        </property>
+        <property name="columnCount">
+         <number>2</number>
+        </property>
+        <row/>
+        <row/>
+        <row/>
+        <column>
+         <property name="text">
+          <string>LD</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>RD</string>
+         </property>
+        </column>
+       </widget>
+       <widget class="QTableWidget" name="goalieTableWidget">
+        <property name="geometry">
+         <rect>
+          <x>210</x>
+          <y>440</y>
+          <width>251</width>
+          <height>71</height>
+         </rect>
+        </property>
+        <property name="verticalScrollBarPolicy">
+         <enum>Qt::ScrollBarPolicy::ScrollBarAlwaysOff</enum>
+        </property>
+        <property name="horizontalScrollBarPolicy">
+         <enum>Qt::ScrollBarPolicy::ScrollBarAlwaysOff</enum>
+        </property>
+        <property name="rowCount">
+         <number>1</number>
+        </property>
+        <property name="columnCount">
+         <number>2</number>
+        </property>
+        <attribute name="verticalHeaderVisible">
+         <bool>false</bool>
+        </attribute>
+        <row>
+         <property name="text">
+          <string/>
+         </property>
+        </row>
+        <column>
+         <property name="text">
+          <string>G1</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>G2</string>
+         </property>
+        </column>
+       </widget>
+       <widget class="QTableWidget" name="ppTableWidget">
+        <property name="geometry">
+         <rect>
+          <x>370</x>
+          <y>550</y>
+          <width>641</width>
+          <height>111</height>
+         </rect>
+        </property>
+        <property name="verticalScrollBarPolicy">
+         <enum>Qt::ScrollBarPolicy::ScrollBarAlwaysOff</enum>
+        </property>
+        <property name="horizontalScrollBarPolicy">
+         <enum>Qt::ScrollBarPolicy::ScrollBarAlwaysOff</enum>
+        </property>
+        <property name="rowCount">
+         <number>2</number>
+        </property>
+        <property name="columnCount">
+         <number>5</number>
+        </property>
+        <row/>
+        <row/>
+        <column>
+         <property name="text">
+          <string>LW</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>C</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>RW</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>LD</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>RD</string>
+         </property>
+        </column>
+       </widget>
+       <widget class="QTableWidget" name="pk4v5TableWidget">
+        <property name="geometry">
+         <rect>
+          <x>500</x>
+          <y>230</y>
+          <width>521</width>
+          <height>111</height>
+         </rect>
+        </property>
+        <property name="verticalScrollBarPolicy">
+         <enum>Qt::ScrollBarPolicy::ScrollBarAlwaysOff</enum>
+        </property>
+        <property name="horizontalScrollBarPolicy">
+         <enum>Qt::ScrollBarPolicy::ScrollBarAlwaysOff</enum>
+        </property>
+        <property name="rowCount">
+         <number>2</number>
+        </property>
+        <property name="columnCount">
+         <number>4</number>
+        </property>
+        <row/>
+        <row/>
+        <column>
+         <property name="text">
+          <string>W</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>C</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>LD</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>RD</string>
+         </property>
+        </column>
+       </widget>
+       <widget class="QTableWidget" name="pk3v5TableWidget">
+        <property name="geometry">
+         <rect>
+          <x>620</x>
+          <y>70</y>
+          <width>401</width>
+          <height>111</height>
+         </rect>
+        </property>
+        <property name="verticalScrollBarPolicy">
+         <enum>Qt::ScrollBarPolicy::ScrollBarAlwaysOff</enum>
+        </property>
+        <property name="horizontalScrollBarPolicy">
+         <enum>Qt::ScrollBarPolicy::ScrollBarAlwaysOff</enum>
+        </property>
+        <property name="rowCount">
+         <number>2</number>
+        </property>
+        <property name="columnCount">
+         <number>3</number>
+        </property>
+        <row/>
+        <row/>
+        <column>
+         <property name="text">
+          <string>C</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>LD</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>RD</string>
+         </property>
+        </column>
+       </widget>
+       <widget class="QTableWidget" name="even4v4TableWidget">
+        <property name="geometry">
+         <rect>
+          <x>500</x>
+          <y>390</y>
+          <width>521</width>
+          <height>101</height>
+         </rect>
+        </property>
+        <property name="verticalScrollBarPolicy">
+         <enum>Qt::ScrollBarPolicy::ScrollBarAlwaysOff</enum>
+        </property>
+        <property name="horizontalScrollBarPolicy">
+         <enum>Qt::ScrollBarPolicy::ScrollBarAlwaysOff</enum>
+        </property>
+        <property name="rowCount">
+         <number>2</number>
+        </property>
+        <property name="columnCount">
+         <number>4</number>
+        </property>
+        <row/>
+        <row/>
+        <column>
+         <property name="text">
+          <string>W</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>C</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>LD</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>RD</string>
+         </property>
+        </column>
+       </widget>
+       <widget class="QLabel" name="label_21">
+        <property name="geometry">
+         <rect>
+          <x>50</x>
+          <y>10</y>
+          <width>121</width>
+          <height>20</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Players Dressed</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_22">
+        <property name="geometry">
+         <rect>
+          <x>360</x>
+          <y>10</y>
+          <width>111</width>
+          <height>20</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>5v5 Forwards</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_23">
+        <property name="geometry">
+         <rect>
+          <x>300</x>
+          <y>230</y>
+          <width>121</width>
+          <height>20</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>5v5 Defensemen</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_24">
+        <property name="geometry">
+         <rect>
+          <x>310</x>
+          <y>420</y>
+          <width>63</width>
+          <height>20</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Goalies</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_25">
+        <property name="geometry">
+         <rect>
+          <x>770</x>
+          <y>50</y>
+          <width>131</width>
+          <height>20</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>3 Man Penalty Kill</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_26">
+        <property name="geometry">
+         <rect>
+          <x>710</x>
+          <y>210</y>
+          <width>131</width>
+          <height>20</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>4 Man Penalty Kill</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_27">
+        <property name="geometry">
+         <rect>
+          <x>740</x>
+          <y>370</y>
+          <width>63</width>
+          <height>20</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>4v4 Lines</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_28">
+        <property name="geometry">
+         <rect>
+          <x>680</x>
+          <y>530</y>
+          <width>101</width>
+          <height>20</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Power Play</string>
         </property>
        </widget>
       </widget>
