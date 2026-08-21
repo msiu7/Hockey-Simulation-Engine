@@ -650,3 +650,94 @@ void MainWindow::on_backButton5_clicked()
     ui->stackedWidget->setCurrentIndex(3);
 }
 
+
+void MainWindow::on_playersToPickList_itemClicked(QListWidgetItem *item)
+{
+    //get player pointer
+    player* p = item->data(Qt::UserRole).value<player*>();
+
+    if(p->isHighlighted){
+        //dehighlighting
+        p->isHighlighted = false;
+        item->setForeground(Qt::black);
+    }
+    else{
+        for (QListWidgetItem* i : ui->playersToPickList->findItems("*", Qt::MatchWildcard)){
+            player* pl = i->data(Qt::UserRole).value<player*>();
+            pl->isHighlighted = false; //only one player highlighted at a time
+            i->setForeground(Qt::black);
+        }
+    //set p to highlighted
+    p->isHighlighted = true;
+
+    //make text red to show it's highlighted
+    item->setForeground(Qt::red);
+    }
+}
+
+//Start of functions to place players into lines
+player* MainWindow::findHighlightedPlayer(){
+    for(player* p : currentTeam->lineup){
+        if(p->isHighlighted){ return p; }
+    }
+    return nullptr;
+}
+
+QTableWidgetItem* MainWindow::returnItemToPlace(){
+    player* p = findHighlightedPlayer();
+    if(!p){return nullptr;} //if no player is highlighted, exit
+    QTableWidgetItem* item = new QTableWidgetItem(p->getLastName());
+    //save player pointer
+    item->setData(Qt::UserRole, QVariant::fromValue(p));
+    return item;
+}
+
+void MainWindow::on_forwards5v5TableWidget_cellClicked(int row, int column)
+{
+    QTableWidgetItem* item = returnItemToPlace();
+    if(!item){return;}
+    ui->forwards5v5TableWidget->setItem(row, column, item);
+}
+
+void MainWindow::on_defense5v5TableWidget_cellClicked(int row, int column)
+{
+    QTableWidgetItem* item = returnItemToPlace();
+    if(!item){return;}
+    ui->defense5v5TableWidget->setItem(row, column, item);
+}
+
+void MainWindow::on_goalieTableWidget_cellClicked(int row, int column)
+{
+    QTableWidgetItem* item = returnItemToPlace();
+    if(!item){return;}
+    ui->goalieTableWidget->setItem(row, column, item);
+}
+
+void MainWindow::on_pk3v5TableWidget_cellClicked(int row, int column)
+{
+    QTableWidgetItem* item = returnItemToPlace();
+    if(!item){return;}
+    ui->pk3v5TableWidget->setItem(row, column, item);
+}
+
+void MainWindow::on_pk4v5TableWidget_cellClicked(int row, int column)
+{
+    QTableWidgetItem* item = returnItemToPlace();
+    if(!item){return;}
+    ui->pk4v5TableWidget->setItem(row, column, item);
+}
+
+void MainWindow::on_even4v4TableWidget_cellClicked(int row, int column)
+{
+    QTableWidgetItem* item = returnItemToPlace();
+    if(!item){return;}
+    ui->even4v4TableWidget->setItem(row, column, item);
+}
+
+void MainWindow::on_ppTableWidget_cellClicked(int row, int column)
+{
+    QTableWidgetItem* item = returnItemToPlace();
+    if(!item){return;}
+    ui->ppTableWidget->setItem(row, column, item);
+}
+//End of functions to place players into lines

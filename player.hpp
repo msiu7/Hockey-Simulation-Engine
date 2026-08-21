@@ -31,6 +31,7 @@ protected:
 	physicalStats phys;
 	mentalStats ment;
     bool isDressed;
+    bool isHighlighted = 0;
 
 public:
 
