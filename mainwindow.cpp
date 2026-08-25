@@ -641,13 +641,26 @@ void MainWindow::on_setLinesButton_clicked()
         //save player pointer
         pl->setData(Qt::UserRole, QVariant::fromValue(p));
     }
+    refillTablesWithMappings();
     ui->stackedWidget->setCurrentIndex(5);
 }
 
 void MainWindow::on_backButton5_clicked()
 {
     ui->playersToPickList->clear(); //reset list
+    setMappingsFromTables();
+
+    ui->forwards5v5TableWidget->clearContents(); //clear tables (but not headers)
+    ui->defense5v5TableWidget->clearContents();
+    ui->goalieTableWidget->clearContents();
+    ui->even4v4TableWidget->clearContents();
+    ui->pk3v5TableWidget->clearContents();
+    ui->pk4v5TableWidget->clearContents();
+    ui->ppTableWidget->clearContents();
+
+
     ui->stackedWidget->setCurrentIndex(3);
+
 }
 
 
@@ -683,8 +696,7 @@ player* MainWindow::findHighlightedPlayer(){
     return nullptr;
 }
 
-QTableWidgetItem* MainWindow::returnItemToPlace(){
-    player* p = findHighlightedPlayer();
+QTableWidgetItem* MainWindow::returnItemToPlace(player* p){
     if(!p){return nullptr;} //if no player is highlighted, exit
     QTableWidgetItem* item = new QTableWidgetItem(p->getLastName());
     //save player pointer
@@ -694,50 +706,222 @@ QTableWidgetItem* MainWindow::returnItemToPlace(){
 
 void MainWindow::on_forwards5v5TableWidget_cellClicked(int row, int column)
 {
-    QTableWidgetItem* item = returnItemToPlace();
+    QTableWidgetItem* item = returnItemToPlace(findHighlightedPlayer());
     if(!item){return;}
     ui->forwards5v5TableWidget->setItem(row, column, item);
 }
 
 void MainWindow::on_defense5v5TableWidget_cellClicked(int row, int column)
 {
-    QTableWidgetItem* item = returnItemToPlace();
+    QTableWidgetItem* item = returnItemToPlace(findHighlightedPlayer());
     if(!item){return;}
     ui->defense5v5TableWidget->setItem(row, column, item);
 }
 
 void MainWindow::on_goalieTableWidget_cellClicked(int row, int column)
 {
-    QTableWidgetItem* item = returnItemToPlace();
+    QTableWidgetItem* item = returnItemToPlace(findHighlightedPlayer());
     if(!item){return;}
     ui->goalieTableWidget->setItem(row, column, item);
 }
 
 void MainWindow::on_pk3v5TableWidget_cellClicked(int row, int column)
 {
-    QTableWidgetItem* item = returnItemToPlace();
+    QTableWidgetItem* item = returnItemToPlace(findHighlightedPlayer());
     if(!item){return;}
     ui->pk3v5TableWidget->setItem(row, column, item);
 }
 
 void MainWindow::on_pk4v5TableWidget_cellClicked(int row, int column)
 {
-    QTableWidgetItem* item = returnItemToPlace();
+    QTableWidgetItem* item = returnItemToPlace(findHighlightedPlayer());
     if(!item){return;}
     ui->pk4v5TableWidget->setItem(row, column, item);
 }
 
 void MainWindow::on_even4v4TableWidget_cellClicked(int row, int column)
 {
-    QTableWidgetItem* item = returnItemToPlace();
+    QTableWidgetItem* item = returnItemToPlace(findHighlightedPlayer());
     if(!item){return;}
     ui->even4v4TableWidget->setItem(row, column, item);
 }
 
 void MainWindow::on_ppTableWidget_cellClicked(int row, int column)
 {
-    QTableWidgetItem* item = returnItemToPlace();
+    QTableWidgetItem* item = returnItemToPlace(findHighlightedPlayer());
     if(!item){return;}
     ui->ppTableWidget->setItem(row, column, item);
 }
 //End of functions to place players into lines
+
+void MainWindow::setMappingsFromTables(){
+
+    //5v5forwards
+    for(int i = 0; i < 4; i++){
+        for(int j = 0; j < 3; j++){
+            QTableWidgetItem* item = ui->forwards5v5TableWidget->item(i, j);
+            if(item && item->data(Qt::UserRole).isValid()){
+                player* p = ui->forwards5v5TableWidget->item(i, j)->data(Qt::UserRole).value<player*>();
+                if(p){
+                    currentTeam->lineupMap[forward5v5Matrix[i][j]] = p; //create mapping
+                }
+            }
+        }
+    }
+
+    //5v5defensemen
+    for(int i = 0; i < 3; i++){
+        for(int j = 0; j < 2; j++){
+            QTableWidgetItem* item = ui->defense5v5TableWidget->item(i, j);
+            if(item && item->data(Qt::UserRole).isValid()){
+                player* p = ui->defense5v5TableWidget->item(i, j)->data(Qt::UserRole).value<player*>();
+                if(p){
+                    currentTeam->lineupMap[defense5v5Matrix[i][j]] = p; //create mapping
+                }
+            }
+        }
+    }
+
+    //pp
+    for(int i = 0; i < 2; i++){
+        for(int j = 0; j < 5; j++){
+            QTableWidgetItem* item = ui->ppTableWidget->item(i, j);
+            if(item && item->data(Qt::UserRole).isValid()){
+                player* p = ui->ppTableWidget->item(i, j)->data(Qt::UserRole).value<player*>();
+                if(p){
+                    currentTeam->lineupMap[ppMatrix[i][j]] = p; //create mapping
+                }
+            }
+        }
+    }
+
+    //pk3v5
+    for(int i = 0; i < 2; i++){
+        for(int j = 0; j < 3; j++){
+            QTableWidgetItem* item = ui->pk3v5TableWidget->item(i, j);
+            if(item && item->data(Qt::UserRole).isValid()){
+                player* p = ui->pk3v5TableWidget->item(i, j)->data(Qt::UserRole).value<player*>();
+                if(p){
+                    currentTeam->lineupMap[pk3v5Matrix[i][j]] = p; //create mapping
+                }
+            }
+        }
+    }
+
+    //pk4v5
+    for(int i = 0; i < 2; i++){
+        for(int j = 0; j < 4; j++){
+            QTableWidgetItem* item = ui->pk4v5TableWidget->item(i, j);
+            if(item && item->data(Qt::UserRole).isValid()){
+                player* p = ui->pk4v5TableWidget->item(i, j)->data(Qt::UserRole).value<player*>();
+                if(p){
+                    currentTeam->lineupMap[pk4v5Matrix[i][j]] = p; //create mapping
+                }
+            }
+        }
+    }
+
+    //even4v4
+    for(int i = 0; i < 2; i++){
+        for(int j = 0; j < 4; j++){
+            QTableWidgetItem* item = ui->even4v4TableWidget->item(i, j);
+            if(item && item->data(Qt::UserRole).isValid()){
+                player* p = ui->even4v4TableWidget->item(i, j)->data(Qt::UserRole).value<player*>();
+                if(p){
+                    currentTeam->lineupMap[even4v4Matrix[i][j]] = p; //create mapping
+                }
+            }
+        }
+    }
+
+    //goalies
+    if(ui->goalieTableWidget->item(0, 0) && ui->goalieTableWidget->item(0, 0)->data(Qt::UserRole).isValid()){
+        player* p = ui->goalieTableWidget->item(0, 0)->data(Qt::UserRole).value<player*>();\
+        if(p){currentTeam->lineupMap[roles::G1] = ui->goalieTableWidget->item(0, 0)->data(Qt::UserRole).value<player*>();}
+    }
+    if(ui->goalieTableWidget->item(0, 1) && ui->goalieTableWidget->item(0, 1)->data(Qt::UserRole).isValid()){
+        player* p = ui->goalieTableWidget->item(0, 1)->data(Qt::UserRole).value<player*>();
+        if(p){currentTeam->lineupMap[roles::G2] = ui->goalieTableWidget->item(0, 1)->data(Qt::UserRole).value<player*>();}
+    }
+}
+
+void MainWindow::refillTablesWithMappings(){
+
+    //5v5forwards
+    for(int i = 0; i < 4; i++){
+        for(int j = 0; j < 3; j++){
+            player* p = currentTeam->lineupMap[forward5v5Matrix[i][j]];
+            if(p){
+                QTableWidgetItem* item = returnItemToPlace(p);
+                ui->forwards5v5TableWidget->setItem(i, j, item);
+            }
+        }
+    }
+
+    //5v5defensemen
+    for(int i = 0; i < 3; i++){
+        for(int j = 0; j < 2; j++){
+            player* p = currentTeam->lineupMap[defense5v5Matrix[i][j]];
+            if(p){
+                QTableWidgetItem* item = returnItemToPlace(p);
+                ui->defense5v5TableWidget->setItem(i, j, item);
+            }
+        }
+    }
+
+    //pp
+    for(int i = 0; i < 2; i++){
+        for(int j = 0; j < 5; j++){
+            player* p = currentTeam->lineupMap[ppMatrix[i][j]];
+            if(p){
+                QTableWidgetItem* item = returnItemToPlace(p);
+                ui->ppTableWidget->setItem(i, j, item);
+            }
+        }
+    }
+
+    //pk3v5
+    for(int i = 0; i < 2; i++){
+        for(int j = 0; j < 3; j++){
+            player* p = currentTeam->lineupMap[pk3v5Matrix[i][j]];
+            if(p){
+                QTableWidgetItem* item = returnItemToPlace(p);
+                ui->pk3v5TableWidget->setItem(i, j, item);
+            }
+        }
+    }
+
+    //pk4v5
+    for(int i = 0; i < 2; i++){
+        for(int j = 0; j < 4; j++){
+            player* p = currentTeam->lineupMap[pk4v5Matrix[i][j]];
+            if(p){
+                QTableWidgetItem* item = returnItemToPlace(p);
+                ui->pk4v5TableWidget->setItem(i, j, item);
+            }
+        }
+    }
+
+    //even4v4
+    for(int i = 0; i < 2; i++){
+        for(int j = 0; j < 4; j++){
+            player* p = currentTeam->lineupMap[even4v4Matrix[i][j]];
+            if(p){
+                QTableWidgetItem* item = returnItemToPlace(p);
+                ui->even4v4TableWidget->setItem(i, j, item);
+            }
+        }
+    }
+
+    //goalies
+    if(currentTeam->lineupMap[roles::G1]){
+        player* p = currentTeam->lineupMap[roles::G1];
+        QTableWidgetItem* item = returnItemToPlace(p);
+        ui->goalieTableWidget->setItem(0, 0, item);
+    }
+    if(currentTeam->lineupMap[roles::G2]){
+        player* p = currentTeam->lineupMap[roles::G2];
+        QTableWidgetItem *item = returnItemToPlace(p);
+        ui->goalieTableWidget->setItem(0, 1, item);
+    }
+}
