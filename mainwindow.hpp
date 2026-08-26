@@ -8,6 +8,8 @@
 #include <QMessageBox>
 #include <QCheckBox>
 #include "player.hpp"
+#include "rink.hpp"
+#include "singleGameSimulation.hpp"
 
 namespace Ui {
 class MainWindow;
@@ -81,6 +83,7 @@ private:
     Ui::MainWindow *ui;
     team* currentTeam = nullptr;
     player* currentPlayer = nullptr;
+    rink* currentRink = nullptr;
 
     //tables in set lines
     static constexpr roles forward5v5Matrix[4][3] = {

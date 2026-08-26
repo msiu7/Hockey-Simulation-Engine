@@ -37,6 +37,11 @@ MainWindow::MainWindow(QWidget *parent)
 
     QStringList handednesses = {"L", "R"};
     ui->handednessComboBox->addItems(handednesses);
+
+    rink *r = new rink(this);
+    currentRink = r;
+    ui->rinkView->setScene(r);
+    ui->rinkView->scale(4, 4);
 }
 
 MainWindow::~MainWindow()
@@ -52,6 +57,8 @@ void MainWindow::on_editTeamsLineups_clicked()
 void MainWindow::on_startSim_clicked()
 {
     ui->stackedWidget->setCurrentIndex(2);
+    //fix scaling
+    //ui->rinkView->fitInView(currentRink->itemsBoundingRect(), Qt::KeepAspectRatio);
 }
 
 void MainWindow::on_backButton1_clicked()
