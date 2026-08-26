@@ -32,6 +32,8 @@ public:
     void setMappingsFromTables();
     void refillTablesWithMappings();
 
+    friend class singleGameSimulation;
+
 private slots:
     void on_startSim_clicked();
 
@@ -84,6 +86,7 @@ private:
     team* currentTeam = nullptr;
     player* currentPlayer = nullptr;
     rink* currentRink = nullptr;
+    singleGameSimulation* currentSim = nullptr;
 
     //tables in set lines
     static constexpr roles forward5v5Matrix[4][3] = {

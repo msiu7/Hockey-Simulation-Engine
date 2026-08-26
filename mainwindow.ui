@@ -201,6 +201,58 @@
          </rect>
         </property>
        </widget>
+       <widget class="QPushButton" name="playSim">
+        <property name="geometry">
+         <rect>
+          <x>440</x>
+          <y>0</y>
+          <width>93</width>
+          <height>29</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Play</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="pauseSim">
+        <property name="geometry">
+         <rect>
+          <x>540</x>
+          <y>0</y>
+          <width>93</width>
+          <height>29</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Pause</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="periodLabel">
+        <property name="geometry">
+         <rect>
+          <x>60</x>
+          <y>-1</y>
+          <width>63</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Period: </string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="timerLabel">
+        <property name="geometry">
+         <rect>
+          <x>150</x>
+          <y>5</y>
+          <width>71</width>
+          <height>20</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Timer: </string>
+        </property>
+       </widget>
       </widget>
       <widget class="QWidget" name="teamEditPage">
        <widget class="QLabel" name="teamNameLabel2">

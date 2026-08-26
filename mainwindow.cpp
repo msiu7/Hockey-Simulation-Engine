@@ -1,4 +1,5 @@
 #include "mainwindow.hpp"
+#include "singleGameSimulation.hpp"
 #include "ui_mainwindow.h"
 #include "team.hpp"
 #include <vector>
@@ -38,10 +39,8 @@ MainWindow::MainWindow(QWidget *parent)
     QStringList handednesses = {"L", "R"};
     ui->handednessComboBox->addItems(handednesses);
 
-    rink *r = new rink(this);
-    currentRink = r;
-    ui->rinkView->setScene(r);
-    ui->rinkView->scale(4, 4);
+    currentRink = nullptr;
+    currentSim = nullptr;
 }
 
 MainWindow::~MainWindow()
@@ -56,9 +55,29 @@ void MainWindow::on_editTeamsLineups_clicked()
 
 void MainWindow::on_startSim_clicked()
 {
+    //set up sim
+    rink *r = new rink(this);
+    currentRink = r;
+    ui->rinkView->setScene(r);
+    ui->rinkView->scale(4, 4);
+    singleGameSimulation* s = new singleGameSimulation(ui);
+    currentSim = s;
+
+    QObject::connect(ui->playSim, &QPushButton::clicked, this, [this]() {
+        if (currentSim) currentSim->playSim();
+    });
+
+    QObject::connect(ui->pauseSim, &QPushButton::clicked, this, [this]() {
+        if (currentSim) currentSim->pauseSim();
+    });
+
+    //set up timer
+    currentSim->configureTimer();
+
     ui->stackedWidget->setCurrentIndex(2);
-    //fix scaling
-    //ui->rinkView->fitInView(currentRink->itemsBoundingRect(), Qt::KeepAspectRatio);
+
+    //basically this should do everything
+    currentSim->runSimulation();
 }
 
 void MainWindow::on_backButton1_clicked()
