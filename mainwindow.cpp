@@ -31,8 +31,6 @@ MainWindow::MainWindow(QWidget *parent)
     ui->defense5v5TableWidget->verticalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     ui->ppTableWidget->verticalHeader()->setSectionResizeMode(QHeaderView::Stretch);
 
-    connect(ui->teamsListWidget, &QListWidget::itemClicked, this, &MainWindow::onTeamSelected);
-
     QStringList positions = {"F", "D", "G"};
     ui->positionComboBox->addItems(positions);
 
@@ -55,13 +53,21 @@ void MainWindow::on_editTeamsLineups_clicked()
 
 void MainWindow::on_startSim_clicked()
 {
+    if(awayTeamInSim == nullptr || homeTeamInSim == nullptr){
+        QMessageBox::warning(this, "Input Error", "Teams for simulation haven't been selected.");
+        return;
+    }
+
     //set up sim
     rink *r = new rink(this);
     currentRink = r;
     ui->rinkView->setScene(r);
     ui->rinkView->scale(4, 4);
-    singleGameSimulation* s = new singleGameSimulation(ui);
+    singleGameSimulation* s = new singleGameSimulation(ui, awayTeamInSim, homeTeamInSim);
     currentSim = s;
+
+    ui->awayLabel->setText("Away: " + awayTeamInSim->returnFullTeamName());
+    ui->homeLabel->setText("Home: " + homeTeamInSim->returnFullTeamName());
 
     QObject::connect(ui->playSim, &QPushButton::clicked, this, [this]() {
         if (currentSim) currentSim->playSim();
@@ -110,7 +116,7 @@ void MainWindow::on_addTeamButton_clicked()
     //adding list widget item
     team* t = new team(ui->cityLineEdit->text(), ui->teamNameLineEdit->text());
 
-    QListWidgetItem *newTeam = new QListWidgetItem(t->returnFullTeamName());
+    QListWidgetItem *newTeam = new QListWidgetItem();
 
     //makes team pointer retrievable later
     newTeam->setData(Qt::UserRole, QVariant::fromValue(t));
@@ -120,15 +126,31 @@ void MainWindow::on_addTeamButton_clicked()
     //setting row format
     QWidget* rowWidget = new QWidget();
     QHBoxLayout* layout = new QHBoxLayout(rowWidget);
+    QLabel* teamName = new QLabel(t->returnFullTeamName());
+    teamName->setFixedWidth(160);
+    QPushButton* editTeam = new QPushButton("Edit");
+    editTeam->setFixedWidth(60);
     QPushButton* deleteTeam = new QPushButton();
     deleteTeam->setIcon(deleteTeam->style()->standardIcon(QStyle::SP_TrashIcon));
 
-    // ignore clicks on playersRowWidget (defer to the item itself)
-    rowWidget->setAttribute(Qt::WA_TransparentForMouseEvents, true);
+    //select teams for simulation
+    QCheckBox* awayTeam = new QCheckBox(rowWidget);
+    QCheckBox* homeTeam = new QCheckBox(rowWidget);
 
-    // ensure the trash button still gets clicks:
-    deleteTeam->setAttribute(Qt::WA_TransparentForMouseEvents, false);
+    //makes it look nice
+    layout->setContentsMargins(10, 2, 10, 2);
+    layout->setSpacing(12);
 
+    //add components
+    layout->addWidget(teamName);
+    layout->addStretch();
+    layout->addWidget(awayTeam);
+    awayTeam->setFixedWidth(40);
+    layout->addStretch();
+    layout->addWidget(homeTeam);
+    homeTeam->setFixedWidth(40);
+    layout->addStretch();
+    layout->addWidget(editTeam);
     layout->addStretch();
     layout->addWidget(deleteTeam);
 
@@ -147,28 +169,58 @@ void MainWindow::on_addTeamButton_clicked()
             ui->numberOfTeamsLineEdit->setText(QString::number(team::getTeamsCounter()));
         }
     });
+
+    QObject::connect(awayTeam, &QCheckBox::checkStateChanged, [this, t, awayTeam](Qt::CheckState state) {
+        bool isChecked = (state == Qt::Checked);
+        if(isChecked){
+            if(!awayTeamInSim && homeTeamInSim != t){
+                awayTeamInSim = t;
+            }
+            else{
+                QSignalBlocker blocker(awayTeam); //changing the checkState calls this function recursively, signal blocker prevents this
+                awayTeam->setCheckState(Qt::Unchecked);
+            }
+        }
+        else{
+            awayTeamInSim = nullptr;
+        }
+    });
+
+    QObject::connect(homeTeam, &QCheckBox::checkStateChanged, [this, t, homeTeam](Qt::CheckState state) {
+        bool isChecked = (state == Qt::Checked);
+        if(isChecked){
+            if(!homeTeamInSim && awayTeamInSim != t){
+                homeTeamInSim = t;
+            }
+            else{
+                QSignalBlocker blocker(homeTeam); //changing the checkState calls this function recursively, signal blocker prevents this
+                homeTeam->setCheckState(Qt::Unchecked);
+            }
+        }
+        else{
+            homeTeamInSim = nullptr;
+        }
+    });
+
+    QObject::connect(editTeam, &QPushButton::clicked, [this, newTeam]() {
+        if (!newTeam) return;
+
+        // Retrieving team pointer
+        this->currentTeam = newTeam->data(Qt::UserRole).value<team*>();
+
+        ui->playersListWidget->clear();
+        currentTeam->numDressed = 0;
+        ui->numberOfPlayersLineEdit->setText(QString::number(currentTeam->roster.size()));
+        // reload selected team's roster
+        for (player* p : this->currentTeam->roster) {
+            makePlayerListItem(p);
+        }
+
+        ui->teamNameLabel2->setText(this->currentTeam->returnFullTeamName());
+        ui->playersDressedLabel->setText("Players Dressed: " + QString::number(currentTeam->numDressed) + "/20");
+        ui->stackedWidget->setCurrentIndex(3);
+    });
 }
-
-void MainWindow::onTeamSelected(QListWidgetItem* item)
-{
-    if (!item) return;
-
-    // Retrieving team pointer
-    this->currentTeam = item->data(Qt::UserRole).value<team*>();
-
-    ui->playersListWidget->clear();
-    currentTeam->numDressed = 0;
-    ui->numberOfPlayersLineEdit->setText(QString::number(currentTeam->roster.size()));
-    // reload selected team's roster
-    for (player* p : this->currentTeam->roster) {
-        makePlayerListItem(p);
-    }
-
-    ui->teamNameLabel2->setText(this->currentTeam->returnFullTeamName());
-    ui->playersDressedLabel->setText("Players Dressed: " + QString::number(currentTeam->numDressed) + "/20");
-    ui->stackedWidget->setCurrentIndex(3);
-}
-
 
 void MainWindow::on_backButton3_clicked()
 {

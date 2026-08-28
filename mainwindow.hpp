@@ -47,8 +47,6 @@ private slots:
 
     void on_addTeamButton_clicked();
 
-    void onTeamSelected(QListWidgetItem* item);
-
     void on_backButton3_clicked();
 
     void on_backButton4_clicked();
@@ -87,6 +85,8 @@ private:
     player* currentPlayer = nullptr;
     rink* currentRink = nullptr;
     singleGameSimulation* currentSim = nullptr;
+    team* awayTeamInSim = nullptr;
+    team* homeTeamInSim = nullptr;
 
     //tables in set lines
     static constexpr roles forward5v5Matrix[4][3] = {

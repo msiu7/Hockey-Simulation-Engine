@@ -11,6 +11,7 @@ singleGameSimulation::singleGameSimulation(Ui::MainWindow *uiptr){
 }
 
 singleGameSimulation::singleGameSimulation(Ui::MainWindow *uiptr, team* a, team* h){
+    ui = uiptr;
     home = h;
     away = a;
     period = 1;
