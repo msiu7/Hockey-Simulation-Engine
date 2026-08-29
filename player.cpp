@@ -9,6 +9,7 @@ player::player(int number, QString firstName, QString lastName, int handedness, 
 	this->handedness = handedness;
     this->country = country;
     this->isDressed = isDressed;
+    playerIcon = new QGraphicsEllipseItem(-2, -2, 4, 4);
 }
 
 void player::setNumber(int num)
@@ -38,19 +39,23 @@ QString player::getHandedness() const
 	return "DEFAULT";
 }
 
-/*
-std::ostream& player::showUniversalStats(std::ostream& out) const
-{
-	out << "PHYSICAL: \nStrength: " << phys.strength << "\nSpeed: " << phys.speed << "\nAcceleration : " << phys.acceleration << "\nAgility : " << phys.acceleration << "\nStamina : " << phys.stamina << std::endl;
-	out << "MENTAL: \nClutchness: " << ment.clutchness << "\nLeadership: " << ment.leadership << "\nToughness: " << ment.toughness << "\nRiskiness: " << ment.riskiness << "\nWork Rate: " << ment.workRate << std::endl;
-	return out;
+void player::configurePlayerIcon(qreal x, qreal y, QColor c){
+    playerIcon->setBrush(QBrush(c));
+    playerIcon->setPen(QPen(Qt::black, 0)); //one pixel
+    playerIcon->setPos(x, y);
+
+    QGraphicsTextItem *numberIcon = new QGraphicsTextItem(QString::number(number), playerIcon);
+
+    //set font size
+    QFont font = numberIcon->font();
+    font.setPointSize(2);
+
+    numberIcon->setFont(font);
+
+    //center the number
+    x = ((playerIcon->rect().width() - numberIcon->boundingRect().width()) / 2) - 2;
+    y = ((playerIcon->rect().height() - numberIcon->boundingRect().height()) / 2) - 2;
+    numberIcon->setPos(x, y);
+
 }
 
-std::ostream& operator<<(std::ostream& out, const player& p)
-{
-	out << "Name: " << p.firstName << " " << p.lastName << std::endl << "Number: " << p.number << std::endl << "Handedness: " << p.getHandedness() << std::endl << "Position: " << p.getPositionAsString() << std::endl;
-	p.showUniversalStats(out); 
-	p.showSpecificStats(out);
-	return out;
-}
-*/

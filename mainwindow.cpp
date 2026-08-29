@@ -37,7 +37,6 @@ MainWindow::MainWindow(QWidget *parent)
     QStringList handednesses = {"L", "R"};
     ui->handednessComboBox->addItems(handednesses);
 
-    currentRink = nullptr;
     currentSim = nullptr;
 }
 
@@ -59,12 +58,11 @@ void MainWindow::on_startSim_clicked()
     }
 
     //set up sim
-    rink *r = new rink(this);
-    currentRink = r;
-    ui->rinkView->setScene(r);
-    ui->rinkView->scale(4, 4);
+
     singleGameSimulation* s = new singleGameSimulation(ui, awayTeamInSim, homeTeamInSim);
     currentSim = s;
+    ui->rinkView->setScene(s->r);
+    ui->rinkView->scale(4, 4);
 
     ui->awayLabel->setText("Away: " + awayTeamInSim->returnFullTeamName());
     ui->homeLabel->setText("Home: " + homeTeamInSim->returnFullTeamName());
@@ -79,7 +77,7 @@ void MainWindow::on_startSim_clicked()
 
     //set up timer
     currentSim->configureTimer();
-
+    currentSim->configurePlayers();
     ui->stackedWidget->setCurrentIndex(2);
 
     //basically this should do everything

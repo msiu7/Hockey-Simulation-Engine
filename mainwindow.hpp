@@ -83,7 +83,6 @@ private:
     Ui::MainWindow *ui;
     team* currentTeam = nullptr;
     player* currentPlayer = nullptr;
-    rink* currentRink = nullptr;
     singleGameSimulation* currentSim = nullptr;
     team* awayTeamInSim = nullptr;
     team* homeTeamInSim = nullptr;

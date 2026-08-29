@@ -48,5 +48,6 @@ public:
     friend std::ostream& operator<<(std::ostream& out, const team& t);
 
     friend class MainWindow;
+    friend class singleGameSimulation;
 
 };

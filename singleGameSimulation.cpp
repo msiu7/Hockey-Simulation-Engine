@@ -8,6 +8,7 @@ singleGameSimulation::singleGameSimulation(Ui::MainWindow *uiptr){
     period = 1;
     clock = new QTimer();
     secondsRemainingInPeriod = 1200;
+    r = new rink();
 }
 
 singleGameSimulation::singleGameSimulation(Ui::MainWindow *uiptr, team* a, team* h){
@@ -17,6 +18,7 @@ singleGameSimulation::singleGameSimulation(Ui::MainWindow *uiptr, team* a, team*
     period = 1;
     clock = new QTimer();
     secondsRemainingInPeriod = 1200;
+    r = new rink();
 }
 
 void singleGameSimulation::configureTimer(){
@@ -30,6 +32,22 @@ void singleGameSimulation::configureTimer(){
         if(secondsRemainingInPeriod != 0) {secondsRemainingInPeriod--;}
         updateTimerDisplay();
     });
+}
+
+void singleGameSimulation::configurePlayers(){
+    qreal x = 0; qreal y = 0;
+    for (player* p : away->lineup){
+        p->configurePlayerIcon(x, y, Qt::red);
+        x += 5;
+        y += 5;
+        r->addItem(p->playerIcon);
+    }
+    for (player* p : home->lineup){
+        p->configurePlayerIcon(x, y, Qt::blue);
+        x += 5;
+        y += 5;
+        r->addItem(p->playerIcon);
+    }
 }
 
 void singleGameSimulation::updateTimerDisplay(){

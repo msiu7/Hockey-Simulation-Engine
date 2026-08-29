@@ -2,6 +2,12 @@
 #include <string>
 #include <iostream>
 #include <QString>
+#include <QGraphicsEllipseItem>
+#include <QBrush>
+#include <QPen>
+#include <QFont>
+#include <QGraphicsTextItem>
+
 
 struct physicalStats {
 	int strength = 50;
@@ -32,6 +38,7 @@ protected:
 	mentalStats ment;
     bool isDressed;
     bool isHighlighted = 0;
+    QGraphicsEllipseItem* playerIcon;
 
 public:
 
@@ -50,9 +57,10 @@ public:
 	physicalStats& getPhysStats() { return phys; }
 	mentalStats& getMentalStats() { return ment; }
     bool getIsDressed(){ return isDressed; }
-    //std::ostream& showUniversalStats(std::ostream& out) const;
+    void configurePlayerIcon(qreal x, qreal y, QColor c);
 	virtual std::ostream& showSpecificStats(std::ostream& out) const = 0;
     virtual QString getPositionAsString() const = 0;
+
     friend class MainWindow;
-    //friend std::ostream& operator<<(std::ostream& out, const player& p);
+    friend class singleGameSimulation;
 };

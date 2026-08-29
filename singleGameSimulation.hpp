@@ -17,6 +17,7 @@ private:
     QTimer* clock;
     int period; //for now: periods 1, 2, and 3. 4 is OT, 5 is shootout.
     int secondsRemainingInPeriod;
+    rink* r;
 
 public:
     singleGameSimulation(Ui::MainWindow *uiptr);
@@ -28,6 +29,7 @@ public:
     void runSimulation();
     void playSim();
     void pauseSim();
+    void configurePlayers();
 
     friend class MainWindow;
 };
