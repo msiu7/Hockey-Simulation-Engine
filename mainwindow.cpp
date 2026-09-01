@@ -62,7 +62,7 @@ void MainWindow::on_startSim_clicked()
     singleGameSimulation* s = new singleGameSimulation(ui, awayTeamInSim, homeTeamInSim);
     currentSim = s;
     ui->rinkView->setScene(s->r);
-    ui->rinkView->scale(4, 4);
+    ui->rinkView->scale(6, 6);
 
     ui->awayLabel->setText("Away: " + awayTeamInSim->returnFullTeamName());
     ui->homeLabel->setText("Home: " + homeTeamInSim->returnFullTeamName());

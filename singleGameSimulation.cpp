@@ -35,17 +35,16 @@ void singleGameSimulation::configureTimer(){
 }
 
 void singleGameSimulation::configurePlayers(){
-    qreal x = 0; qreal y = 0;
+    qreal x = 65; qreal y = -3;
     for (player* p : away->lineup){
         p->configurePlayerIcon(x, y, Qt::red);
-        x += 5;
-        y += 5;
+        x += 1.5;
         r->addItem(p->playerIcon);
     }
+    x = 107;
     for (player* p : home->lineup){
         p->configurePlayerIcon(x, y, Qt::blue);
-        x += 5;
-        y += 5;
+        x += 1.5;
         r->addItem(p->playerIcon);
     }
 }

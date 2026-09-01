@@ -2,9 +2,9 @@
 #include <QtMath>
 
 rink::rink(QObject *parent) : QGraphicsScene(parent) {
-    //Scene Bounds: 200x85, plus 10 in every direction for benches and penalty boxes.
-    //the itself is from (0, 0) to (200, 85)
-    setSceneRect(-10.0, -10.0, 220.0, 105.0);
+    //Scene Bounds: 200x85, plus 10 in both y directions for benches and penalty boxes.
+    //the rink itself is from (0, 0) to (200, 85)
+    setSceneRect(0.0, -10.0, 220.0, 105.0);
 }
 
 void rink::drawBackground(QPainter *painter, const QRectF &rect) {
@@ -204,24 +204,23 @@ void rink::drawBenchesAndBoxes(QPainter *painter, qreal rinkW, qreal rinkH) {
     QRectF homeBench(62.0, -6.5, 34.0, 6.0);
     QRectF awayBench(104.0, -6.5, 34.0, 6.0);
 
-    auto drawBench = [&](const QRectF &rect, const QString &text, const QColor &fillColor) {
+    auto drawBench = [&](const QRectF &rect, const QColor &fillColor) {
         painter->setPen(QPen(QColor(60, 60, 60), 0.6));
         painter->setBrush(fillColor);
         painter->drawRoundedRect(rect, 1.0, 1.0);
 
         painter->setPen(QColor(40, 40, 40));
-        painter->drawText(rect, Qt::AlignCenter, text);
     };
 
-    drawBench(homeBench, "HOME BENCH", QColor(210, 225, 240));
-    drawBench(awayBench, "AWAY BENCH", QColor(240, 220, 220));
+    drawBench(homeBench, QColor(210, 225, 240));
+    drawBench(awayBench, QColor(240, 220, 220));
 
     //penalty boxes
     QRectF homePenalty(74.0, rinkH + 0.5, 14.0, 5.5);
     QRectF scoreKeeper(91.0, rinkH + 0.5, 18.0, 5.5);
     QRectF awayPenalty(112.0, rinkH + 0.5, 14.0, 5.5);
 
-    drawBench(homePenalty, "PENALTY", QColor(235, 235, 235));
-    drawBench(scoreKeeper, "TIME / SCORE", QColor(245, 245, 230));
-    drawBench(awayPenalty, "PENALTY", QColor(235, 235, 235));
+    drawBench(homePenalty, QColor(235, 235, 235));
+    drawBench(scoreKeeper, QColor(245, 245, 230));
+    drawBench(awayPenalty, QColor(235, 235, 235));
 }
