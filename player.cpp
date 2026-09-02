@@ -59,3 +59,11 @@ void player::configurePlayerIcon(qreal x, qreal y, QColor c){
 
 }
 
+void player::setPosition(qreal newX, qreal newY) {
+    if (x != newX || y != newY) {
+        x = newX;
+        y = newY;
+        emit positionChanged();
+    }
+}
+

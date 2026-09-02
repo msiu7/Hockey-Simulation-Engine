@@ -8,8 +8,9 @@
 #include <QMessageBox>
 #include <QCheckBox>
 #include "player.hpp"
-#include "rink.hpp"
 #include "singleGameSimulation.hpp"
+#include <QQuickWidget>
+
 
 namespace Ui {
 class MainWindow;
@@ -86,6 +87,7 @@ private:
     singleGameSimulation* currentSim = nullptr;
     team* awayTeamInSim = nullptr;
     team* homeTeamInSim = nullptr;
+    QQuickWidget *qmlRink = nullptr;
 
     //tables in set lines
     static constexpr roles forward5v5Matrix[4][3] = {

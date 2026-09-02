@@ -6,7 +6,7 @@ set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Find the required Qt components
-find_package(Qt6 REQUIRED COMPONENTS Core Gui Widgets)
+find_package(Qt6 REQUIRED COMPONENTS Core Gui Widgets QuickWidgets)
 
 # Handle Qt features automatically
 set(CMAKE_AUTOMOC ON)
@@ -34,11 +34,12 @@ add_executable(HockeySimulationEngine
     rink.cpp
     singleGameSimulation.cpp
     singleGameSimulation.hpp
+    rinkView.qml
 
 )
 
 # Link Qt libraries to executable
-target_link_libraries(HockeySimulationEngine PRIVATE Qt6::Core Qt6::Gui Qt6::Widgets)
+target_link_libraries(HockeySimulationEngine PRIVATE Qt6::Core Qt6::Gui Qt6::Widgets Qt6::QuickWidgets)
 
 # double heap space
 if(MSVC)

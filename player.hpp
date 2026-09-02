@@ -1,5 +1,4 @@
 #pragma once
-#include <string>
 #include <iostream>
 #include <QString>
 #include <QGraphicsEllipseItem>
@@ -7,6 +6,9 @@
 #include <QPen>
 #include <QFont>
 #include <QGraphicsTextItem>
+#include <QObject>
+#include <QColor>
+#include <QtQml/qqmlregistration.h>
 
 
 struct physicalStats {
@@ -25,8 +27,15 @@ struct mentalStats {
 	int workRate = 50;
 };
 
-class player
-{
+class player : public QObject {
+    Q_OBJECT
+    QML_ELEMENT
+
+    Q_PROPERTY(qreal x READ getX NOTIFY positionChanged)
+    Q_PROPERTY(qreal y READ getY NOTIFY positionChanged)
+    Q_PROPERTY(int number READ getNumber CONSTANT)
+    Q_PROPERTY(QString lastName READ getLastName CONSTANT)
+
 protected:
 
 	int number;
@@ -39,6 +48,11 @@ protected:
     bool isDressed;
     bool isHighlighted = 0;
     QGraphicsEllipseItem* playerIcon;
+    qreal x{0.0};
+    qreal y{0.0};
+
+signals:
+    void positionChanged();
 
 public:
 
@@ -50,6 +64,8 @@ public:
 	void setHandedness(int num);
 
 	int getNumber() const { return number; }
+    qreal getX() const {return x;}
+    qreal getY() const {return y;}
     QString getFirstName() const { return firstName; }
     QString getLastName() const { return lastName; }
     QString getHandedness() const;
@@ -60,7 +76,7 @@ public:
     void configurePlayerIcon(qreal x, qreal y, QColor c);
 	virtual std::ostream& showSpecificStats(std::ostream& out) const = 0;
     virtual QString getPositionAsString() const = 0;
-
+    void setPosition(qreal newX, qreal newY);
     friend class MainWindow;
     friend class singleGameSimulation;
 };

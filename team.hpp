@@ -33,8 +33,8 @@ class team
 private:
     QString city;
     QString teamName;
-    std::vector<player*> roster;
-    std::vector<player*> lineup;
+    QList<player*> roster;
+    QList<player*> lineup;
     bool numbersUsed[100]{};
     static int teamsCounter;
     static int numDressed;

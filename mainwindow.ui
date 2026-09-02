@@ -217,16 +217,6 @@
          <string>Back</string>
         </property>
        </widget>
-       <widget class="QGraphicsView" name="rinkView">
-        <property name="geometry">
-         <rect>
-          <x>50</x>
-          <y>30</y>
-          <width>1421</width>
-          <height>641</height>
-         </rect>
-        </property>
-       </widget>
        <widget class="QPushButton" name="playSim">
         <property name="geometry">
          <rect>
@@ -303,6 +293,24 @@
         </property>
         <property name="text">
          <string>Home:</string>
+        </property>
+       </widget>
+       <widget class="QQuickWidget" name="qRinkWidget">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>30</y>
+          <width>1491</width>
+          <height>641</height>
+         </rect>
+        </property>
+        <property name="resizeMode">
+         <enum>QQuickWidget::ResizeMode::SizeRootObjectToView</enum>
+        </property>
+        <property name="source">
+         <url>
+          <string>file:///C:/Users/maksa/source/repos/Hockey-Simulation-Engine-project/rinkView.qml</string>
+         </url>
         </property>
        </widget>
       </widget>
@@ -1839,6 +1847,13 @@
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QQuickWidget</class>
+   <extends>QWidget</extends>
+   <header location="global">QtQuickWidgets/QQuickWidget</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

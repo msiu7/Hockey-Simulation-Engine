@@ -7,6 +7,7 @@
 #include <dasmig/namegen.hpp>
 #include <dasmig/random.hpp>
 #include <QHeaderView>
+#include <QQmlContext>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -49,9 +50,10 @@ void MainWindow::on_editTeamsLineups_clicked()
 {
     ui->stackedWidget->setCurrentIndex(1);
 }
-
+/*
 void MainWindow::on_startSim_clicked()
 {
+
     if(awayTeamInSim == nullptr || homeTeamInSim == nullptr){
         QMessageBox::warning(this, "Input Error", "Teams for simulation haven't been selected.");
         return;
@@ -82,6 +84,28 @@ void MainWindow::on_startSim_clicked()
 
     //basically this should do everything
     currentSim->runSimulation();
+}
+*/
+void MainWindow::on_startSim_clicked()
+{
+    if (awayTeamInSim == nullptr || homeTeamInSim == nullptr) {
+        QMessageBox::warning(this, "Input Error", "Teams for simulation haven't been selected.");
+        return;
+    }
+
+    singleGameSimulation* s = new singleGameSimulation(ui, awayTeamInSim, homeTeamInSim);
+    currentSim = s;
+
+    ui->awayLabel->setText("Away: " + awayTeamInSim->returnFullTeamName());
+    ui->homeLabel->setText("Home: " + homeTeamInSim->returnFullTeamName());
+
+    currentSim->configureTimer();
+    currentSim->configurePlayers();
+
+    // Pass currentSim pointer to the QML context
+    ui->qRinkWidget->rootContext()->setContextProperty("simEngine", currentSim);
+
+    ui->stackedWidget->setCurrentIndex(2);
 }
 
 void MainWindow::on_backButton1_clicked()
@@ -299,13 +323,13 @@ void MainWindow::makePlayerListItem(player* p){
         int row = ui->playersListWidget->row(newPlayer);
         if (row != -1) { //if the row exists
             if(p->getIsDressed()){ //deleting a dressed player must also delete them from the lineup
-                std::erase(currentTeam->lineup, p);
+                currentTeam->lineup.removeOne(p);
                 currentTeam->numDressed--;
                 p->isDressed = false; //we delete p anyway but whatever
                 ui->playersDressedLabel->setText("Players Dressed: " + QString::number(currentTeam->numDressed) + "/20");
             }
             delete ui->playersListWidget->takeItem(row);
-            std::erase(currentTeam->roster, p);
+            currentTeam->roster.removeOne(p);
             delete p;
             ui->numberOfPlayersLineEdit->setText(QString::number(currentTeam->roster.size()));
         }});
@@ -324,7 +348,7 @@ void MainWindow::makePlayerListItem(player* p){
             }
         }
         else{
-            std::erase(currentTeam->lineup, p);
+            currentTeam->lineup.removeOne(p);
             currentTeam->numDressed--;
             p->isDressed = false;
         }

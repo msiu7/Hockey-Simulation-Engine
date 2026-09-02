@@ -1,15 +1,24 @@
 #pragma once
-#include "team.hpp"
-#include "rink.hpp"
-#include "mainwindow.hpp"
-#include <QTimer>
+
 #include <QObject>
+#include <QTimer>
+#include <QtQml/qqmlregistration.h>
+#include "team.hpp"
+#include "player.hpp"
 
 namespace Ui {
 class MainWindow;
 }
 
-class singleGameSimulation{
+class singleGameSimulation : public QObject{
+    Q_OBJECT
+    QML_ELEMENT
+
+    Q_PROPERTY(QString timerText READ timerText NOTIFY timerTextChanged)
+    Q_PROPERTY(int period READ getPeriod NOTIFY periodChanged)
+    Q_PROPERTY(QList<player*> awayPlayers READ getAwayPlayers NOTIFY playersChanged)
+    Q_PROPERTY(QList<player*> homePlayers READ getHomePlayers NOTIFY playersChanged)
+
 private:
     Ui::MainWindow *ui; //to interact with the ui
     team* away;
@@ -17,7 +26,14 @@ private:
     QTimer* clock;
     int period; //for now: periods 1, 2, and 3. 4 is OT, 5 is shootout.
     int secondsRemainingInPeriod;
-    rink* r;
+
+private slots:
+    void onTick();
+
+signals:
+    void timerTextChanged();
+    void periodChanged();
+    void playersChanged();
 
 public:
     singleGameSimulation(Ui::MainWindow *uiptr);
@@ -27,9 +43,14 @@ public:
     void updateTimerDisplay();
     void updatePeriodDisplay();
     void runSimulation();
-    void playSim();
-    void pauseSim();
+    Q_INVOKABLE void playSim();
+    Q_INVOKABLE void pauseSim();
     void configurePlayers();
+    int getPeriod() const { return period; }
+    QString timerText() const;
+
+    QList<player*> getAwayPlayers() const { return away ? away->lineup : QList<player*>(); }
+    QList<player*> getHomePlayers() const { return home ? home->lineup : QList<player*>(); }
 
     friend class MainWindow;
 };
