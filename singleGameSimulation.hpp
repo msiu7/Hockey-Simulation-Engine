@@ -14,7 +14,6 @@ class singleGameSimulation : public QObject{
     Q_OBJECT
     QML_ELEMENT
 
-    Q_PROPERTY(QString timerText READ timerText NOTIFY timerTextChanged)
     Q_PROPERTY(int period READ getPeriod NOTIFY periodChanged)
     Q_PROPERTY(QList<player*> awayPlayers READ getAwayPlayers NOTIFY playersChanged)
     Q_PROPERTY(QList<player*> homePlayers READ getHomePlayers NOTIFY playersChanged)
@@ -24,14 +23,11 @@ private:
     team* away;
     team* home;
     QTimer* clock;
+    QTimer* simClock;
     int period; //for now: periods 1, 2, and 3. 4 is OT, 5 is shootout.
     int secondsRemainingInPeriod;
 
-private slots:
-    void onTick();
-
 signals:
-    void timerTextChanged();
     void periodChanged();
     void playersChanged();
 

@@ -7,6 +7,7 @@ singleGameSimulation::singleGameSimulation(Ui::MainWindow *uiptr){
     away = nullptr;
     period = 1;
     clock = new QTimer();
+    simClock = new QTimer();
     secondsRemainingInPeriod = 1200;
 }
 
@@ -16,12 +17,15 @@ singleGameSimulation::singleGameSimulation(Ui::MainWindow *uiptr, team* a, team*
     away = a;
     period = 1;
     clock = new QTimer();
+    simClock = new QTimer();
     secondsRemainingInPeriod = 1200;
 }
 
 void singleGameSimulation::configureTimer(){
     clock->setInterval(1000); //1 second
     clock->setTimerType(Qt::PreciseTimer);
+    simClock->setInterval(10); //1 second
+    simClock->setTimerType(Qt::PreciseTimer);
     ui->periodLabel->setText("Period: " + QString::number(period));
     ui->timerLabel->setText(QString("Timer: %1:%2").arg(secondsRemainingInPeriod / 60, 2, 10, QChar('0')).arg(secondsRemainingInPeriod % 60, 2, 10, QChar('0')));
 
@@ -30,22 +34,22 @@ void singleGameSimulation::configureTimer(){
         if(secondsRemainingInPeriod != 0) {secondsRemainingInPeriod--;}
         updateTimerDisplay();
     });
+
+    connect(simClock, &QTimer::timeout, this, &singleGameSimulation::runSimulation);
 }
 
 void singleGameSimulation::configurePlayers(){
-    qreal x = 65; qreal y = 2;
+    qreal x = 65; qreal y = -3;
     for (player* p : away->lineup){
         p->setPosition(x, y);
         p->configurePlayerIcon(x, y, Qt::red);
         x += 1.5;
-        //r->addItem(p->playerIcon);
     }
     x = 107;
     for (player* p : home->lineup){
         p->setPosition(x, y);
         p->configurePlayerIcon(x, y, Qt::blue);
-        x += 1.5;
-        //r->addItem(p->playerIcon);
+        x += 1.5; 
     }
     emit playersChanged();
 }
@@ -63,11 +67,17 @@ void singleGameSimulation::updatePeriodDisplay(){
 
 void singleGameSimulation::runSimulation(){
 
+    static bool toggle = false;
+    if(toggle) away->lineup[0]->setPosition(100, 60);
+    else away->lineup[0]->setPosition(30, 30);
+    toggle = !toggle;
+
 }
 
 void singleGameSimulation::playSim(){
     if(!clock->isActive()){
         clock->start();
+        simClock->start();
     }
 }
 
@@ -83,9 +93,3 @@ QString singleGameSimulation::timerText() const {
         .arg(secondsRemainingInPeriod % 60, 2, 10, QChar('0'));
 }
 
-void singleGameSimulation::onTick() {
-    if (secondsRemainingInPeriod > 0) {
-        secondsRemainingInPeriod--;
-        emit timerTextChanged();
-    }
-}

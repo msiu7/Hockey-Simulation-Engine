@@ -30,8 +30,8 @@ add_executable(HockeySimulationEngine
     include/spacer.hpp
     include/dasmig/namegen.hpp
     include/dasmig/random.hpp
-    rink.hpp
-    rink.cpp
+
+
     singleGameSimulation.cpp
     singleGameSimulation.hpp
     rinkView.qml

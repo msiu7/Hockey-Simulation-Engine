@@ -69,14 +69,6 @@ void MainWindow::on_startSim_clicked()
     ui->awayLabel->setText("Away: " + awayTeamInSim->returnFullTeamName());
     ui->homeLabel->setText("Home: " + homeTeamInSim->returnFullTeamName());
 
-    QObject::connect(ui->playSim, &QPushButton::clicked, this, [this]() {
-        if (currentSim) currentSim->playSim();
-    });
-
-    QObject::connect(ui->pauseSim, &QPushButton::clicked, this, [this]() {
-        if (currentSim) currentSim->pauseSim();
-    });
-
     //set up timer
     currentSim->configureTimer();
     currentSim->configurePlayers();
@@ -98,6 +90,14 @@ void MainWindow::on_startSim_clicked()
 
     ui->awayLabel->setText("Away: " + awayTeamInSim->returnFullTeamName());
     ui->homeLabel->setText("Home: " + homeTeamInSim->returnFullTeamName());
+
+    QObject::connect(ui->playSim, &QPushButton::clicked, this, [this]() {
+        if (currentSim) currentSim->playSim();
+    });
+
+    QObject::connect(ui->pauseSim, &QPushButton::clicked, this, [this]() {
+        if (currentSim) currentSim->pauseSim();
+    });
 
     currentSim->configureTimer();
     currentSim->configurePlayers();
