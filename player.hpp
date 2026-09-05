@@ -32,8 +32,8 @@ class player : public QObject {
     Q_OBJECT
     QML_ELEMENT
 
-    Q_PROPERTY(qreal x READ getX NOTIFY positionChanged)
-    Q_PROPERTY(qreal y READ getY NOTIFY positionChanged)
+    Q_PROPERTY(float x READ getX NOTIFY positionChanged)
+    Q_PROPERTY(float y READ getY NOTIFY positionChanged)
     Q_PROPERTY(int number READ getNumber CONSTANT)
     Q_PROPERTY(QString lastName READ getLastName CONSTANT)
 
@@ -49,11 +49,18 @@ protected:
     bool isDressed;
     bool isHighlighted = 0;
     QGraphicsEllipseItem* playerIcon;
-    qreal x{0.0};
-    qreal y{0.0};
-    qreal targetX{0.0};
-    qreal targetY{0.0};
-    qreal speedPerTick{0.6};
+    float tX = 0.0f;
+    float tY = 0.0f;
+    float x = 0.0f;
+    float y = 0.0f;
+    float vX = 0.0f;
+    float vY = 0.0f;
+
+    // Movement tuning (in ft/s and ft/s^2)
+    float maxSpeed = 28.0f;      // ~19 mph cruising/sprint mix
+    float acceleration = 40.0f;  // ft/s^2 (takes ~0.7s to reach top speed)
+    float iceFriction = 0.985f;  // Glide retention per tick (~1.5% drag)
+    float brakeDecel = 60.0f;    // Active snow-plow / hockey stop braking
 
 signals:
     void positionChanged();
@@ -68,8 +75,8 @@ public:
 	void setHandedness(int num);
 
 	int getNumber() const { return number; }
-    qreal getX() const {return x;}
-    qreal getY() const {return y;}
+    float getX() const {return x;}
+    float getY() const {return y;}
     QString getFirstName() const { return firstName; }
     QString getLastName() const { return lastName; }
     QString getHandedness() const;
@@ -80,11 +87,11 @@ public:
     void configurePlayerIcon(qreal x, qreal y, QColor c);
 	virtual std::ostream& showSpecificStats(std::ostream& out) const = 0;
     virtual QString getPositionAsString() const = 0;
-    void setPosition(qreal newX, qreal newY);
+    void setPosition(float newX, float newY);
     void getOnBench(singleGameSimulation* s);
     void getOffBench(singleGameSimulation* s);
-    void updatePhysics();
-    void setTargetPosition(qreal tX, qreal tY);
+    void updatePhysics(float dt);
+    void setTargetPosition(float tX, float tY);
     friend class MainWindow;
     friend class singleGameSimulation;
 };

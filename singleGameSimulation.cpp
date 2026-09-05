@@ -51,14 +51,14 @@ void singleGameSimulation::configurePlayers(){
     qreal x = 65; qreal y = -3;
     for (player* p : away->lineup){
         p->setPosition(x, y);
-        p->setTargetPosition(x, y);
+        //p->setTargetPosition(x, y);
         p->configurePlayerIcon(x, y, Qt::red);
         x += 1.5;
     }
     x = 107;
     for (player* p : home->lineup){
         p->setPosition(x, y);
-        p->setTargetPosition(x, y);
+        //p->setTargetPosition(x, y);
         p->configurePlayerIcon(x, y, Qt::blue);
         x += 1.5; 
     }
@@ -79,7 +79,7 @@ void singleGameSimulation::updatePeriodDisplay(){
 
 void singleGameSimulation::runSimulation(){ //this function is called on every tick of simClock
     for(player* p : playersOnIce){
-        p->updatePhysics();
+        p->updatePhysics(0.01f);
     }
 
     if (isStoppage){
@@ -91,6 +91,7 @@ void singleGameSimulation::runSimulation(){ //this function is called on every t
 }
 
 void singleGameSimulation::playSim(){
+    qDebug() << "playSim called!";
     if(!clock->isActive()){
         simClock->start();
     }
@@ -102,6 +103,9 @@ void singleGameSimulation::playSim(){
 void singleGameSimulation::pauseSim(){
     if(clock->isActive()){
         clock->stop();
+    }
+    if(simClock->isActive()){
+        simClock->stop();
     }
 }
 

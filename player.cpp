@@ -59,7 +59,7 @@ void player::configurePlayerIcon(qreal x, qreal y, QColor c){
 
 }
 
-void player::setPosition(qreal newX, qreal newY) {
+void player::setPosition(float newX, float newY) {
     if (x != newX || y != newY) {
         x = newX;
         y = newY;
@@ -68,30 +68,67 @@ void player::setPosition(qreal newX, qreal newY) {
 }
 
 void player::getOnBench(singleGameSimulation* s){
-    y = -3;
+    setPosition(x, -3);
     s->playersOnIce.removeOne(this);
 }
 
 void player::getOffBench(singleGameSimulation* s){
-    y = 2;
+    setPosition(x, 2);
     s->playersOnIce.push_back(this);
 }
 
-void player::updatePhysics() {
-    qreal dx = targetX - x;
-    qreal dy = targetY - y;
-    qreal distance = std::hypot(dx, dy);
+void player::updatePhysics(float dt) {
+    qDebug() << "updatePhysics called!";
+    qDebug() << "Target Pos: tX = " << tX << ", tY = " << tY;
+    qDebug() << "CurrentPos: x = " << x << ", y = " << y;
+    float dx = tX - x;
+    float dy = tY - y;
+    float distToTarget = std::hypot(dx, dy);
 
-    if (distance > speedPerTick) {
-        // Step gradually towards target
-        setPosition(x + (dx / distance) * speedPerTick,
-                    y + (dy / distance) * speedPerTick); //basically speed * cos and sin to get x and y velo components
-    } else if (distance > 0.0) {
-        setPosition(targetX, targetY);
+    // 1. Determine Desired Movement Direction
+    if (distToTarget > 1.0f) { // Active Skating
+        float dirX = dx / distToTarget;
+        float dirY = dy / distToTarget;
+
+        // Accelerate toward target direction
+        vX += dirX * acceleration * dt;
+        vY += dirY * acceleration * dt;
+
+        // Cap to max top speed
+        float currentSpeed = std::hypot(vX, vY);
+        if (currentSpeed > maxSpeed) {
+            vX = (vX / currentSpeed) * maxSpeed;
+            vY = (vY / currentSpeed) * maxSpeed;
+        }
+    } else {
+        // 2. Active Braking / Gliding when near the target
+        float currentSpeed = std::hypot(vX, vY);
+
+        if (currentSpeed > 0.05f) {
+            // Apply drag/glide physics
+            vX *= iceFriction;
+            vY *= iceFriction;
+
+            // Optional: apply stronger braking if stopping intentionally
+            float drop = brakeDecel * dt;
+            float newSpeed = std::max(0.0f, currentSpeed - drop);
+            vX = (vX / currentSpeed) * newSpeed;
+            vY = (vY/ currentSpeed) * newSpeed;
+        } else {
+            vX = 0.0f;
+            vY = 0.0f;
+        }
     }
+
+    // 3. Integrate Position
+    x += vX * dt;
+    y += vY * dt;
+
+    setPosition(x, y);
+    emit positionChanged();
 }
 
-void player::setTargetPosition(qreal tX, qreal tY){
-    targetX = tX;
-    targetY = tY;
+void player::setTargetPosition(float targetX, float targetY){
+    tX = targetX;
+    tY = targetY;
 }

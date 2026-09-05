@@ -50,34 +50,7 @@ void MainWindow::on_editTeamsLineups_clicked()
 {
     ui->stackedWidget->setCurrentIndex(1);
 }
-/*
-void MainWindow::on_startSim_clicked()
-{
 
-    if(awayTeamInSim == nullptr || homeTeamInSim == nullptr){
-        QMessageBox::warning(this, "Input Error", "Teams for simulation haven't been selected.");
-        return;
-    }
-
-    //set up sim
-
-    singleGameSimulation* s = new singleGameSimulation(ui, awayTeamInSim, homeTeamInSim);
-    currentSim = s;
-    ui->rinkView->setScene(s->r);
-    ui->rinkView->scale(6, 6);
-
-    ui->awayLabel->setText("Away: " + awayTeamInSim->returnFullTeamName());
-    ui->homeLabel->setText("Home: " + homeTeamInSim->returnFullTeamName());
-
-    //set up timer
-    currentSim->configureTimer();
-    currentSim->configurePlayers();
-    ui->stackedWidget->setCurrentIndex(2);
-
-    //basically this should do everything
-    currentSim->runSimulation();
-}
-*/
 void MainWindow::on_startSim_clicked()
 {
     if (awayTeamInSim == nullptr || homeTeamInSim == nullptr) {
