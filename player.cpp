@@ -67,3 +67,31 @@ void player::setPosition(qreal newX, qreal newY) {
     }
 }
 
+void player::getOnBench(singleGameSimulation* s){
+    y = -3;
+    s->playersOnIce.removeOne(this);
+}
+
+void player::getOffBench(singleGameSimulation* s){
+    y = 2;
+    s->playersOnIce.push_back(this);
+}
+
+void player::updatePhysics() {
+    qreal dx = targetX - x;
+    qreal dy = targetY - y;
+    qreal distance = std::hypot(dx, dy);
+
+    if (distance > speedPerTick) {
+        // Step gradually towards target
+        setPosition(x + (dx / distance) * speedPerTick,
+                    y + (dy / distance) * speedPerTick); //basically speed * cos and sin to get x and y velo components
+    } else if (distance > 0.0) {
+        setPosition(targetX, targetY);
+    }
+}
+
+void player::setTargetPosition(qreal tX, qreal tY){
+    targetX = tX;
+    targetY = tY;
+}

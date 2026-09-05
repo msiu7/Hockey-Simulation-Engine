@@ -3,8 +3,9 @@
 #include <QObject>
 #include <QTimer>
 #include <QtQml/qqmlregistration.h>
-#include "team.hpp"
-#include "player.hpp"
+
+class team;
+class player;
 
 namespace Ui {
 class MainWindow;
@@ -26,6 +27,11 @@ private:
     QTimer* simClock;
     int period; //for now: periods 1, 2, and 3. 4 is OT, 5 is shootout.
     int secondsRemainingInPeriod;
+    team* teamDefendingLeft;
+    team* teamDefendingRight;
+    bool isStoppage = true;
+    QList<player*> playersOnIce;
+
 
 signals:
     void periodChanged();
@@ -44,9 +50,11 @@ public:
     void configurePlayers();
     int getPeriod() const { return period; }
     QString timerText() const;
+    void getPlayersOnIceToStartPeriod();
 
-    QList<player*> getAwayPlayers() const { return away ? away->lineup : QList<player*>(); }
-    QList<player*> getHomePlayers() const { return home ? home->lineup : QList<player*>(); }
+    QList<player*> getAwayPlayers();
+    QList<player*> getHomePlayers();
 
     friend class MainWindow;
+    friend class player;
 };

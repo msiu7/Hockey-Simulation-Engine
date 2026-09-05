@@ -9,6 +9,7 @@
 #include <QObject>
 #include <QColor>
 #include <QtQml/qqmlregistration.h>
+#include "singleGameSimulation.hpp"
 
 
 struct physicalStats {
@@ -50,6 +51,9 @@ protected:
     QGraphicsEllipseItem* playerIcon;
     qreal x{0.0};
     qreal y{0.0};
+    qreal targetX{0.0};
+    qreal targetY{0.0};
+    qreal speedPerTick{0.6};
 
 signals:
     void positionChanged();
@@ -77,6 +81,10 @@ public:
 	virtual std::ostream& showSpecificStats(std::ostream& out) const = 0;
     virtual QString getPositionAsString() const = 0;
     void setPosition(qreal newX, qreal newY);
+    void getOnBench(singleGameSimulation* s);
+    void getOffBench(singleGameSimulation* s);
+    void updatePhysics();
+    void setTargetPosition(qreal tX, qreal tY);
     friend class MainWindow;
     friend class singleGameSimulation;
 };
