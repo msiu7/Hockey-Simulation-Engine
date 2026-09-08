@@ -3,6 +3,7 @@
 #include <QObject>
 #include <QTimer>
 #include <QtQml/qqmlregistration.h>
+#include <box2d/box2d.h>
 
 class team;
 class player;
@@ -31,6 +32,8 @@ private:
     team* teamDefendingRight;
     bool isStoppage = true;
     QList<player*> playersOnIce;
+    b2World world{b2Vec2(0.0f, 0.0f)}; // zero gravity x, zero gravity y.
+    void buildRinkBounds();
 
 
 signals:

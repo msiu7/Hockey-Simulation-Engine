@@ -13,6 +13,7 @@ singleGameSimulation::singleGameSimulation(Ui::MainWindow *uiptr){
     secondsRemainingInPeriod = 1200;
     teamDefendingLeft = nullptr;
     teamDefendingRight = nullptr;
+    buildRinkBounds();
 }
 
 singleGameSimulation::singleGameSimulation(Ui::MainWindow *uiptr, team* a, team* h){
@@ -25,6 +26,7 @@ singleGameSimulation::singleGameSimulation(Ui::MainWindow *uiptr, team* a, team*
     secondsRemainingInPeriod = 1200;
     teamDefendingLeft = a;
     teamDefendingRight = h;
+    buildRinkBounds();
 }
 
 QList<player*> singleGameSimulation::getAwayPlayers(){ return away ? away->lineup : QList<player*>(); }
@@ -51,15 +53,17 @@ void singleGameSimulation::configurePlayers(){
     qreal x = 65; qreal y = -3;
     for (player* p : away->lineup){
         p->setPosition(x, y);
-        //p->setTargetPosition(x, y);
         p->configurePlayerIcon(x, y, Qt::red);
+        p->initPhysicsBody(&world, x, y);
+        p->body->SetEnabled(false);
         x += 1.5;
     }
     x = 107;
     for (player* p : home->lineup){
         p->setPosition(x, y);
-        //p->setTargetPosition(x, y);
         p->configurePlayerIcon(x, y, Qt::blue);
+        p->initPhysicsBody(&world, x, y);
+        p->body->SetEnabled(false);
         x += 1.5; 
     }
 
@@ -77,7 +81,10 @@ void singleGameSimulation::updatePeriodDisplay(){
     updateTimerDisplay();
 }
 
-void singleGameSimulation::runSimulation(){ //this function is called on every tick of simClock
+void singleGameSimulation::runSimulation(){    //this function is called on every tick of simClock
+
+    world.Step(0.01f, 8, 3); //10 ms, velocity and position iterators smooth things out.
+
     for(player* p : playersOnIce){
         p->updatePhysics(0.01f);
     }
@@ -118,13 +125,42 @@ QString singleGameSimulation::timerText() const {
 void singleGameSimulation::getPlayersOnIceToStartPeriod(){
     for(int i = 0; i < 6; i++){
         away->lineup[i]->getOffBench(this);
-        away->lineup[i]->setTargetPosition(i * 20, i * 5);
+        away->lineup[i]->setTargetPosition(100, -3);
     }
 
     for(int i = 0; i < 6; i++){
         home->lineup[i]->getOffBench(this);
-        home->lineup[i]->setTargetPosition(i * 20 + 5, i * 5 + 2);
+        home->lineup[i]->setTargetPosition(0, 30);
     }
 
+}
+
+void singleGameSimulation::buildRinkBounds() {
+    b2BodyDef groundDef;
+    b2Body* groundBody = world.CreateBody(&groundDef);
+
+    // Build the outer board perimeter (200x85 ft with 28 ft radius corners)
+    // Box2D chain shape or simple 4 edges to start:
+    b2EdgeShape edge;
+    b2FixtureDef fixtureDef;
+    fixtureDef.shape = &edge;
+    fixtureDef.restitution = 0.4f; // Puck/skater bounce off boards
+    fixtureDef.friction = 0.2f;
+
+    // Top board
+    edge.SetTwoSided(b2Vec2(28.0f, 0.0f), b2Vec2(172.0f, 0.0f));
+    groundBody->CreateFixture(&fixtureDef);
+
+    // Bottom board
+    edge.SetTwoSided(b2Vec2(28.0f, 85.0f), b2Vec2(172.0f, 85.0f));
+    groundBody->CreateFixture(&fixtureDef);
+
+    // Left board
+    edge.SetTwoSided(b2Vec2(0.0f, 28.0f), b2Vec2(0.0f, 57.0f));
+    groundBody->CreateFixture(&fixtureDef);
+
+    // Right board
+    edge.SetTwoSided(b2Vec2(200.0f, 28.0f), b2Vec2(200.0f, 57.0f));
+    groundBody->CreateFixture(&fixtureDef);
 }
 

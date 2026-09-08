@@ -268,9 +268,9 @@ Item {
     Repeater {
         model: simEngine ? simEngine.awayPlayers : []
         delegate: Rectangle {
-            width: 14
-            height: 14
-            radius: 7
+            width: (2.0 / 220.0) * root.width
+            height: (2.0 / 105.0) * root.height
+            radius: width / 2
             color: "#d72638"
             border.color: "black"
             border.width: 1
@@ -293,9 +293,9 @@ Item {
     Repeater {
         model: simEngine ? simEngine.homePlayers : []
         delegate: Rectangle {
-            width: 14
-            height: 14
-            radius: 7
+            width: (2.0 / 220.0) * root.width
+            height: (2.0 / 105.0) * root.height
+            radius: width / 2
             color: "#1e64c8"
             border.color: "black"
             border.width: 1

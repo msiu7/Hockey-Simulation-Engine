@@ -70,65 +70,80 @@ void player::setPosition(float newX, float newY) {
 void player::getOnBench(singleGameSimulation* s){
     setPosition(x, -3);
     s->playersOnIce.removeOne(this);
+
+    body->SetTransform(b2Vec2(x, -3), 0.0f);
+    body->SetEnabled(false);
 }
 
 void player::getOffBench(singleGameSimulation* s){
     setPosition(x, 2);
     s->playersOnIce.push_back(this);
+
+    body->SetTransform(b2Vec2(x, 2), 0.0f);
+    body->SetEnabled(true);
 }
 
 void player::updatePhysics(float dt) {
-    qDebug() << "updatePhysics called!";
-    qDebug() << "Target Pos: tX = " << tX << ", tY = " << tY;
-    qDebug() << "CurrentPos: x = " << x << ", y = " << y;
-    float dx = tX - x;
-    float dy = tY - y;
-    float distToTarget = std::hypot(dx, dy);
+    if (!body) return;
 
-    // 1. Determine Desired Movement Direction
-    if (distToTarget > 1.0f) { // Active Skating
-        float dirX = dx / distToTarget;
-        float dirY = dy / distToTarget;
+    b2Vec2 currentPos = body->GetPosition();
+    float dx = tX - currentPos.x;
+    float dy = tY - currentPos.y;
+    float dist = std::hypot(dx, dy);
 
-        // Accelerate toward target direction
-        vX += dirX * acceleration * dt;
-        vY += dirY * acceleration * dt;
+    b2Vec2 targetVel(0.0f, 0.0f);
 
-        // Cap to max top speed
-        float currentSpeed = std::hypot(vX, vY);
-        if (currentSpeed > maxSpeed) {
-            vX = (vX / currentSpeed) * maxSpeed;
-            vY = (vY / currentSpeed) * maxSpeed;
-        }
-    } else {
-        // 2. Active Braking / Gliding when near the target
-        float currentSpeed = std::hypot(vX, vY);
-
-        if (currentSpeed > 0.05f) {
-            // Apply drag/glide physics
-            vX *= iceFriction;
-            vY *= iceFriction;
-
-            // Optional: apply stronger braking if stopping intentionally
-            float drop = brakeDecel * dt;
-            float newSpeed = std::max(0.0f, currentSpeed - drop);
-            vX = (vX / currentSpeed) * newSpeed;
-            vY = (vY/ currentSpeed) * newSpeed;
-        } else {
-            vX = 0.0f;
-            vY = 0.0f;
-        }
+    if (dist > 1.0f) {
+        float dirX = dx / dist;
+        float dirY = dy / dist;
+        targetVel.Set(dirX * maxSpeed, dirY * maxSpeed);
     }
 
-    // 3. Integrate Position
-    x += vX * dt;
-    y += vY * dt;
+    // Apply smooth acceleration toward desired velocity
+    b2Vec2 currentVel = body->GetLinearVelocity();
+    b2Vec2 velDiff = targetVel - currentVel;
+    b2Vec2 force = (body->GetMass() / dt) * velDiff;
 
-    setPosition(x, y);
+    // Cap the maximum skating push force
+    float maxForce = body->GetMass() * acceleration;
+    if (force.Length() > maxForce) {
+        force.Normalize();
+        force *= maxForce;
+    }
+
+    body->ApplyForceToCenter(force, true);
+
+    // Sync back to member variables for QML bindings
+    x = body->GetPosition().x;
+    y = body->GetPosition().y;
+
+    if (playerIcon) {
+        playerIcon->setPos(x, y);
+    }
     emit positionChanged();
 }
 
 void player::setTargetPosition(float targetX, float targetY){
     tX = targetX;
     tY = targetY;
+}
+
+void player::initPhysicsBody(b2World* world, float startX, float startY) {
+    b2BodyDef bodyDef;
+    bodyDef.type = b2_dynamicBody;
+    bodyDef.position.Set(startX, startY);
+    bodyDef.linearDamping = 0.5f; // Mimic ice gliding drag
+    bodyDef.fixedRotation = true;  // Keep players upright
+
+    body = world->CreateBody(&bodyDef);
+
+    b2CircleShape circle;
+    circle.m_radius = 1.0f; // ~1 ft collision radius for a skater
+
+    b2FixtureDef fixtureDef;
+    fixtureDef.shape = &circle;
+    fixtureDef.density = 1.0f; //this will impact mass (mass = area * density) and a = pi * r^2, should edit this later for realistic mass.
+    fixtureDef.friction = 0.1f;      // Low friction for ice
+    fixtureDef.restitution = 0.2f;   // Soft bounce on impact
+    body->CreateFixture(&fixtureDef);
 }

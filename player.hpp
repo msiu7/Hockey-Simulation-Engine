@@ -62,6 +62,9 @@ protected:
     float iceFriction = 0.985f;  // Glide retention per tick (~1.5% drag)
     float brakeDecel = 60.0f;    // Active snow-plow / hockey stop braking
 
+    b2Body* body = nullptr;
+    void initPhysicsBody(b2World* world, float startX, float startY);
+
 signals:
     void positionChanged();
 
