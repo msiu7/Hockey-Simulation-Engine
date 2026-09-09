@@ -41,14 +41,10 @@ Item {
             function roundedRect(c, x, y, w, h, r) {
                 c.beginPath();
                 c.moveTo(x + r, y);
-                c.lineTo(x + w - r, y);
-                c.quadraticCurveTo(x + w, y, x + w, y + r);
-                c.lineTo(x + w, y + h - r);
-                c.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
-                c.lineTo(x + r, y + h);
-                c.quadraticCurveTo(x, y + h, x, y + h - r);
-                c.lineTo(x, y + r);
-                c.quadraticCurveTo(x, y, x + r, y);
+                c.arcTo(x + w, y,     x + w, y + h, r); // Top-right corner
+                c.arcTo(x + w, y + h, x,     y + h, r); // Bottom-right corner
+                c.arcTo(x,     y + h, x,     y,     r); // Bottom-left corner
+                c.arcTo(x,     y,     x + w, y,     r); // Top-left corner
                 c.closePath();
             }
 

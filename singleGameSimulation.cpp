@@ -125,42 +125,70 @@ QString singleGameSimulation::timerText() const {
 void singleGameSimulation::getPlayersOnIceToStartPeriod(){
     for(int i = 0; i < 6; i++){
         away->lineup[i]->getOffBench(this);
-        away->lineup[i]->setTargetPosition(100, -3);
+        away->lineup[i]->setTargetPosition(0, 0);
     }
 
     for(int i = 0; i < 6; i++){
         home->lineup[i]->getOffBench(this);
-        home->lineup[i]->setTargetPosition(0, 30);
+        home->lineup[i]->setTargetPosition(200, 85);
     }
 
 }
 
 void singleGameSimulation::buildRinkBounds() {
     b2BodyDef groundDef;
-    b2Body* groundBody = world.CreateBody(&groundDef);
+    groundDef.position.Set(0.0f, 0.0f);
+    b2Body* rinkBody = world.CreateBody(&groundDef);
 
-    // Build the outer board perimeter (200x85 ft with 28 ft radius corners)
-    // Box2D chain shape or simple 4 edges to start:
-    b2EdgeShape edge;
     b2FixtureDef fixtureDef;
+    b2EdgeShape edge;
     fixtureDef.shape = &edge;
-    fixtureDef.restitution = 0.4f; // Puck/skater bounce off boards
-    fixtureDef.friction = 0.2f;
+    fixtureDef.friction = 0.05f;
+    fixtureDef.restitution = 0.35f;
 
-    // Top board
-    edge.SetTwoSided(b2Vec2(28.0f, 0.0f), b2Vec2(172.0f, 0.0f));
-    groundBody->CreateFixture(&fixtureDef);
+    const float rinkW = 200.0f;
+    const float rinkH = 85.0f;
+    const float r = 28.0f;
+    const int arcSegments = 12;
+    const float PI = 3.14159265359f;
 
-    // Bottom board
-    edge.SetTwoSided(b2Vec2(28.0f, 85.0f), b2Vec2(172.0f, 85.0f));
-    groundBody->CreateFixture(&fixtureDef);
+    // 1. Straight Board Edges
+    // Top
+    edge.SetTwoSided(b2Vec2(r, 0.0f), b2Vec2(rinkW - r, 0.0f));
+    rinkBody->CreateFixture(&fixtureDef);
+    // Bottom
+    edge.SetTwoSided(b2Vec2(r, rinkH), b2Vec2(rinkW - r, rinkH));
+    rinkBody->CreateFixture(&fixtureDef);
+    // Left
+    edge.SetTwoSided(b2Vec2(0.0f, r), b2Vec2(0.0f, rinkH - r));
+    rinkBody->CreateFixture(&fixtureDef);
+    // Right
+    edge.SetTwoSided(b2Vec2(rinkW, r), b2Vec2(rinkW, rinkH - r));
+    rinkBody->CreateFixture(&fixtureDef);
 
-    // Left board
-    edge.SetTwoSided(b2Vec2(0.0f, 28.0f), b2Vec2(0.0f, 57.0f));
-    groundBody->CreateFixture(&fixtureDef);
+    // Helper lambda to generate two-sided arc edges
+    auto buildCornerArc = [&](float cx, float cy, float startAngle, float endAngle) {
+        for (int i = 0; i < arcSegments; ++i) {
+            float a1 = startAngle + (static_cast<float>(i) / arcSegments) * (endAngle - startAngle); //increment angle
+            float a2 = startAngle + (static_cast<float>(i + 1) / arcSegments) * (endAngle - startAngle);
 
-    // Right board
-    edge.SetTwoSided(b2Vec2(200.0f, 28.0f), b2Vec2(200.0f, 57.0f));
-    groundBody->CreateFixture(&fixtureDef);
+            b2Vec2 p1(cx + r * std::cos(a1), cy + r * std::sin(a1)); //increment arc length
+            b2Vec2 p2(cx + r * std::cos(a2), cy + r * std::sin(a2));
+
+            edge.SetTwoSided(p1, p2);
+            rinkBody->CreateFixture(&fixtureDef);
+        }
+    };
+
+    // Top-Left (from PI to 1.5 * PI)
+    buildCornerArc(r, r, PI, 1.5f * PI);
+
+    // Top-Right (from 1.5 * PI to 2.0 * PI)
+    buildCornerArc(rinkW - r, r, 1.5f * PI, 2.0f * PI);
+
+    // Bottom-Right (from 0 to 0.5 * PI)
+    buildCornerArc(rinkW - r, rinkH - r, 0.0f, 0.5f * PI);
+
+    // Bottom-Left (from 0.5 * PI to PI)
+    buildCornerArc(r, rinkH - r, 0.5f * PI, PI);
 }
-

@@ -89,6 +89,9 @@ void MainWindow::on_backButton1_clicked()
 void MainWindow::on_backButton2_clicked()
 {
     generalBackButtonAction();
+    singleGameSimulation* s = currentSim;
+    delete s;
+    currentSim = nullptr;
 }
 
 void MainWindow::generalBackButtonAction()
