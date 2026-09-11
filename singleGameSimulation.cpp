@@ -14,6 +14,7 @@ singleGameSimulation::singleGameSimulation(Ui::MainWindow *uiptr){
     teamDefendingLeft = nullptr;
     teamDefendingRight = nullptr;
     buildRinkBounds();
+    thePuck = new puck(&world, 100, 50);
 }
 
 singleGameSimulation::singleGameSimulation(Ui::MainWindow *uiptr, team* a, team* h){
@@ -27,6 +28,7 @@ singleGameSimulation::singleGameSimulation(Ui::MainWindow *uiptr, team* a, team*
     teamDefendingLeft = a;
     teamDefendingRight = h;
     buildRinkBounds();
+    thePuck = new puck(&world, 100, 50);
 }
 
 QList<player*> singleGameSimulation::getAwayPlayers(){ return away ? away->lineup : QList<player*>(); }
@@ -68,6 +70,7 @@ void singleGameSimulation::configurePlayers(){
     }
 
     emit playersChanged();
+    emit puckChanged();
 }
 
 void singleGameSimulation::updateTimerDisplay(){
@@ -88,6 +91,10 @@ void singleGameSimulation::runSimulation(){    //this function is called on ever
     for(player* p : playersOnIce){
         p->updatePhysics(0.01f);
     }
+
+    thePuck->updatePhysics();
+    thePuck->getX();
+    thePuck->getY();
 
     if (isStoppage){
     }

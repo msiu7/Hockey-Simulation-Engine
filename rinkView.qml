@@ -6,6 +6,8 @@ Item {
     width: 880
     height: 420
 
+    //property var simEngine: null
+
     // Coordinate scaling from 220x105 sim space
     readonly property real scaleFactor: width / 220.0
 
@@ -309,4 +311,19 @@ Item {
             }
         }
     }
+
+    Repeater {
+        model: (simEngine && simEngine.puck) ? 1 : 0
+        delegate: Rectangle {
+            width: 8
+            height: 8
+            radius: 4
+            color: "black"
+            border.color: "white"
+            border.width: 1
+
+                x: (((simEngine.puck.x + 10.0) / 220.0) * root.width) - (width / 2)
+                y: (((simEngine.puck.y + 10.0) / 105.0) * root.height) - (height / 2)
+            }
+        }
 }

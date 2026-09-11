@@ -35,6 +35,7 @@ add_executable(HockeySimulationEngine
     singleGameSimulation.cpp
     singleGameSimulation.hpp
     rinkView.qml
+    puck.hpp puck.cpp
 
 )
 

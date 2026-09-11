@@ -9,6 +9,9 @@
 #include <QApplication>
 
 int main(int argc, char* argv[]) {
+    //fix how the puck works with qml.
+    qRegisterMetaType<puck*>("puck*");
+
 	QApplication app(argc, argv);
     MainWindow window;
     //always start at the start screen

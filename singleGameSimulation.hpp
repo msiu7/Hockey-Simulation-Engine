@@ -4,6 +4,7 @@
 #include <QTimer>
 #include <QtQml/qqmlregistration.h>
 #include <box2d/box2d.h>
+#include "puck.hpp"
 
 class team;
 class player;
@@ -19,6 +20,7 @@ class singleGameSimulation : public QObject{
     Q_PROPERTY(int period READ getPeriod NOTIFY periodChanged)
     Q_PROPERTY(QList<player*> awayPlayers READ getAwayPlayers NOTIFY playersChanged)
     Q_PROPERTY(QList<player*> homePlayers READ getHomePlayers NOTIFY playersChanged)
+    Q_PROPERTY(puck* puck READ getPuck NOTIFY puckChanged)
 
 private:
     Ui::MainWindow *ui; //to interact with the ui
@@ -34,11 +36,13 @@ private:
     QList<player*> playersOnIce;
     b2World world{b2Vec2(0.0f, 0.0f)}; // zero gravity x, zero gravity y.
     void buildRinkBounds();
+    puck* thePuck = nullptr;
 
 
 signals:
     void periodChanged();
     void playersChanged();
+    void puckChanged();
 
 public:
     singleGameSimulation(Ui::MainWindow *uiptr);
@@ -57,6 +61,8 @@ public:
 
     QList<player*> getAwayPlayers();
     QList<player*> getHomePlayers();
+
+    puck* getPuck() const { return thePuck; }
 
     friend class MainWindow;
     friend class player;

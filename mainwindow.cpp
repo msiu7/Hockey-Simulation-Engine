@@ -39,6 +39,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->handednessComboBox->addItems(handednesses);
 
     currentSim = nullptr;
+
 }
 
 MainWindow::~MainWindow()
@@ -72,11 +73,11 @@ void MainWindow::on_startSim_clicked()
         if (currentSim) currentSim->pauseSim();
     });
 
-    currentSim->configureTimer();
-    currentSim->configurePlayers();
-
     // Pass currentSim pointer to the QML context
     ui->qRinkWidget->rootContext()->setContextProperty("simEngine", currentSim);
+
+    currentSim->configureTimer();
+    currentSim->configurePlayers();
 
     ui->stackedWidget->setCurrentIndex(2);
 }
