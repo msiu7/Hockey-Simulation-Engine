@@ -71,7 +71,7 @@ void player::getOnBench(singleGameSimulation* s){
     setPosition(x, -3);
     s->playersOnIce.removeOne(this);
 
-    body->SetTransform(b2Vec2(x, -3), 0.0f);
+    body->SetTransform(b2Vec2(x, -3), 3.14159265359f / 2.0f);
     body->SetEnabled(false);
 }
 
@@ -79,7 +79,7 @@ void player::getOffBench(singleGameSimulation* s){
     setPosition(x, 2);
     s->playersOnIce.push_back(this);
 
-    body->SetTransform(b2Vec2(x, 2), 0.0f);
+    body->SetTransform(b2Vec2(x, 2), body->GetAngle());
     body->SetEnabled(true);
 }
 
@@ -92,6 +92,26 @@ void player::updatePhysics(float dt) {
     float dist = std::hypot(dx, dy);
 
     b2Vec2 targetVel(0.0f, 0.0f);
+
+    //Angular Kinematics
+    float targetAngle = std::atan2(dy, dx);
+    float currentAngle = body->GetAngle();
+
+    // 2. Shortest rotational difference (-PI to +PI)
+    float diff = targetAngle - currentAngle;
+    while (diff < -3.14159265f) diff += 2.0f * 3.14159265f;
+    while (diff >  3.14159265f) diff -= 2.0f * 3.14159265f;
+
+    // 3. Max turn speed in radians per second (e.g., 5.0 rad/s ~ 286 deg/s)
+    const float maxTurnRate = 6.0f;
+    float maxStep = maxTurnRate * dt;
+
+    // Clamp the rotation step for this frame
+    float step = std::clamp(diff, -maxStep, maxStep);
+    float newAngle = currentAngle + step;
+
+    body->SetTransform(currentPos, newAngle);
+    //End Angular Kinematics
 
     if (dist > 1.0f) {
         float dirX = dx / dist;
@@ -121,6 +141,7 @@ void player::updatePhysics(float dt) {
         playerIcon->setPos(x, y);
     }
     emit positionChanged();
+    emit rotationChanged();
 }
 
 void player::setTargetPosition(float targetX, float targetY){
@@ -146,4 +167,12 @@ void player::initPhysicsBody(b2World* world, float startX, float startY) {
     fixtureDef.friction = 0.1f;      // Low friction for ice
     fixtureDef.restitution = 0.2f;   // Soft bounce on impact
     body->CreateFixture(&fixtureDef);
+}
+
+void player::facePoint(float targetX, float targetY) {
+    if (!body) return;
+    b2Vec2 pos = body->GetPosition();
+    float angle = std::atan2(targetY - pos.y, targetX - pos.x);
+    body->SetTransform(pos, angle);
+    emit rotationChanged();
 }

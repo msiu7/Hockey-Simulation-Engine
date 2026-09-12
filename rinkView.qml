@@ -261,53 +261,99 @@ Item {
             drawGoalCage(ctx, goalLineRightX, centerY, false);
         }
     }
-
-    // Away Players (Red dots)
+    //away players
     Repeater {
         model: simEngine ? simEngine.awayPlayers : []
-        delegate: Rectangle {
+        delegate: Item { // Outer container holds rink position
             width: (2.0 / 220.0) * root.width
             height: (2.0 / 105.0) * root.height
-            radius: width / 2
-            color: "#d72638"
-            border.color: "black"
-            border.width: 1
 
-            // scaling to actual window size
             x: ((modelData.x + 10.0) / 220.0) * root.width - (width / 2)
             y: ((modelData.y + 10.0) / 105.0) * root.height - (height / 2)
 
-            Text {
-                anchors.centerIn: parent
-                text: modelData.number
-                color: "white"
-                font.pixelSize: 8
-                font.bold: true
+            // Rotate the visual components around their center
+            rotation: modelData.rotation
+
+            // Player circular body
+            Rectangle {
+                anchors.fill: parent
+                radius: width / 2
+                color: "#1e64c8"
+                border.color: "black"
+                border.width: 1
+
+                Text {
+                    anchors.centerIn: parent
+                    text: modelData.number
+                    color: "white"
+                    font.pixelSize: 8
+                    font.bold: true
+                    // Keep the jersey number right-side up regardless of player spin:
+                    rotation: -parent.parent.rotation
+                }
+            }
+
+            // Direction indicator ("visor" / front pointer)
+            Rectangle {
+                width: parent.width * 0.35
+                height: parent.height * 0.35
+                radius: width / 2
+                color: "#ffffff"
+                border.color: "black"
+                border.width: 0.5
+
+                // Positioned at the front edge (right side at angle 0)
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.right: parent.right
+                anchors.rightMargin: -width * 0.2
             }
         }
     }
-
-    // Home Players (Blue dots)
+    //home players
     Repeater {
         model: simEngine ? simEngine.homePlayers : []
-        delegate: Rectangle {
+        delegate: Item { // Outer container holds rink position
             width: (2.0 / 220.0) * root.width
             height: (2.0 / 105.0) * root.height
-            radius: width / 2
-            color: "#1e64c8"
-            border.color: "black"
-            border.width: 1
 
-            // scaling to actual window size
             x: ((modelData.x + 10.0) / 220.0) * root.width - (width / 2)
             y: ((modelData.y + 10.0) / 105.0) * root.height - (height / 2)
 
-            Text {
-                anchors.centerIn: parent
-                text: modelData.number
-                color: "white"
-                font.pixelSize: 8
-                font.bold: true
+            // Rotate the visual components around their center
+            rotation: modelData.rotation
+
+            // Player circular body
+            Rectangle {
+                anchors.fill: parent
+                radius: width / 2
+                color: "#1e64c8"
+                border.color: "black"
+                border.width: 1
+
+                Text {
+                    anchors.centerIn: parent
+                    text: modelData.number
+                    color: "white"
+                    font.pixelSize: 8
+                    font.bold: true
+                    // Keep the jersey number right-side up regardless of player spin:
+                    rotation: -parent.parent.rotation
+                }
+            }
+
+            // Direction indicator ("visor" / front pointer)
+            Rectangle {
+                width: parent.width * 0.35
+                height: parent.height * 0.35
+                radius: width / 2
+                color: "#ffffff"
+                border.color: "black"
+                border.width: 0.5
+
+                // Positioned at the front edge (right side at angle 0)
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.right: parent.right
+                anchors.rightMargin: -width * 0.2
             }
         }
     }

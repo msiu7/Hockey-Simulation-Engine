@@ -58,7 +58,9 @@ void singleGameSimulation::configurePlayers(){
         p->configurePlayerIcon(x, y, Qt::red);
         p->initPhysicsBody(&world, x, y);
         p->body->SetEnabled(false);
-        x += 1.5;
+        p->body->SetTransform(p->body->GetPosition(), 3.14159265359f / 2.0f); // facing down
+        emit p->rotationChanged();
+        x += 2;
     }
     x = 107;
     for (player* p : home->lineup){
@@ -66,7 +68,9 @@ void singleGameSimulation::configurePlayers(){
         p->configurePlayerIcon(x, y, Qt::blue);
         p->initPhysicsBody(&world, x, y);
         p->body->SetEnabled(false);
-        x += 1.5; 
+        p->body->SetTransform(p->body->GetPosition(), 3.14159265359f / 2.0f); // facing down
+        emit p->rotationChanged();
+        x += 2;
     }
 
     emit playersChanged();

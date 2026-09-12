@@ -36,6 +36,7 @@ class player : public QObject {
     Q_PROPERTY(float y READ getY NOTIFY positionChanged)
     Q_PROPERTY(int number READ getNumber CONSTANT)
     Q_PROPERTY(QString lastName READ getLastName CONSTANT)
+    Q_PROPERTY(float rotation READ getRotation NOTIFY rotationChanged)
 
 protected:
 
@@ -67,6 +68,7 @@ protected:
 
 signals:
     void positionChanged();
+    void rotationChanged();
 
 public:
 
@@ -95,6 +97,8 @@ public:
     void getOffBench(singleGameSimulation* s);
     void updatePhysics(float dt);
     void setTargetPosition(float tX, float tY);
+    float getRotation() const {return body ? (body->GetAngle() * 180.0f / 3.14159265f) : 0.0f;} //conversion to degrees
+    void facePoint(float targetX, float targetY);
     friend class MainWindow;
     friend class singleGameSimulation;
 };
