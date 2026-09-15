@@ -6,8 +6,6 @@ Item {
     width: 880
     height: 420
 
-    //property var simEngine: null
-
     // Coordinate scaling from 220x105 sim space
     readonly property real scaleFactor: width / 220.0
 
@@ -76,63 +74,129 @@ Item {
                 c.stroke();
             }
 
-            function drawGoalCage(c, goalLineX, centerY, facingRight) {
-                const goalWidth = 6.0;   // 6 ft between posts (Y-axis)[cite: 3]
-                const goalDepth = 4.0;   // 4 ft deep to center back (X-axis)[cite: 3]
-                const halfWidth = goalWidth / 2.0;
-
-                // Top post, bottom post, and back curve coordinates
-                const topPostY = centerY - halfWidth;
-                const bottomPostY = centerY + halfWidth;
-
-                // Directing whether the cage extends leftward (-X) or rightward (+X)
-                const dir = facingRight ? -1.0 : 1.0;
-                const backX = goalLineX + (dir * goalDepth);
-                const cornerBackX = goalLineX + (dir * (goalDepth - 1.2)); // Where side tapers meet back radius
-
-                //Netting interior path
-                c.beginPath();
-                c.moveTo(goalLineX, topPostY);
-                // Upper side pipe tapering backward
-                c.lineTo(cornerBackX, centerY - 2.2);
-                // Back curve arc
-                c.quadraticCurveTo(backX, centerY, cornerBackX, centerY + 2.2);
-                // Lower side pipe returning to bottom post
-                c.lineTo(goalLineX, bottomPostY);
-                c.closePath();
-
-                // Semi-transparent mesh fill
-                c.fillStyle = "rgba(225, 225, 230, 0.55)";
-                c.fill();
-
-                //Red Pipe Outlines
-                c.strokeStyle = "#d72638";
-                c.lineWidth = 0.8;
-                c.lineCap = "round";
-                c.lineJoin = "round";
-
-                // Main frame: post -> corner -> rounded back -> corner -> post
-                c.beginPath();
-                c.moveTo(goalLineX, topPostY);
-                c.lineTo(cornerBackX, centerY - 2.2);
-                c.quadraticCurveTo(backX, centerY, cornerBackX, centerY + 2.2);
-                c.lineTo(goalLineX, bottomPostY);
-                c.stroke();
-
-                // Center rear support post
-                c.lineWidth = 0.4;
-                c.beginPath();
-                c.moveTo(backX, centerY);
-                c.lineTo(goalLineX + (dir * 1.5), centerY);
-                c.stroke();
-
-                // 3. Goal Posts on Goal Line
-                c.fillStyle = "#d72638";
-                c.beginPath();
-                c.arc(goalLineX, topPostY, 0.5, 0, 2 * Math.PI);
-                c.arc(goalLineX, bottomPostY, 0.5, 0, 2 * Math.PI);
-                c.fill();
+        function drawGoalCrease(c, goalLineX, centerY, facingRight) {
+            c.save();
+            c.translate(goalLineX, centerY);
+            // When facing left (facingRight === false), mirror the X axis so the exact same coordinates work
+            if (!facingRight) {
+                c.scale(-1, 1);
             }
+
+            const halfW = 4.0;         // 8 ft total width (4 ft above / below center)
+            const straightX = 4.0;     // 4 ft straight wall length
+            const radius = 6.0;        // 6 ft radius from goal line center
+            // Angle where circle of radius 6 meets y = 4: sin(theta) = 4 / 6
+            const theta = Math.asin(halfW / radius);
+
+            c.fillStyle = creaseColor;
+            c.strokeStyle = redLine;
+            c.lineWidth = 0.6;
+
+            c.beginPath();
+            // 1. Base on goal line (top)
+            c.moveTo(0, -halfW);
+            // 2. Straight edge extending 4 ft forward
+            c.lineTo(straightX, -halfW);
+            // 3. Circular front cap curving to x = 6 at the apex, then down to (4, +4)
+            c.arc(0, 0, radius, -theta, theta, false);
+            // 4. Straight edge returning back to goal line (bottom)
+            c.lineTo(0, halfW);
+            c.closePath();
+
+            c.fill();
+            c.stroke();
+
+            // 5. Hash marks (5 inches = ~0.42 ft long, 2 inches wide) located 4 ft out
+            const hashLen = 5.0 / 12.0; // ~0.42 ft
+            c.lineWidth = 2.0 / 12.0;   // 2 inches wide
+            c.beginPath();
+            // Top hash mark pointing inward
+            c.moveTo(straightX, -halfW);
+            c.lineTo(straightX, -halfW + hashLen);
+            // Bottom hash mark pointing inward
+            c.moveTo(straightX, halfW);
+            c.lineTo(straightX, halfW - hashLen);
+            c.stroke();
+
+            c.restore();
+        }
+
+        function drawGoalCage(c, goalLineX, centerY, facingRight) {
+            c.save();
+            c.translate(goalLineX, centerY);
+            if (!facingRight) {
+                c.scale(-1, 1);
+            }
+
+            const postDist = 6.0;           // 6 ft across goal line (Y = -3 to +3)
+            const halfW = postDist / 2.0;
+            const depth = 3.33;             // 4 ft cage depth behind goal line
+            const maxBulgeW = 3.6;          // Flares wider than the posts (Limaçon bulge)
+            const bookFlatHalfW = 2.0;      // Flat rear back rail width
+            const postRadius = 0.4;
+
+            // 1. Skirt / Base Netting (Ice Level Outer Frame)
+            c.beginPath();
+            c.moveTo(0, -halfW);
+            // CP1 flares outward from the post (-0.8, -maxBulgeW)
+            // CP2 sits at x = -depth to ensure a clean 90-degree tangent entering the flat back line
+            c.bezierCurveTo(-0.8, -maxBulgeW, -depth, -maxBulgeW, -depth, -bookFlatHalfW);
+            // Flat vertical back rail
+            c.lineTo(-depth, bookFlatHalfW);
+            // Bottom curve mirroring back to the bottom post
+            c.bezierCurveTo(-depth, maxBulgeW, -0.8, maxBulgeW, 0, halfW);
+            c.closePath();
+
+            c.fillStyle = "rgba(230, 235, 245, 0.45)";
+            c.fill();
+            c.strokeStyle = "#8c98a0";
+            c.lineWidth = 0.55;
+            c.stroke();
+
+            // 2. Upper Shelf (Inner Limaçon Arc)
+            const shelfDepth = 1.8;
+            const shelfBulgeW = 3.1;
+            const shelfBookFlatHalfW = 1.6;
+
+            c.beginPath();
+            c.moveTo(0, -halfW);
+            c.bezierCurveTo(-0.5, -shelfBulgeW, -shelfDepth, -shelfBulgeW, -shelfDepth, -shelfBookFlatHalfW);
+            c.lineTo(-shelfDepth, shelfBookFlatHalfW);
+            c.bezierCurveTo(-shelfDepth, shelfBulgeW, -0.5, shelfBulgeW, 0, halfW);
+            c.closePath();
+
+            c.fillStyle = "rgba(245, 248, 255, 0.75)";
+            c.fill();
+            c.strokeStyle = "#8c98a0";
+            c.lineWidth = 0.45;
+            c.stroke();
+
+            // 3. Center Spine Pipe
+            c.beginPath();
+            c.moveTo(0, 0);
+            c.lineTo(-depth, 0);
+            c.strokeStyle = "#8c98a0";
+            c.lineWidth = 0.55;
+            c.stroke();
+
+            // 4. Red Crossbar (flush along goal line)
+            c.strokeStyle = "#b01207"; //using a different red to be a bit more visible.
+            c.lineWidth = 0.7;
+            c.lineCap = "round";
+            c.beginPath();
+            c.moveTo(0, -halfW);
+            c.lineTo(0, halfW);
+            c.stroke();
+
+            // 5. Goal Posts
+            c.fillStyle = "#b01207";
+            c.beginPath();
+            c.arc(0, -halfW, postRadius, 0, 2 * Math.PI);
+            c.arc(0, halfW, postRadius, 0, 2 * Math.PI);
+            c.fill();
+
+            c.restore();
+        }
 
             //benches and penalty boxes
             ctx.lineWidth = 0.6;
@@ -175,18 +239,6 @@ Item {
             ctx.beginPath();
             ctx.moveTo(goalLineLeftX, 0); ctx.lineTo(goalLineLeftX, rinkH);
             ctx.moveTo(goalLineRightX, 0); ctx.lineTo(goalLineRightX, rinkH);
-            ctx.stroke();
-
-            //creases
-            ctx.fillStyle = creaseColor;
-            ctx.beginPath();
-            ctx.arc(goalLineLeftX, centerY, 6.0, -0.5 * Math.PI, 0.5 * Math.PI, false);
-            ctx.fill();
-            ctx.stroke();
-
-            ctx.beginPath();
-            ctx.arc(goalLineRightX, centerY, 6.0, 0.5 * Math.PI, 1.5 * Math.PI, false);
-            ctx.fill();
             ctx.stroke();
 
             //trapezoids
@@ -255,6 +307,10 @@ Item {
             ctx.lineWidth = 0.5;
             roundedRect(ctx, 0.4, 0.4, rinkW - 0.8, rinkH - 0.8, cornerRadius - 0.4);
             ctx.stroke();
+
+            // Call on the ice surface:
+            drawGoalCrease(ctx, goalLineLeftX, centerY, true);
+            drawGoalCrease(ctx, goalLineRightX, centerY, false);
 
             // Goal Cages
             drawGoalCage(ctx, goalLineLeftX, centerY, true);

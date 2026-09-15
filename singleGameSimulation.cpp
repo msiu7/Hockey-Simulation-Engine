@@ -136,12 +136,12 @@ QString singleGameSimulation::timerText() const {
 void singleGameSimulation::getPlayersOnIceToStartPeriod(){
     for(int i = 0; i < 6; i++){
         away->lineup[i]->getOffBench(this);
-        away->lineup[i]->setTargetPosition(0, 0);
+        away->lineup[i]->setTargetPosition(11, 42.5);
     }
 
     for(int i = 0; i < 6; i++){
         home->lineup[i]->getOffBench(this);
-        home->lineup[i]->setTargetPosition(200, 85);
+        home->lineup[i]->setTargetPosition(189, 42.5);
     }
 
 }
@@ -202,4 +202,77 @@ void singleGameSimulation::buildRinkBounds() {
 
     // Bottom-Left (from 0.5 * PI to PI)
     buildCornerArc(r, rinkH - r, 0.5f * PI, PI);
+
+    //add goal cages
+    buildGoalCageFixtures(rinkBody, rinkW - 11.0f, rinkH / 2.0f, false);
+    buildGoalCageFixtures(rinkBody, 11.0f, rinkH / 2.0f, true);
+}
+
+void singleGameSimulation::buildGoalCageFixtures(b2Body* rinkBody, float goalLineX, float centerY, bool facingRight) {
+    const float dir = facingRight ? -1.0f : 1.0f;
+    const float halfW = 3.0f;           // 6 ft post-to-post
+    const float depth = 3.33f;
+    const float bookFlatHalfW = 2.0f;
+    const float postRadius = 0.4f;
+
+    const float topPostY = centerY - halfW;
+    const float bottomPostY = centerY + halfW;
+    const float backX = goalLineX + (dir * depth);
+
+    // 1. Posts as dedicated static bodies (avoids compound-shape bounding box issues)
+    b2CircleShape postShape;
+    postShape.m_radius = postRadius;
+
+    b2FixtureDef postDef;
+    postDef.shape = &postShape;
+    postDef.friction = 0.1f;
+    postDef.restitution = 0.65f;
+
+    b2BodyDef postBodyDef;
+    postBodyDef.type = b2_staticBody;
+
+    // Top Post
+    postBodyDef.position.Set(goalLineX, topPostY);
+    b2Body* topPost = world.CreateBody(&postBodyDef);
+    topPost->CreateFixture(&postDef);
+
+    // Bottom Post
+    postBodyDef.position.Set(goalLineX, bottomPostY);
+    b2Body* bottomPost = world.CreateBody(&postBodyDef);
+    bottomPost->CreateFixture(&postDef);
+
+    // 2. Net Frame Perimeter Edges
+    b2FixtureDef frameDef;
+    b2EdgeShape edge;
+    frameDef.shape = &edge;
+    frameDef.friction = 0.2f;
+    frameDef.restitution = 0.15f;
+
+    // Top outward flare
+    b2Vec2 p0(goalLineX, topPostY);
+    b2Vec2 p1(goalLineX + (dir * 0.8f), centerY - 3.52f);
+    b2Vec2 p2(goalLineX + (dir * 2.1f), centerY - 3.40f);
+    b2Vec2 p3(goalLineX + (dir * 3.05f), centerY - 2.75f);
+    b2Vec2 pBackTop(backX, centerY - bookFlatHalfW);
+
+    edge.SetTwoSided(p0, p1);        rinkBody->CreateFixture(&frameDef);
+    edge.SetTwoSided(p1, p2);        rinkBody->CreateFixture(&frameDef);
+    edge.SetTwoSided(p2, p3);        rinkBody->CreateFixture(&frameDef);
+    edge.SetTwoSided(p3, pBackTop);   rinkBody->CreateFixture(&frameDef);
+
+    // Straight flat back line
+    b2Vec2 pBackBottom(backX, centerY + bookFlatHalfW);
+    edge.SetTwoSided(pBackTop, pBackBottom);
+    rinkBody->CreateFixture(&frameDef);
+
+    // Bottom outward flare
+    b2Vec2 p4(goalLineX + (dir * 3.05f), centerY + 2.75f);
+    b2Vec2 p5(goalLineX + (dir * 2.1f), centerY + 3.40f);
+    b2Vec2 p6(goalLineX + (dir * 0.8f), centerY + 3.52f);
+    b2Vec2 p7(goalLineX, bottomPostY);
+
+    edge.SetTwoSided(pBackBottom, p4); rinkBody->CreateFixture(&frameDef);
+    edge.SetTwoSided(p4, p5);          rinkBody->CreateFixture(&frameDef);
+    edge.SetTwoSided(p5, p6);          rinkBody->CreateFixture(&frameDef);
+    edge.SetTwoSided(p6, p7);          rinkBody->CreateFixture(&frameDef);
 }

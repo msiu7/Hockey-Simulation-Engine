@@ -58,6 +58,7 @@ public:
     int getPeriod() const { return period; }
     QString timerText() const;
     void getPlayersOnIceToStartPeriod();
+    void buildGoalCageFixtures(b2Body* rinkBody, float goalLineX, float centerY, bool facingRight);
 
     QList<player*> getAwayPlayers();
     QList<player*> getHomePlayers();
