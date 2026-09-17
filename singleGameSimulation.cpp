@@ -134,16 +134,24 @@ QString singleGameSimulation::timerText() const {
 }
 
 void singleGameSimulation::getPlayersOnIceToStartPeriod(){
-    for(int i = 0; i < 6; i++){
-        away->lineup[i]->getOffBench(this);
-        away->lineup[i]->setTargetPosition(11, 42.5);
-    }
+    //for now assume both teams are starting with their first line every time (and no penalties)
+    away->lineupMap[roles::LW1_5v5]->getOffBench(this);
+    away->lineupMap[roles::C1_5v5]->getOffBench(this);
+    away->lineupMap[roles::RW1_5v5]->getOffBench(this);
+    away->lineupMap[roles::LD1_5v5]->getOffBench(this);
+    away->lineupMap[roles::RD1_5v5]->getOffBench(this);
+    away->lineupMap[roles::G1]->getOffBench(this);
 
-    for(int i = 0; i < 6; i++){
-        home->lineup[i]->getOffBench(this);
-        home->lineup[i]->setTargetPosition(189, 42.5);
-    }
+    home->lineupMap[roles::LW1_5v5]->getOffBench(this);
+    home->lineupMap[roles::C1_5v5]->getOffBench(this);
+    home->lineupMap[roles::RW1_5v5]->getOffBench(this);
+    home->lineupMap[roles::LD1_5v5]->getOffBench(this);
+    home->lineupMap[roles::RD1_5v5]->getOffBench(this);
+    home->lineupMap[roles::G1]->getOffBench(this);
 
+    for (player* p : playersOnIce){
+        p->setTargetPosition(11, 42.5);
+    }
 }
 
 void singleGameSimulation::buildRinkBounds() {

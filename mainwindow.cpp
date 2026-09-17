@@ -841,6 +841,15 @@ void MainWindow::setMappingsFromTables(){
                 player* p = ui->forwards5v5TableWidget->item(i, j)->data(Qt::UserRole).value<player*>();
                 if(p){
                     currentTeam->lineupMap[forward5v5Matrix[i][j]] = p; //create mapping
+                    if(j == 0){
+                        p->evenStrengthPos = evenStrengthRoleTypes::LeftWing;
+                    }
+                    else if(j == 1){
+                        p->evenStrengthPos = evenStrengthRoleTypes::Center;
+                    }
+                    else{
+                        p->evenStrengthPos = evenStrengthRoleTypes::RightWing;
+                    }
                 }
             }
         }
@@ -854,6 +863,12 @@ void MainWindow::setMappingsFromTables(){
                 player* p = ui->defense5v5TableWidget->item(i, j)->data(Qt::UserRole).value<player*>();
                 if(p){
                     currentTeam->lineupMap[defense5v5Matrix[i][j]] = p; //create mapping
+                    if(j == 0){
+                        p->evenStrengthPos = evenStrengthRoleTypes::LeftDefense;
+                    }
+                    else{
+                        p->evenStrengthPos = evenStrengthRoleTypes::RightDefense;
+                    }
                 }
             }
         }
@@ -914,11 +929,15 @@ void MainWindow::setMappingsFromTables(){
     //goalies
     if(ui->goalieTableWidget->item(0, 0) && ui->goalieTableWidget->item(0, 0)->data(Qt::UserRole).isValid()){
         player* p = ui->goalieTableWidget->item(0, 0)->data(Qt::UserRole).value<player*>();\
-        if(p){currentTeam->lineupMap[roles::G1] = ui->goalieTableWidget->item(0, 0)->data(Qt::UserRole).value<player*>();}
+        if(p){currentTeam->lineupMap[roles::G1] = ui->goalieTableWidget->item(0, 0)->data(Qt::UserRole).value<player*>();
+            p->evenStrengthPos = evenStrengthRoleTypes::Goalie;
+        }
     }
     if(ui->goalieTableWidget->item(0, 1) && ui->goalieTableWidget->item(0, 1)->data(Qt::UserRole).isValid()){
         player* p = ui->goalieTableWidget->item(0, 1)->data(Qt::UserRole).value<player*>();
-        if(p){currentTeam->lineupMap[roles::G2] = ui->goalieTableWidget->item(0, 1)->data(Qt::UserRole).value<player*>();}
+        if(p){currentTeam->lineupMap[roles::G2] = ui->goalieTableWidget->item(0, 1)->data(Qt::UserRole).value<player*>();
+            p->evenStrengthPos = evenStrengthRoleTypes::Goalie;
+        }
     }
 }
 

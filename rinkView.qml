@@ -334,7 +334,7 @@ Item {
             Rectangle {
                 anchors.fill: parent
                 radius: width / 2
-                color: "#1e64c8"
+                color: "#e03e1d"
                 border.color: "black"
                 border.width: 1
 

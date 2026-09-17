@@ -28,6 +28,13 @@ struct mentalStats {
 	int workRate = 50;
 };
 
+enum class evenStrengthRoleTypes {
+    None,
+    LeftWing, Center, RightWing,
+    LeftDefense, RightDefense,
+    Goalie
+};
+
 class player : public QObject {
     Q_OBJECT
     QML_ELEMENT
@@ -65,6 +72,8 @@ protected:
 
     b2Body* body = nullptr;
     void initPhysicsBody(b2World* world, float startX, float startY);
+
+    evenStrengthRoleTypes evenStrengthPos = evenStrengthRoleTypes::None;
 
 signals:
     void positionChanged();
