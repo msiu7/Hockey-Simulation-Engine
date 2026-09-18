@@ -14,7 +14,7 @@ singleGameSimulation::singleGameSimulation(Ui::MainWindow *uiptr){
     teamDefendingLeft = nullptr;
     teamDefendingRight = nullptr;
     buildRinkBounds();
-    thePuck = new puck(&world, 100, 50);
+    thePuck = new puck(&world, 100, 42.5);
 }
 
 singleGameSimulation::singleGameSimulation(Ui::MainWindow *uiptr, team* a, team* h){
@@ -28,7 +28,7 @@ singleGameSimulation::singleGameSimulation(Ui::MainWindow *uiptr, team* a, team*
     teamDefendingLeft = a;
     teamDefendingRight = h;
     buildRinkBounds();
-    thePuck = new puck(&world, 100, 50);
+    thePuck = new puck(&world, 100, 42.5);
 }
 
 QList<player*> singleGameSimulation::getAwayPlayers(){ return away ? away->lineup : QList<player*>(); }
@@ -92,8 +92,18 @@ void singleGameSimulation::runSimulation(){    //this function is called on ever
 
     world.Step(0.01f, 8, 3); //10 ms, velocity and position iterators smooth things out.
 
-    for(player* p : playersOnIce){
+    for(player* p : away->playersOnIce){
         p->updatePhysics(0.01f);
+        if(std::abs(p->tX - p->x) <= 1 && std::abs(p->tY - p->y) <= 1){ //tolerance of 2 ft.
+            p->updateAngularPhysics(0.01f, thePuck->y - p->y, thePuck->x - p->x); //when at target, turn to face the puck
+        }
+    }
+
+    for(player* p : home->playersOnIce){
+        p->updatePhysics(0.01f);
+        if(std::abs(p->tX - p->x) <= 1 && std::abs(p->tY - p->y) <= 1){ //tolerance of 2 ft.
+            p->updateAngularPhysics(0.01f, thePuck->y - p->y, thePuck->x - p->x); //when at target, turn to face the puck
+        }
     }
 
     thePuck->updatePhysics();
@@ -101,9 +111,10 @@ void singleGameSimulation::runSimulation(){    //this function is called on ever
     thePuck->getY();
 
     if (isStoppage){
+        thePuck->puckBody->SetEnabled(false);
     }
     else{
-
+        thePuck->puckBody->SetEnabled(true);
     }
 
 }
@@ -113,7 +124,10 @@ void singleGameSimulation::playSim(){
     if(!clock->isActive()){
         simClock->start();
     }
-    if(playersOnIce.size() == 0){
+    if(away->playersOnIce.size() == 0){
+        getPlayersOnIceToStartPeriod();
+    }
+    if(home->playersOnIce.size() == 0){
         getPlayersOnIceToStartPeriod();
     }
 }
@@ -135,23 +149,21 @@ QString singleGameSimulation::timerText() const {
 
 void singleGameSimulation::getPlayersOnIceToStartPeriod(){
     //for now assume both teams are starting with their first line every time (and no penalties)
-    away->lineupMap[roles::LW1_5v5]->getOffBench(this);
-    away->lineupMap[roles::C1_5v5]->getOffBench(this);
-    away->lineupMap[roles::RW1_5v5]->getOffBench(this);
-    away->lineupMap[roles::LD1_5v5]->getOffBench(this);
-    away->lineupMap[roles::RD1_5v5]->getOffBench(this);
-    away->lineupMap[roles::G1]->getOffBench(this);
+    away->lineupMap[roles::LW1_5v5]->getOffBench(away);
+    away->lineupMap[roles::C1_5v5]->getOffBench(away);
+    away->lineupMap[roles::RW1_5v5]->getOffBench(away);
+    away->lineupMap[roles::LD1_5v5]->getOffBench(away);
+    away->lineupMap[roles::RD1_5v5]->getOffBench(away);
+    away->lineupMap[roles::G1]->getOffBench(away);
 
-    home->lineupMap[roles::LW1_5v5]->getOffBench(this);
-    home->lineupMap[roles::C1_5v5]->getOffBench(this);
-    home->lineupMap[roles::RW1_5v5]->getOffBench(this);
-    home->lineupMap[roles::LD1_5v5]->getOffBench(this);
-    home->lineupMap[roles::RD1_5v5]->getOffBench(this);
-    home->lineupMap[roles::G1]->getOffBench(this);
+    home->lineupMap[roles::LW1_5v5]->getOffBench(home);
+    home->lineupMap[roles::C1_5v5]->getOffBench(home);
+    home->lineupMap[roles::RW1_5v5]->getOffBench(home);
+    home->lineupMap[roles::LD1_5v5]->getOffBench(home);
+    home->lineupMap[roles::RD1_5v5]->getOffBench(home);
+    home->lineupMap[roles::G1]->getOffBench(home);
 
-    for (player* p : playersOnIce){
-        p->setTargetPosition(11, 42.5);
-    }
+    setUpFaceoffCenterIce();
 }
 
 void singleGameSimulation::buildRinkBounds() {
@@ -283,4 +295,47 @@ void singleGameSimulation::buildGoalCageFixtures(b2Body* rinkBody, float goalLin
     edge.SetTwoSided(p4, p5);          rinkBody->CreateFixture(&frameDef);
     edge.SetTwoSided(p5, p6);          rinkBody->CreateFixture(&frameDef);
     edge.SetTwoSided(p6, p7);          rinkBody->CreateFixture(&frameDef);
+}
+
+void singleGameSimulation::setUpFaceoffCenterIce(){
+    for(player* p : teamDefendingLeft->playersOnIce){
+        if(p->evenStrengthPos == evenStrengthRoleTypes::LeftWing){p->setTargetPosition(97, 28);
+            p->facePoint(100, 42.5); //angle towards the puck
+        }
+        else if(p->evenStrengthPos == evenStrengthRoleTypes::Center){p->setTargetPosition(98, 42.5);
+            p->facePoint(100, 42.5); //angle towards the puck
+        }
+        else if(p->evenStrengthPos == evenStrengthRoleTypes::RightWing){p->setTargetPosition(97, 58);
+            p->facePoint(100, 42.5); //angle towards the puck
+        }
+        else if(p->evenStrengthPos == evenStrengthRoleTypes::LeftDefense){p->setTargetPosition(88, 35);
+            p->facePoint(100, 42.5); //angle towards the puck
+        }
+        else if(p->evenStrengthPos == evenStrengthRoleTypes::RightDefense){p->setTargetPosition(88, 51);
+            p->facePoint(100, 42.5); //angle towards the puck
+        }
+        else{p->setTargetPosition(16, 42.5);
+            p->facePoint(100, 42.5); //angle towards the puck
+        }
+    }
+    for(player* p : teamDefendingRight->playersOnIce){
+        if(p->evenStrengthPos == evenStrengthRoleTypes::LeftWing){p->setTargetPosition(103, 58);
+            p->facePoint(100, 42.5); //angle towards the puck
+        }
+        else if(p->evenStrengthPos == evenStrengthRoleTypes::Center){p->setTargetPosition(102, 42.5);
+            p->facePoint(100, 42.5); //angle towards the puck
+        }
+        else if(p->evenStrengthPos == evenStrengthRoleTypes::RightWing){p->setTargetPosition(103, 28);
+            p->facePoint(100, 42.5); //angle towards the puck
+        }
+        else if(p->evenStrengthPos == evenStrengthRoleTypes::LeftDefense){p->setTargetPosition(112, 51);
+            p->facePoint(100, 42.5); //angle towards the puck
+        }
+        else if(p->evenStrengthPos == evenStrengthRoleTypes::RightDefense){p->setTargetPosition(112, 35);
+            p->facePoint(100, 42.5); //angle towards the puck
+        }
+        else{p->setTargetPosition(184, 42.5);
+            p->facePoint(100, 42.5); //angle towards the puck
+        }
+    }
 }

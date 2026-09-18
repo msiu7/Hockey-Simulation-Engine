@@ -39,6 +39,7 @@ private:
     static int teamsCounter;
     static int numDressed;
     std::unordered_map<roles, player*> lineupMap;
+    QList<player*> playersOnIce;
 public:
     team(QString city = "NULL", QString teamName = "NULL");
     ~team();
@@ -49,5 +50,6 @@ public:
 
     friend class MainWindow;
     friend class singleGameSimulation;
+    friend class player;
 
 };

@@ -33,7 +33,6 @@ private:
     team* teamDefendingLeft;
     team* teamDefendingRight;
     bool isStoppage = true;
-    QList<player*> playersOnIce;
     b2World world{b2Vec2(0.0f, 0.0f)}; // zero gravity x, zero gravity y.
     void buildRinkBounds();
     puck* thePuck = nullptr;
@@ -59,6 +58,7 @@ public:
     QString timerText() const;
     void getPlayersOnIceToStartPeriod();
     void buildGoalCageFixtures(b2Body* rinkBody, float goalLineX, float centerY, bool facingRight);
+    void setUpFaceoffCenterIce();
 
     QList<player*> getAwayPlayers();
     QList<player*> getHomePlayers();

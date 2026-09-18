@@ -63,6 +63,9 @@ protected:
     float y = 0.0f;
     float vX = 0.0f;
     float vY = 0.0f;
+    float angle = 0.0f;
+    float tAngle = 0.0f;
+
 
     // Movement tuning (in ft/s and ft/s^2)
     float maxSpeed = 28.0f;      // ~19 mph cruising/sprint mix
@@ -102,12 +105,13 @@ public:
 	virtual std::ostream& showSpecificStats(std::ostream& out) const = 0;
     virtual QString getPositionAsString() const = 0;
     void setPosition(float newX, float newY);
-    void getOnBench(singleGameSimulation* s);
-    void getOffBench(singleGameSimulation* s);
+    void getOnBench(team* t);
+    void getOffBench(team* t);
     void updatePhysics(float dt);
     void setTargetPosition(float tX, float tY);
     float getRotation() const {return body ? (body->GetAngle() * 180.0f / 3.14159265f) : 0.0f;} //conversion to degrees
     void facePoint(float targetX, float targetY);
+    void updateAngularPhysics(float dt, float dyToFace, float dxToFace);
     friend class MainWindow;
     friend class singleGameSimulation;
 };

@@ -90,6 +90,13 @@ void MainWindow::on_backButton1_clicked()
 void MainWindow::on_backButton2_clicked()
 {
     generalBackButtonAction();
+    //reset on ice arrays
+    for(player* p : currentSim->away->playersOnIce){
+        p->getOnBench(currentSim->away);
+    }
+    for(player* p : currentSim->home->playersOnIce){
+        p->getOnBench(currentSim->home);
+    }
     singleGameSimulation* s = currentSim;
     delete s;
     currentSim = nullptr;

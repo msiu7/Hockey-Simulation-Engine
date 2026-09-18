@@ -1,5 +1,8 @@
 #include "player.hpp"
+#include "team.hpp"
 #include <string>
+
+class team;
 
 player::player(int number, QString firstName, QString lastName, int handedness, QString country, bool isDressed)
 {
@@ -67,17 +70,17 @@ void player::setPosition(float newX, float newY) {
     }
 }
 
-void player::getOnBench(singleGameSimulation* s){
+void player::getOnBench(team* t){
     setPosition(x, -3);
-    s->playersOnIce.removeOne(this);
+    t->playersOnIce.removeOne(this);
 
     body->SetTransform(b2Vec2(x, -3), 3.14159265359f / 2.0f);
     body->SetEnabled(false);
 }
 
-void player::getOffBench(singleGameSimulation* s){
+void player::getOffBench(team* t){
     setPosition(x, 2);
-    s->playersOnIce.push_back(this);
+    t->playersOnIce.push_back(this);
 
     body->SetTransform(b2Vec2(x, 2), body->GetAngle());
     body->SetEnabled(true);
@@ -93,27 +96,8 @@ void player::updatePhysics(float dt) {
 
     b2Vec2 targetVel(0.0f, 0.0f);
 
-    //Angular Kinematics
-    float targetAngle = std::atan2(dy, dx);
-    float currentAngle = body->GetAngle();
-
-    // 2. Shortest rotational difference (-PI to +PI)
-    float diff = targetAngle - currentAngle;
-    while (diff < -3.14159265f) diff += 2.0f * 3.14159265f;
-    while (diff >  3.14159265f) diff -= 2.0f * 3.14159265f;
-
-    // 3. Max turn speed in radians per second (e.g., 5.0 rad/s ~ 286 deg/s)
-    const float maxTurnRate = 6.0f;
-    float maxStep = maxTurnRate * dt;
-
-    // Clamp the rotation step for this frame
-    float step = std::clamp(diff, -maxStep, maxStep);
-    float newAngle = currentAngle + step;
-
-    body->SetTransform(currentPos, newAngle);
-    //End Angular Kinematics
-
     if (dist > 1.0f) {
+        updateAngularPhysics(dt, dy, dx);
         float dirX = dx / dist;
         float dirY = dy / dist;
         targetVel.Set(dirX * maxSpeed, dirY * maxSpeed);
@@ -141,7 +125,6 @@ void player::updatePhysics(float dt) {
         playerIcon->setPos(x, y);
     }
     emit positionChanged();
-    emit rotationChanged();
 }
 
 void player::setTargetPosition(float targetX, float targetY){
@@ -172,7 +155,29 @@ void player::initPhysicsBody(b2World* world, float startX, float startY) {
 void player::facePoint(float targetX, float targetY) {
     if (!body) return;
     b2Vec2 pos = body->GetPosition();
-    float angle = std::atan2(targetY - pos.y, targetX - pos.x);
+    angle = std::atan2(targetY - pos.y, targetX - pos.x);
     body->SetTransform(pos, angle);
     emit rotationChanged();
+}
+
+void player::updateAngularPhysics(float dt, float dyToFace, float dxToFace){
+    tAngle = std::atan2(dyToFace, dxToFace);
+    angle = body->GetAngle();
+
+    // 2. Shortest rotational difference (-PI to +PI)
+    float diff = tAngle - angle;
+    while (diff < -3.14159265f) diff += 2.0f * 3.14159265f;
+    while (diff >  3.14159265f) diff -= 2.0f * 3.14159265f;
+
+    // 3. Max turn speed in radians per second (e.g., 5.0 rad/s ~ 286 deg/s)
+    const float maxTurnRate = 6.0f;
+    float maxStep = maxTurnRate * dt;
+
+    // Clamp the rotation step for this frame
+    float step = std::clamp(diff, -maxStep, maxStep);
+    angle += step;
+
+    body->SetTransform(body->GetPosition(), angle);
+    emit rotationChanged();
+    qDebug() << "Angle: " << angle;
 }
