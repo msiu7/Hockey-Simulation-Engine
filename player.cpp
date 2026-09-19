@@ -146,7 +146,7 @@ void player::initPhysicsBody(b2World* world, float startX, float startY) {
 
     b2FixtureDef fixtureDef;
     fixtureDef.shape = &circle;
-    fixtureDef.density = 1.0f; //this will impact mass (mass = area * density) and a = pi * r^2, should edit this later for realistic mass.
+    fixtureDef.density = 27.3f; // 27.3(density) * pi *(1)^2(area) * 2.2(kg to lbs) is about 190 lb skaters.
     fixtureDef.friction = 0.1f;      // Low friction for ice
     fixtureDef.restitution = 0.2f;   // Soft bounce on impact
     body->CreateFixture(&fixtureDef);
@@ -175,7 +175,8 @@ void player::updateAngularPhysics(float dt, float dyToFace, float dxToFace){
 
     // Clamp the rotation step for this frame
     float step = std::clamp(diff, -maxStep, maxStep);
-    angle += step;
+    if(std::abs(diff) <= maxStep){angle = tAngle;}
+    else{angle += step;}
 
     body->SetTransform(body->GetPosition(), angle);
     emit rotationChanged();

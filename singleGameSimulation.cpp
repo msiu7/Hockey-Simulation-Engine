@@ -107,11 +107,14 @@ void singleGameSimulation::runSimulation(){    //this function is called on ever
     }
 
     thePuck->updatePhysics();
-    thePuck->getX();
-    thePuck->getY();
+    //thePuck->getX();
+    //thePuck->getY();
 
     if (isStoppage){
         thePuck->puckBody->SetEnabled(false);
+        if(isReadyForFaceOff()){
+            faceOff();
+        }
     }
     else{
         thePuck->puckBody->SetEnabled(true);
@@ -299,43 +302,51 @@ void singleGameSimulation::buildGoalCageFixtures(b2Body* rinkBody, float goalLin
 
 void singleGameSimulation::setUpFaceoffCenterIce(){
     for(player* p : teamDefendingLeft->playersOnIce){
-        if(p->evenStrengthPos == evenStrengthRoleTypes::LeftWing){p->setTargetPosition(97, 28);
-            p->facePoint(100, 42.5); //angle towards the puck
-        }
-        else if(p->evenStrengthPos == evenStrengthRoleTypes::Center){p->setTargetPosition(98, 42.5);
-            p->facePoint(100, 42.5); //angle towards the puck
-        }
-        else if(p->evenStrengthPos == evenStrengthRoleTypes::RightWing){p->setTargetPosition(97, 58);
-            p->facePoint(100, 42.5); //angle towards the puck
-        }
-        else if(p->evenStrengthPos == evenStrengthRoleTypes::LeftDefense){p->setTargetPosition(88, 35);
-            p->facePoint(100, 42.5); //angle towards the puck
-        }
-        else if(p->evenStrengthPos == evenStrengthRoleTypes::RightDefense){p->setTargetPosition(88, 51);
-            p->facePoint(100, 42.5); //angle towards the puck
-        }
-        else{p->setTargetPosition(16, 42.5);
-            p->facePoint(100, 42.5); //angle towards the puck
-        }
+        if(p->evenStrengthPos == evenStrengthRoleTypes::LeftWing){p->setTargetPosition(97, 28);}
+        else if(p->evenStrengthPos == evenStrengthRoleTypes::Center){p->setTargetPosition(98, 42.5);}
+        else if(p->evenStrengthPos == evenStrengthRoleTypes::RightWing){p->setTargetPosition(97, 58);}
+        else if(p->evenStrengthPos == evenStrengthRoleTypes::LeftDefense){p->setTargetPosition(88, 35);}
+        else if(p->evenStrengthPos == evenStrengthRoleTypes::RightDefense){p->setTargetPosition(88, 51);}
+        else{p->setTargetPosition(16, 42.5);}
     }
     for(player* p : teamDefendingRight->playersOnIce){
-        if(p->evenStrengthPos == evenStrengthRoleTypes::LeftWing){p->setTargetPosition(103, 58);
-            p->facePoint(100, 42.5); //angle towards the puck
-        }
-        else if(p->evenStrengthPos == evenStrengthRoleTypes::Center){p->setTargetPosition(102, 42.5);
-            p->facePoint(100, 42.5); //angle towards the puck
-        }
-        else if(p->evenStrengthPos == evenStrengthRoleTypes::RightWing){p->setTargetPosition(103, 28);
-            p->facePoint(100, 42.5); //angle towards the puck
-        }
-        else if(p->evenStrengthPos == evenStrengthRoleTypes::LeftDefense){p->setTargetPosition(112, 51);
-            p->facePoint(100, 42.5); //angle towards the puck
-        }
-        else if(p->evenStrengthPos == evenStrengthRoleTypes::RightDefense){p->setTargetPosition(112, 35);
-            p->facePoint(100, 42.5); //angle towards the puck
-        }
-        else{p->setTargetPosition(184, 42.5);
-            p->facePoint(100, 42.5); //angle towards the puck
-        }
+        if(p->evenStrengthPos == evenStrengthRoleTypes::LeftWing){p->setTargetPosition(103, 58);}
+        else if(p->evenStrengthPos == evenStrengthRoleTypes::Center){p->setTargetPosition(102, 42.5);}
+        else if(p->evenStrengthPos == evenStrengthRoleTypes::RightWing){p->setTargetPosition(103, 28);}
+        else if(p->evenStrengthPos == evenStrengthRoleTypes::LeftDefense){p->setTargetPosition(112, 51);}
+        else if(p->evenStrengthPos == evenStrengthRoleTypes::RightDefense){p->setTargetPosition(112, 35);}
+        else{p->setTargetPosition(184, 42.5);}
     }
+}
+
+void singleGameSimulation::faceOff(){
+    float randAngle = 0.0f;
+    float randomProb = 0.0f;
+    thePuck->puckBody->SetEnabled(true);
+    randomProb = getRandomAngle(0.0f, 100.0f);
+    if(randomProb < 50.0f){randAngle = getRandomAngle(-3.14159265359f / 2.0f, 3.14159265359f / 2.0f);} //right side wins
+    else{randAngle = getRandomAngle(3.14159265359f / 2.0f, 3.0f * 3.14159265359f / 2.0f);}
+    thePuck->puckBody->SetLinearVelocity(b2Vec2(10.0f * std::cos(randAngle), 10.0f * std::sin(randAngle)));
+    isStoppage = false;
+    clock->start();
+}
+
+float singleGameSimulation::getRandomAngle(float min, float max){
+    std::random_device rd;  // Obtains a seed from hardware
+    std::mt19937 gen(rd()); // Standard mersenne_twister_engine
+
+    // 2. Define the range [lower_bound, upper_bound)
+    std::uniform_real_distribution<float> dis(min, max);
+
+    return dis(gen);
+}
+
+bool singleGameSimulation::isReadyForFaceOff(){
+    for(player* p : teamDefendingLeft->playersOnIce){
+        if (!(std::abs(p->tX - p->x) <= 1 && std::abs(p->tY - p->y) <= 1 && std::abs(p->tAngle - p->angle) < .05f)) return false;
+    }
+    for(player* p : teamDefendingRight->playersOnIce){
+        if (!(std::abs(p->tX - p->x) <= 1 && std::abs(p->tY - p->y) <= 1 && std::abs(p->tAngle - p->angle) < .05f)) return false;
+    }
+    return true;
 }

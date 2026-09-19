@@ -32,4 +32,10 @@ void puck::updatePhysics() {
         y = pos.y;
         emit positionChanged();
     }
+    b2Vec2 vel = puckBody->GetLinearVelocity();
+    if (vel.x != vX || vel.y != vY) {
+        vX = vel.x;
+        vY = vel.y;
+        emit positionChanged();
+    }
 }

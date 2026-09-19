@@ -5,6 +5,7 @@
 #include <QtQml/qqmlregistration.h>
 #include <box2d/box2d.h>
 #include "puck.hpp"
+#include <random>
 
 class team;
 class player;
@@ -59,6 +60,9 @@ public:
     void getPlayersOnIceToStartPeriod();
     void buildGoalCageFixtures(b2Body* rinkBody, float goalLineX, float centerY, bool facingRight);
     void setUpFaceoffCenterIce();
+    bool isReadyForFaceOff();
+    void faceOff();
+    float getRandomAngle(float min, float max);
 
     QList<player*> getAwayPlayers();
     QList<player*> getHomePlayers();
