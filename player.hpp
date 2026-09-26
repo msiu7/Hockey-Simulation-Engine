@@ -114,4 +114,5 @@ public:
     void updateAngularPhysics(float dt, float dyToFace, float dxToFace);
     friend class MainWindow;
     friend class singleGameSimulation;
+    friend class customContactFilter;
 };

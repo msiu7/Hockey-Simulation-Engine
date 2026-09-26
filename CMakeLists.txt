@@ -36,6 +36,8 @@ add_executable(HockeySimulationEngine
     singleGameSimulation.hpp
     rinkView.qml
     puck.hpp puck.cpp
+    customContactFilter.hpp
+    customContactFilter.cpp
 
 )
 

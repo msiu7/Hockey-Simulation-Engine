@@ -32,6 +32,7 @@ signals:
     void positionChanged();
 
     friend class singleGameSimulation;
+    friend class customContactFilter;
 };
 
 

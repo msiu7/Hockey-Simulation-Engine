@@ -15,6 +15,8 @@ singleGameSimulation::singleGameSimulation(Ui::MainWindow *uiptr){
     teamDefendingRight = nullptr;
     buildRinkBounds();
     thePuck = new puck(&world, 100, 42.5);
+    cF.sim = this;
+    world.SetContactFilter(&cF);
 }
 
 singleGameSimulation::singleGameSimulation(Ui::MainWindow *uiptr, team* a, team* h){
@@ -29,6 +31,8 @@ singleGameSimulation::singleGameSimulation(Ui::MainWindow *uiptr, team* a, team*
     teamDefendingRight = h;
     buildRinkBounds();
     thePuck = new puck(&world, 100, 42.5);
+    cF.sim = this;
+    world.SetContactFilter(&cF);
 }
 
 QList<player*> singleGameSimulation::getAwayPlayers(){ return away ? away->lineup : QList<player*>(); }
@@ -110,6 +114,18 @@ void singleGameSimulation::runSimulation(){    //this function is called on ever
     //thePuck->getX();
     //thePuck->getY();
 
+    //checkif puck should phase through
+    if (puckPhasingActive) {
+        // Disable phasing once the puck is, for example, 3+ feet away from the center dot (100, 42.5)
+        float dx = thePuck->x - 100.0f;
+        float dy = thePuck->y - 42.5f;
+        if (std::hypot(dx, dy) > 3.5f) {
+            puckPhasingActive = false;
+            // Notify the fixture so Box2D checks collisions again immediately
+            thePuck->puckBody->GetFixtureList()->Refilter();
+        }
+    }
+
     if (isStoppage){
         thePuck->puckBody->SetEnabled(false);
         if(isReadyForFaceOff()){
@@ -154,6 +170,7 @@ void singleGameSimulation::getPlayersOnIceToStartPeriod(){
     //for now assume both teams are starting with their first line every time (and no penalties)
     away->lineupMap[roles::LW1_5v5]->getOffBench(away);
     away->lineupMap[roles::C1_5v5]->getOffBench(away);
+    awayCenterOnIce = away->lineupMap[roles::C1_5v5];
     away->lineupMap[roles::RW1_5v5]->getOffBench(away);
     away->lineupMap[roles::LD1_5v5]->getOffBench(away);
     away->lineupMap[roles::RD1_5v5]->getOffBench(away);
@@ -161,6 +178,7 @@ void singleGameSimulation::getPlayersOnIceToStartPeriod(){
 
     home->lineupMap[roles::LW1_5v5]->getOffBench(home);
     home->lineupMap[roles::C1_5v5]->getOffBench(home);
+    homeCenterOnIce = home->lineupMap[roles::C1_5v5];
     home->lineupMap[roles::RW1_5v5]->getOffBench(home);
     home->lineupMap[roles::LD1_5v5]->getOffBench(home);
     home->lineupMap[roles::RD1_5v5]->getOffBench(home);
@@ -323,11 +341,13 @@ void singleGameSimulation::faceOff(){
     float randAngle = 0.0f;
     float randomProb = 0.0f;
     thePuck->puckBody->SetEnabled(true);
+    puckPhasingActive = true;
     randomProb = getRandomAngle(0.0f, 100.0f);
     if(randomProb < 50.0f){randAngle = getRandomAngle(-3.14159265359f / 2.0f, 3.14159265359f / 2.0f);} //right side wins
     else{randAngle = getRandomAngle(3.14159265359f / 2.0f, 3.0f * 3.14159265359f / 2.0f);}
     thePuck->puckBody->SetLinearVelocity(b2Vec2(10.0f * std::cos(randAngle), 10.0f * std::sin(randAngle)));
     isStoppage = false;
+
     clock->start();
 }
 
@@ -342,6 +362,9 @@ float singleGameSimulation::getRandomAngle(float min, float max){
 }
 
 bool singleGameSimulation::isReadyForFaceOff(){
+
+    if (!teamDefendingLeft || !teamDefendingRight) return false;
+
     for(player* p : teamDefendingLeft->playersOnIce){
         if (!(std::abs(p->tX - p->x) <= 1 && std::abs(p->tY - p->y) <= 1 && std::abs(p->tAngle - p->angle) < .05f)) return false;
     }

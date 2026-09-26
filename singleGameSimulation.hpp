@@ -6,6 +6,7 @@
 #include <box2d/box2d.h>
 #include "puck.hpp"
 #include <random>
+#include "customContactFilter.hpp"
 
 class team;
 class player;
@@ -37,6 +38,7 @@ private:
     b2World world{b2Vec2(0.0f, 0.0f)}; // zero gravity x, zero gravity y.
     void buildRinkBounds();
     puck* thePuck = nullptr;
+    customContactFilter cF;
 
 
 signals:
@@ -69,6 +71,12 @@ public:
 
     puck* getPuck() const { return thePuck; }
 
+    //face contact mostly
+    bool puckPhasingActive = false;
+    player* awayCenterOnIce = nullptr;
+    player* homeCenterOnIce = nullptr;
+
     friend class MainWindow;
     friend class player;
+    friend class customContactFilter;
 };

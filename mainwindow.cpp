@@ -54,6 +54,7 @@ void MainWindow::on_editTeamsLineups_clicked()
 
 void MainWindow::on_startSim_clicked()
 {
+    qDebug() << "Entering on_startSim_clicked";
     if (awayTeamInSim == nullptr || homeTeamInSim == nullptr) {
         QMessageBox::warning(this, "Input Error", "Teams for simulation haven't been selected.");
         return;
@@ -79,6 +80,7 @@ void MainWindow::on_startSim_clicked()
     currentSim->configureTimer();
     currentSim->configurePlayers();
 
+    qDebug() << "Exiting on_startSim_clicked successfully";
     ui->stackedWidget->setCurrentIndex(2);
 }
 
